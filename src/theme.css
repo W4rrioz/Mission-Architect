@@ -1,0 +1,239 @@
+/* Mission Architect — Global Theme & Design Tokens
+   Source: 04-ui-ux-brief.md §3, §4, §5, §8 */
+
+:root {
+  /* Color palette and roles */
+  --bg-base: #0B1020;
+  --bg-surface: #131A30;
+  --bg-surface-elevated: #1B2444;
+  --border-subtle: #2A3350;
+  --border-focus: #5A72A0;
+  --text-primary: #E6ECF8;
+  --text-muted: #8FA0C4;
+
+  /* Mission Tints */
+  --mission-earth: #3DA5F5;
+  --mission-moon: #C9D3EA;
+  --mission-mars: #E0703D;
+  --mission-asteroid: #9D74FF;
+
+  /* Current Active Mission Tint (defaults to Earth) */
+  --mission-accent: var(--mission-earth);
+
+  /* Status Tokens (Strictly WCAG AA compliant >= 4.5:1 against dark backgrounds) */
+  --status-good: #3DBE7A;
+  --status-warn: #E0A030;
+  --status-critical: #FF5A52;
+
+  /* Typography */
+  --font-display: 'Orbitron', 'Rajdhani', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Spacing Scale (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+
+  /* Layout */
+  --max-content-width: 1200px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* Glow shadows */
+  --glow-accent: 0 0 16px rgba(61, 165, 245, 0.35);
+  --glow-warn: 0 0 16px rgba(224, 160, 48, 0.4);
+  --glow-critical: 0 0 16px rgba(224, 69, 61, 0.45);
+}
+
+/* CSS Reset & Base Elements */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100vh;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Typography styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Monospace numbers to prevent jitter */
+.number-mono, [data-mono="true"] {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Accessible focus ring (WCAG AA) */
+:focus-visible {
+  outline: 2px solid var(--mission-accent) !important;
+  outline-offset: 2px !important;
+}
+
+/* Range input accessibility & keyboard focus */
+input[type="range"] {
+  touch-action: none;
+}
+
+input[type="range"]:focus-visible {
+  outline: 2px solid var(--mission-accent) !important;
+  outline-offset: 4px !important;
+  border-radius: var(--radius-sm);
+}
+
+/* Skip link for keyboard and screen reader users */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--space-4);
+  background: var(--mission-accent);
+  color: var(--bg-base);
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  z-index: 9999;
+  text-decoration: none;
+  transition: top 150ms ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+/* Buttons Base */
+button {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, transform 100ms ease;
+  min-height: 44px; /* Accessible tap target */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+button.primary {
+  background-color: var(--mission-accent);
+  color: var(--bg-base);
+  border-color: var(--mission-accent);
+}
+
+button.primary:hover:not(:disabled) {
+  filter: brightness(1.12);
+}
+
+button.secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+}
+
+button.secondary:hover:not(:disabled) {
+  background-color: rgba(42, 51, 80, 0.4);
+  border-color: var(--text-muted);
+}
+
+/* Links */
+a {
+  color: var(--mission-accent);
+  text-decoration: none;
+  transition: opacity 150ms ease;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Layout Classes (04-ui-ux-brief.md §4, §6) */
+.workbench-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(320px, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .workbench-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+.console-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(320px, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .console-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+/* Mobile full-width helper */
+@media (max-width: 640px) {
+  .mobile-full-width {
+    width: 100% !important;
+  }
+  
+  button {
+    min-height: 44px !important;
+  }
+}
+
+/* Reduced Motion Mode (UI/UX Brief §7, §8) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
