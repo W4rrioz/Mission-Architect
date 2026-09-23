@@ -261,6 +261,113 @@ export const DebriefScreen: React.FC = () => {
       {/* 5-Component Score Breakdown */}
       <ScoreBreakdown score={score} />
 
+      {/* Stitch Screen 06: Visual Telemetry & Flight Heritage Mosaic */}
+      <div
+        className="hud-panel"
+        style={{
+          padding: 'var(--space-5)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'var(--space-4)',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 'var(--space-2)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span className="status-led good" style={{ width: '8px', height: '8px' }} />
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              VISUAL TELEMETRY & FLIGHT HERITAGE MOSAIC // NASA ARCHIVES
+            </span>
+          </div>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--mission-accent)' }}>
+            DSN TELEMETRY FEED: RESOLVED
+          </span>
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: 'var(--space-4)',
+          }}
+        >
+          {/* Tile 1: Spacecraft in Orbit */}
+          <div
+            style={{
+              background: 'var(--panel-elevated)',
+              border: '1px solid var(--border-hairline)',
+              borderRadius: 'var(--radius-md)',
+              overflow: 'hidden',
+              position: 'relative',
+            }}
+          >
+            <img
+              src="/assets/stitch/maven-orbit.png"
+              alt="Spacecraft Orbit Render"
+              style={{
+                width: '100%',
+                height: '180px',
+                objectFit: 'cover',
+                display: 'block',
+              }}
+            />
+            <div
+              style={{
+                padding: '8px 12px',
+                background: 'rgba(11, 16, 32, 0.85)',
+                backdropFilter: 'blur(4px)',
+                borderTop: '1px solid var(--border-hairline)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.72rem',
+              }}
+            >
+              <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>ORBIT INSERTION PROFILE</span>
+              <span style={{ color: 'var(--status-good)' }}>100% NOMINAL</span>
+            </div>
+          </div>
+
+          {/* Tile 2: Auroral & Atmospheric Spectrogram */}
+          <div
+            style={{
+              background: 'var(--panel-elevated)',
+              border: '1px solid var(--border-hairline)',
+              borderRadius: 'var(--radius-md)',
+              overflow: 'hidden',
+              position: 'relative',
+            }}
+          >
+            <img
+              src="/assets/stitch/auroral-spectrogram.png"
+              alt="UV Spectrogram Telemetry"
+              style={{
+                width: '100%',
+                height: '180px',
+                objectFit: 'cover',
+                display: 'block',
+              }}
+            />
+            <div
+              style={{
+                padding: '8px 12px',
+                background: 'rgba(11, 16, 32, 0.85)',
+                backdropFilter: 'blur(4px)',
+                borderTop: '1px solid var(--border-hairline)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.72rem',
+              }}
+            >
+              <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>UV ATMOSPHERIC SPECTROGRAM</span>
+              <span style={{ color: 'var(--mission-accent)' }}>DATA RETRIEVED</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Real NASA Mission Comparison Table */}
       <RealMissionComparisonTable mission={mission} design={designState} />
 

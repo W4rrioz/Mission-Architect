@@ -69,52 +69,85 @@ export const MissionBriefingScreen: React.FC = () => {
         />
       )}
 
-      {/* Screen Header */}
-      <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', color: 'var(--text-muted)', marginBottom: 'var(--space-2)' }}>
-          <FileText size={18} />
-          <span style={{ fontSize: '0.8rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            OPERATIONAL FLIGHT DIRECTIVE // LEVEL OF INTENT
-          </span>
+      {/* Stitch Dossier Header & Clearance Bar */}
+      <div className="hud-panel" style={{ padding: 'var(--space-5)', borderTop: `4px solid var(--mission-accent)` }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 'var(--space-2)', marginBottom: 'var(--space-3)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', color: 'var(--mission-accent)', fontFamily: 'var(--font-mono)', fontSize: '0.75rem' }}>
+            <FileText size={16} />
+            <span style={{ letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              OPERATIONAL FLIGHT DIRECTIVE // LEVEL OF INTENT
+            </span>
+          </div>
+
+          <div className="tier-pill" style={{ borderColor: 'rgba(61, 190, 122, 0.4)', background: 'rgba(61, 190, 122, 0.1)', color: 'var(--status-good)' }}>
+            <span className="status-led good" style={{ width: '6px', height: '6px' }} />
+            <span>FLIGHT CLEARANCE: AUTHORIZED</span>
+          </div>
         </div>
 
-        <h1 style={{ fontSize: '2.2rem', color: 'var(--text-primary)', lineHeight: 1.15 }}>
-          {mission.name}
-        </h1>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', flexWrap: 'wrap' }}>
+          {validMissionId === 'mars' ? (
+            <img
+              src="/assets/stitch/maven-insignia.png"
+              alt="NASA MAVEN Mission Seal"
+              width={64}
+              height={64}
+              style={{
+                width: '64px',
+                height: '64px',
+                borderRadius: 'var(--radius-md)',
+                objectFit: 'contain',
+                background: 'var(--panel-elevated)',
+                border: '1px solid var(--border-hairline)',
+                padding: '4px',
+                boxShadow: '0 4px 16px rgba(224, 112, 61, 0.25)',
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                width: '64px',
+                height: '64px',
+                borderRadius: 'var(--radius-md)',
+                background: 'var(--panel-elevated)',
+                border: '1px solid var(--border-hairline)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'var(--mission-accent)',
+              }}
+            >
+              <FileText size={32} />
+            </div>
+          )}
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginTop: 'var(--space-2)' }}>
-          <span
-            style={{
-              fontSize: '0.8rem',
-              fontWeight: 700,
-              padding: '2px 10px',
-              borderRadius: 'var(--radius-full)',
-              background: 'rgba(61, 165, 245, 0.15)',
-              color: 'var(--mission-accent)',
-              border: '1px solid var(--mission-accent)',
-            }}
-          >
-            {`TIER ${mission.difficulty} MISSION`}
-          </span>
-
-          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-            Destination: <strong style={{ color: 'var(--text-primary)' }}>{mission.orbit.centralBody.toUpperCase()}</strong>
-          </span>
+          <div>
+            <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: 'var(--text-primary)', lineHeight: 1.15, letterSpacing: '0.04em' }}>
+              {mission.name}
+            </h1>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginTop: '4px', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
+              <span style={{ color: 'var(--mission-accent)', fontWeight: 700 }}>
+                {`TIER ${mission.difficulty} MISSION`}
+              </span>
+              <span style={{ color: 'var(--text-muted)' }}>•</span>
+              <span style={{ color: 'var(--text-muted)' }}>
+                DESTINATION BODY: <strong style={{ color: 'var(--text-primary)' }}>{mission.orbit.centralBody.toUpperCase()}</strong>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Mission Objective Card */}
       <div
+        className="hud-panel"
         style={{
-          background: 'var(--bg-surface)',
-          border: '1px solid var(--border-subtle)',
           borderLeft: '4px solid var(--mission-accent)',
-          borderRadius: 'var(--radius-lg)',
           padding: 'var(--space-5)',
         }}
       >
-        <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)', fontWeight: 700 }}>
-          PRIMARY MISSION DIRECTIVE
+        <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--mission-accent)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
+          PRIMARY SCIENTIFIC DIRECTIVE
         </span>
         <p style={{ fontSize: '1.05rem', color: 'var(--text-primary)', marginTop: 'var(--space-2)', lineHeight: 1.6 }}>
           {mission.objective}

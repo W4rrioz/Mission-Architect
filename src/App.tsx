@@ -52,6 +52,25 @@ export const App: React.FC = () => {
                     <Logo size="sm" showSubtitle={false} />
                   </Link>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                    {/* Stitch Console Status LED & Indicator */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '4px 10px',
+                        borderRadius: '9999px',
+                        background: 'rgba(61, 190, 122, 0.08)',
+                        border: '1px solid rgba(61, 190, 122, 0.25)',
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.72rem',
+                        color: 'var(--status-good)',
+                      }}
+                    >
+                      <span className="status-led good" style={{ width: '6px', height: '6px' }} />
+                      <span style={{ fontWeight: 600, letterSpacing: '0.04em' }}>TELEMETRY UPLINK ACTIVE</span>
+                    </div>
+
                     <Link
                       to="/missions"
                       style={{
@@ -59,9 +78,15 @@ export const App: React.FC = () => {
                         fontWeight: 600,
                         color: 'var(--text-muted)',
                         textDecoration: 'none',
+                        padding: '4px 10px',
+                        borderRadius: 'var(--radius-sm)',
+                        border: '1px solid var(--border-subtle)',
+                        background: 'var(--panel-elevated)',
+                        fontFamily: 'var(--font-display)',
+                        letterSpacing: '0.04em',
                       }}
                     >
-                      Campaign Catalog
+                      CAMPAIGN CATALOG
                     </Link>
                   </div>
                 </div>

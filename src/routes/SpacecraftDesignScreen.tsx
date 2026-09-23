@@ -66,36 +66,42 @@ export const SpacecraftDesignScreen: React.FC = () => {
         />
       )}
 
-      {/* Header Bar */}
+      {/* Stitch Screen 07 Aerospace HUD Header Bar */}
       <header
+        className="hud-panel"
         style={{
+          padding: 'var(--space-4) var(--space-5)',
+          borderTop: `4px solid var(--mission-accent)`,
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'space-between',
           alignItems: 'center',
           gap: 'var(--space-3)',
-          borderBottom: '1px solid var(--border-subtle)',
-          paddingBottom: 'var(--space-4)',
         }}
       >
         <div>
           <div
             style={{
-              fontSize: '0.75rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.72rem',
               color: 'var(--mission-accent)',
-              letterSpacing: '0.12em',
+              letterSpacing: '0.1em',
               fontWeight: 700,
               textTransform: 'uppercase',
-              marginBottom: '2px',
+              marginBottom: '4px',
             }}
           >
-            PHASE II: SYSTEM INTEGRATION & HARDWARE CAD
+            <span className="status-led good" style={{ width: '6px', height: '6px' }} />
+            <span>PHASE II: SYSTEM INTEGRATION & HARDWARE CAD</span>
           </div>
-          <h1 style={{ fontSize: '1.75rem', lineHeight: 1.2 }}>
+          <h1 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', lineHeight: 1.2, letterSpacing: '0.04em' }}>
             {mission.name}
           </h1>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-            Benchmark: NASA {mission.realMission.name} | Budget Limit: ${(mission.budgetCapUSD / 1_000_000).toFixed(0)}M USD
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginTop: '2px' }}>
+            BENCHMARK: NASA {mission.realMission.name.toUpperCase()} | CEILING: ${(mission.budgetCapUSD / 1_000_000).toFixed(0)}M USD
           </p>
         </div>
 
@@ -104,7 +110,7 @@ export const SpacecraftDesignScreen: React.FC = () => {
           <Link to={`/missions/${mission.id}/briefing`}>
             <button className="secondary" style={{ padding: '8px 16px', minHeight: '44px' }}>
               <ArrowLeft size={16} />
-              <span>Briefing</span>
+              <span>Dossier</span>
             </button>
           </Link>
 
@@ -118,10 +124,16 @@ export const SpacecraftDesignScreen: React.FC = () => {
               <button
                 className="primary"
                 disabled={!hasLaunchVehicle}
-                style={{ padding: '8px 20px', minHeight: '44px' }}
+                style={{
+                  padding: '8px 22px',
+                  minHeight: '44px',
+                  boxShadow: hasLaunchVehicle ? 'var(--glow-accent)' : undefined,
+                  fontWeight: 700,
+                  letterSpacing: '0.04em',
+                }}
                 title={!hasLaunchVehicle ? 'Select a Launch Vehicle before proceeding' : 'Proceed to Pre-flight Review'}
               >
-                <span>Pre-flight Review</span>
+                <span>PRE-FLIGHT REVIEW</span>
                 <ArrowRight size={16} />
               </button>
             </Link>

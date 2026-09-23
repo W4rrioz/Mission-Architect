@@ -30,7 +30,28 @@ export const Logo: React.FC<LogoProps> = ({ size = 'md', showSubtitle = true }) 
         textDecoration: 'none',
       }}
     >
-      {/* Precision Geometric SVG Insignia */}
+      {/* Official Stitch High-Resolution Patch Insignia with Glow */}
+      <img
+        src="/assets/stitch/patch-insignia.png"
+        alt="Mission Architect Insignia"
+        width={iconSize}
+        height={iconSize}
+        style={{
+          width: `${iconSize}px`,
+          height: `${iconSize}px`,
+          objectFit: 'contain',
+          borderRadius: '50%',
+          flexShrink: 0,
+          filter: 'drop-shadow(0 0 12px rgba(61, 165, 245, 0.45))',
+        }}
+        onError={(e) => {
+          // Fallback to inline SVG if image fails to load
+          e.currentTarget.style.display = 'none';
+          const nextSvg = e.currentTarget.nextElementSibling as HTMLElement;
+          if (nextSvg) nextSvg.style.display = 'block';
+        }}
+      />
+      {/* Precision Geometric SVG Insignia Fallback */}
       <svg
         width={iconSize}
         height={iconSize}
@@ -39,6 +60,7 @@ export const Logo: React.FC<LogoProps> = ({ size = 'md', showSubtitle = true }) 
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
         style={{
+          display: 'none',
           flexShrink: 0,
           filter: 'drop-shadow(0 0 12px rgba(61, 165, 245, 0.45))',
         }}

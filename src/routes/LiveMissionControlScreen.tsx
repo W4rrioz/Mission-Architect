@@ -154,35 +154,42 @@ export const LiveMissionControlScreen: React.FC = () => {
         />
       )}
 
-      {/* Top Telemetry & Clock Bar */}
+      {/* Stitch Screen 08 Aerospace HUD Console Header */}
       <header
+        className="hud-panel"
         style={{
+          padding: 'var(--space-4) var(--space-5)',
+          borderTop: `4px solid var(--mission-accent)`,
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'space-between',
           alignItems: 'center',
-          gap: 'var(--space-3)',
-          background: 'var(--bg-surface)',
-          border: '1px solid var(--border-subtle)',
-          borderRadius: 'var(--radius-md)',
-          padding: 'var(--space-3) var(--space-4)',
+          gap: 'var(--space-4)',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-          <div
+          <img
+            src="/assets/stitch/patch-insignia.png"
+            alt="Mission Insignia"
+            width={40}
+            height={40}
             style={{
-              width: '10px',
-              height: '10px',
+              width: '40px',
+              height: '40px',
               borderRadius: '50%',
-              background: runState.outcome === null ? 'var(--status-good)' : runState.outcome === 'pass' ? 'var(--status-good)' : 'var(--status-critical)',
-              boxShadow: runState.outcome === null ? '0 0 8px var(--status-good)' : undefined,
+              objectFit: 'contain',
+              flexShrink: 0,
+              filter: 'drop-shadow(0 0 8px rgba(61, 165, 245, 0.4))',
             }}
           />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-              {`LIVE FLIGHT OPERATIONS // ${mission.name.toUpperCase()}`}
-            </span>
-            <div style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-primary)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--mission-accent)' }}>
+              <span className={`status-led ${runState.outcome === null ? 'good' : runState.outcome === 'pass' ? 'good' : 'critical'}`} style={{ width: '6px', height: '6px' }} />
+              <span style={{ letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700 }}>
+                {`LIVE FLIGHT OPERATIONS // ${mission.name.toUpperCase()}`}
+              </span>
+            </div>
+            <div style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-display)', marginTop: '2px' }}>
               PHASE: <span style={{ color: 'var(--mission-accent)' }}>{runState.phase.toUpperCase()}</span>
             </div>
           </div>
@@ -191,7 +198,7 @@ export const LiveMissionControlScreen: React.FC = () => {
         {/* MET Clock Readout */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
           <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', letterSpacing: '0.05em' }}>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', letterSpacing: '0.05em', fontFamily: 'var(--font-mono)' }}>
               COMPRESSED MISSION ELAPSED TIME
             </div>
             <div
