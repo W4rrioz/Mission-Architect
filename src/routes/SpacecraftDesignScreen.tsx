@@ -397,7 +397,12 @@ export const SpacecraftDesignScreen: React.FC = () => {
           </div>
 
           {/* Parts list */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div
+            id={`panel-${activeCategory}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${activeCategory}`}
+            style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
+          >
             {availableParts.map((part) => {
               const isSelected = state.selectedParts[activeCategory] === part.id;
               return (

@@ -18,9 +18,27 @@
     <style>
       @layer base {
         html, body { margin: 0; padding: 0; }
-        body { overscroll-behavior: none; }
       }
-      ::-webkit-scrollbar { display: none; }
+      /* Custom sleek aerospace telemetry scrollbars */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #071b38;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #243553;
+        border-radius: 4px;
+        border: 1px solid #3f4851;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #3da5f5;
+      }
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #243553 #071b38;
+      }
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <script id="tailwind-config">

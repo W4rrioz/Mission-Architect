@@ -2,7 +2,8 @@
  * Category Tabs Component — Stitch AI Aerospace Console
  * Source: docs/stitch/07-cad-workbench.html & 04-ui-ux-brief.md §5
  *
- * 8-Subsystem numbered pill tabs matching Stitch CAD Workbench:
+ * 8-Subsystem manifest bays arranged in a non-scrollable responsive aerospace grid.
+ * All 8 subsystem buttons are 100% visible simultaneously without any horizontal scroll bar:
  * [1] LAUNCH VEHICLE, [2] BUS STRUCTURE, [3] POWER & SOLAR, [4] PROPULSION,
  * [5] COMMS, [6] INSTRUMENTS, [7] THERMAL MLI, [8] REDUNDANCY.
  */
@@ -51,14 +52,18 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
   onSelectCategory,
   selectedParts,
 }) => {
+  const equippedCount = CATEGORIES.filter((c) => Boolean(selectedParts[c.id])).length;
+
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
-    if (e.key === 'ArrowRight') {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       e.preventDefault();
-      const nextIndex = (index + 1) % CATEGORIES.length;
+      const step = e.key === 'ArrowDown' ? 4 : 1;
+      const nextIndex = (index + step) % CATEGORIES.length;
       onSelectCategory(CATEGORIES[nextIndex].id);
-    } else if (e.key === 'ArrowLeft') {
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
       e.preventDefault();
-      const prevIndex = (index - 1 + CATEGORIES.length) % CATEGORIES.length;
+      const step = e.key === 'ArrowUp' ? 4 : 1;
+      const prevIndex = (index - step + CATEGORIES.length) % CATEGORIES.length;
       onSelectCategory(CATEGORIES[prevIndex].id);
     } else if (e.key === 'Home') {
       e.preventDefault();
@@ -71,76 +76,204 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
 
   return (
     <div
-      role="tablist"
-      aria-label="Spacecraft subsystems"
       style={{
         display: 'flex',
-        alignItems: 'center',
-        gap: '6px',
-        overflowX: 'auto',
-        WebkitOverflowScrolling: 'touch',
-        padding: '2px 0 6px 0',
+        flexDirection: 'column',
+        gap: '8px',
+        width: '100%',
       }}
     >
-      {CATEGORIES.map((cat, index) => {
-        const isActive = activeCategory === cat.id;
-        const isConfigured = Boolean(selectedParts[cat.id]);
-
-        return (
-          <button
-            key={cat.id}
-            id={`tab-${cat.id}`}
-            role="tab"
-            tabIndex={isActive ? 0 : -1}
-            aria-selected={isActive}
-            aria-controls={`panel-${cat.id}`}
-            onClick={() => onSelectCategory(cat.id)}
-            onKeyDown={(e) => handleKeyDown(e, index)}
+      {/* Manifest Status Bar Header */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '4px 2px',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span
             style={{
-              padding: '7px 12px',
-              borderRadius: '4px',
-              fontSize: '0.75rem',
-              fontWeight: 700,
               fontFamily: 'var(--font-display, "Space Grotesk", sans-serif)',
-              letterSpacing: '0.04em',
-              background: isActive ? 'var(--mission-accent, #3DA5F5)' : 'var(--panel-base, #111728)',
-              color: isActive ? '#0A0F1D' : 'var(--text-muted, #8FA0C4)',
-              border: `1px solid ${isActive ? 'var(--mission-accent, #3DA5F5)' : 'var(--border-hairline, rgba(42, 51, 80, 0.6))'}`,
-              boxShadow: isActive ? '0 0 12px rgba(61, 165, 245, 0.35)' : undefined,
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              whiteSpace: 'nowrap',
-              minHeight: '36px',
-              transition: 'all 150ms ease',
+              fontSize: '0.72rem',
+              fontWeight: 700,
+              letterSpacing: '0.08em',
+              color: 'var(--text-muted, #8FA0C4)',
+              textTransform: 'uppercase',
             }}
           >
-            <span style={{ opacity: isActive ? 1 : 0.7 }}>
-              [{cat.number}]
-            </span>
-            <span>{cat.icon}</span>
-            <span>{cat.label}</span>
-            {isConfigured && (
-              <span
+            SUBSYSTEM INTEGRATION MANIFEST
+          </span>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono, monospace)',
+              fontSize: '0.68rem',
+              fontWeight: 700,
+              padding: '2px 6px',
+              borderRadius: '3px',
+              background: equippedCount === 8 ? 'rgba(61, 190, 122, 0.15)' : 'rgba(61, 165, 245, 0.12)',
+              color: equippedCount === 8 ? 'var(--status-good, #3DBE7A)' : 'var(--mission-accent, #3DA5F5)',
+              border: `1px solid ${equippedCount === 8 ? 'rgba(61, 190, 122, 0.4)' : 'rgba(61, 165, 245, 0.3)'}`,
+            }}
+          >
+            {equippedCount} / 8 CONFIGURED
+          </span>
+        </div>
+
+        <span
+          style={{
+            fontFamily: 'var(--font-mono, monospace)',
+            fontSize: '0.68rem',
+            color: 'var(--text-muted, #8FA0C4)',
+          }}
+        >
+          ALL BAYS ACTIVE
+        </span>
+      </div>
+
+      {/* 8 Subsystem Buttons — Non-scrollable 4x2 responsive grid */}
+      <div
+        role="tablist"
+        aria-label="Spacecraft subsystems"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 130px), 1fr))',
+          gap: '8px',
+          width: '100%',
+        }}
+      >
+        {CATEGORIES.map((cat, index) => {
+          const isActive = activeCategory === cat.id;
+          const isConfigured = Boolean(selectedParts[cat.id]);
+
+          return (
+            <button
+              key={cat.id}
+              id={`tab-${cat.id}`}
+              role="tab"
+              tabIndex={isActive ? 0 : -1}
+              aria-selected={isActive}
+              aria-controls={`panel-${cat.id}`}
+              onClick={() => onSelectCategory(cat.id)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              style={{
+                padding: '8px 10px',
+                borderRadius: '6px',
+                fontSize: '0.74rem',
+                fontWeight: 700,
+                fontFamily: 'var(--font-display, "Space Grotesk", sans-serif)',
+                letterSpacing: '0.02em',
+                background: isActive
+                  ? 'var(--panel-elevated, #162038)'
+                  : 'var(--panel-base, #111728)',
+                color: isActive ? '#FFFFFF' : 'var(--text-muted, #8FA0C4)',
+                border: `1.5px solid ${
+                  isActive
+                    ? 'var(--mission-accent, #3DA5F5)'
+                    : isConfigured
+                    ? 'rgba(61, 190, 122, 0.35)'
+                    : 'var(--border-hairline, rgba(42, 51, 80, 0.6))'
+                }`,
+                boxShadow: isActive
+                  ? '0 0 12px rgba(61, 165, 245, 0.3), inset 0 0 8px rgba(61, 165, 245, 0.1)'
+                  : undefined,
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                gap: '6px',
+                minHeight: '52px',
+                textAlign: 'left',
+                transition: 'all 150ms ease',
+                position: 'relative',
+              }}
+            >
+              {/* Top row: [Number] + Icon and Configured Badge */}
+              <div
                 style={{
-                  display: 'inline-flex',
+                  display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '14px',
-                  height: '14px',
-                  borderRadius: '50%',
-                  background: isActive ? '#0A0F1D' : 'var(--status-good, #3DBE7A)',
-                  color: isActive ? 'var(--mission-accent, #3DA5F5)' : '#0A0F1D',
-                  marginLeft: '2px',
+                  justifyContent: 'space-between',
+                  width: '100%',
                 }}
               >
-                <Check size={10} strokeWidth={3} />
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '5px',
+                    fontFamily: 'var(--font-mono, monospace)',
+                    fontSize: '0.7rem',
+                    color: isActive ? 'var(--mission-accent, #3DA5F5)' : 'inherit',
+                  }}
+                >
+                  <span style={{ opacity: 0.7 }}>[{cat.number}]</span>
+                  <span>{cat.icon}</span>
+                </div>
+
+                {/* Subsystem status badge */}
+                {isConfigured ? (
+                  <span
+                    title="Subsystem Configured"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '15px',
+                      height: '15px',
+                      borderRadius: '50%',
+                      background: 'var(--status-good, #3DBE7A)',
+                      color: '#0A0F1D',
+                    }}
+                  >
+                    <Check size={10} strokeWidth={3.5} />
+                  </span>
+                ) : (
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      background: 'rgba(143, 160, 196, 0.3)',
+                    }}
+                  />
+                )}
+              </div>
+
+              {/* Bottom row: Subsystem Name */}
+              <span
+                style={{
+                  lineHeight: 1.25,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 1,
+                  WebkitBoxOrient: 'vertical',
+                }}
+              >
+                {cat.label}
               </span>
-            )}
-          </button>
-        );
-      })}
+
+              {/* Active bottom accent bar */}
+              {isActive && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: '6px',
+                    right: '6px',
+                    height: '2px',
+                    background: 'var(--mission-accent, #3DA5F5)',
+                    borderRadius: '2px 2px 0 0',
+                  }}
+                />
+              )}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 };
