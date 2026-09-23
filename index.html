@@ -1,18 +1,149 @@
 <!doctype html>
-<html lang="en">
+<html class="dark" lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mission Architect — Space Missions Game</title>
+    <title>NASA Mission Architect — Deep Space Mission Design & Telemetry Console</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @layer base {
+        html, body { margin: 0; padding: 0; }
+        body { overscroll-behavior: none; }
+      }
+      ::-webkit-scrollbar { display: none; }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#182a48",
+              "primary-fixed-dim": "#98cbff",
+              "on-tertiary-fixed-variant": "#5422b2",
+              "on-tertiary-container": "#42009f",
+              "on-surface-variant": "#bfc7d3",
+              "outline-variant": "#3f4851",
+              "error-container": "#93000a",
+              "on-tertiary": "#3c0091",
+              "on-surface": "#d7e2ff",
+              "on-secondary-container": "#abb5cb",
+              "surface-bright": "#283958",
+              "surface-tint": "#98cbff",
+              "on-background": "#d7e2ff",
+              "outline": "#89919c",
+              "surface-container-highest": "#243553",
+              "tertiary-fixed": "#e9ddff",
+              "on-primary": "#003354",
+              "on-secondary-fixed": "#121c2c",
+              "on-tertiary-fixed": "#23005c",
+              "primary-container": "#3da5f5",
+              "on-primary-container": "#00395d",
+              "tertiary-container": "#ac8bff",
+              "surface": "#001330",
+              "surface-container-low": "#071b38",
+              "on-secondary": "#273142",
+              "on-primary-fixed-variant": "#004a77",
+              "primary-fixed": "#cfe5ff",
+              "surface-dim": "#001330",
+              "on-secondary-fixed-variant": "#3d475a",
+              "inverse-primary": "#00639c",
+              "surface-variant": "#243553",
+              "inverse-on-surface": "#1f304e",
+              "on-error": "#690005",
+              "surface-container-lowest": "#000e26",
+              "secondary-container": "#3d475a",
+              "on-primary-fixed": "#001d33",
+              "secondary": "#bdc7dd",
+              "on-error-container": "#ffdad6",
+              "error": "#ffb4ab",
+              "tertiary-fixed-dim": "#d0bcff",
+              "secondary-fixed-dim": "#bdc7dd",
+              "primary": "#98cbff",
+              "secondary-fixed": "#d9e3fa",
+              "inverse-surface": "#d7e2ff",
+              "surface-container": "#0c1f3d",
+              "tertiary": "#d0bcff",
+              "background": "#001330",
+              "deepSpace": "#0B1020",
+              "panelBase": "#10172B",
+              "panelElevated": "#131A30",
+              "panelSurface": "#18223E",
+              "borderHairline": "#2A3350",
+              "borderGlow": "#3E4D78",
+              "blueprintBg": "#0A0F1D",
+              "earthOrbit": "#3DA5F5",
+              "moonPolar": "#C9D3EA",
+              "marsRust": "#E0703D",
+              "asteroidViolet": "#9D74FF",
+              "telemetryGreen": "#3DBE7A",
+              "telemetryAmber": "#E0A030",
+              "telemetryRed": "#E0453D",
+              "textPrimary": "#E6ECF8",
+              "textMuted": "#8FA0C4"
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px"
+            },
+            spacing: {
+              "space-sm": "0.5rem",
+              gutter: "0.75rem",
+              "space-lg": "1rem",
+              "space-md": "0.75rem",
+              "space-xl": "1.5rem",
+              "margin-desktop": "1.5rem",
+              "gutter-desktop": "1rem",
+              "space-xs": "0.25rem",
+              margin: "0.75rem"
+            },
+            fontFamily: {
+              "telemetry-label": ["JetBrains Mono", "monospace"],
+              "body-dense": ["Inter", "sans-serif"],
+              "telemetry-readout-xl": ["JetBrains Mono", "monospace"],
+              "headline-panel": ["Space Grotesk", "sans-serif"],
+              "body-caption": ["Inter", "sans-serif"],
+              "display-hero": ["Space Grotesk", "sans-serif"],
+              "telemetry-clock": ["JetBrains Mono", "monospace"],
+              "subhead-tech": ["Space Grotesk", "sans-serif"],
+              "telemetry-readout-md": ["JetBrains Mono", "monospace"],
+              "body-default": ["Inter", "sans-serif"],
+              "display-hero-mobile": ["Space Grotesk", "sans-serif"],
+              "orbitron": ["Orbitron", "sans-serif"],
+              "rajdhani": ["Rajdhani", "sans-serif"]
+            },
+            fontSize: {
+              "telemetry-label": ["10px", { lineHeight: "12px", letterSpacing: "0.08em", fontWeight: "500" }],
+              "body-dense": ["13px", { lineHeight: "18px", letterSpacing: "0.01em", fontWeight: "400" }],
+              "telemetry-readout-xl": ["26px", { lineHeight: "30px", letterSpacing: "-0.02em", fontWeight: "600" }],
+              "headline-panel": ["18px", { lineHeight: "24px", letterSpacing: "0.06em", fontWeight: "600" }],
+              "body-caption": ["11px", { lineHeight: "15px", letterSpacing: "0.02em", fontWeight: "400" }],
+              "display-hero": ["32px", { lineHeight: "38px", letterSpacing: "0.08em", fontWeight: "700" }],
+              "telemetry-clock": ["13px", { lineHeight: "16px", letterSpacing: "0.04em", fontWeight: "700" }],
+              "subhead-tech": ["13px", { lineHeight: "18px", letterSpacing: "0.05em", fontWeight: "600" }],
+              "telemetry-readout-md": ["14px", { lineHeight: "18px", letterSpacing: "0em", fontWeight: "500" }],
+              "body-default": ["15px", { lineHeight: "22px", letterSpacing: "0.01em", fontWeight: "400" }],
+              "display-hero-mobile": ["24px", { lineHeight: "30px", letterSpacing: "0.06em", fontWeight: "700" }]
+            }
+          }
+        }
+      };
+    </script>
   </head>
-  <body>
+  <body class="bg-surface font-body-default text-on-surface min-h-screen">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
