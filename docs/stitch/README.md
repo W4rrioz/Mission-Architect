@@ -18,6 +18,8 @@
 | **06** | **Flight Debrief (MAVEN)** | `9f5fc1d0fc2e4d56bf887b8bd5618a31` | [`06-flight-debrief.html`](./06-flight-debrief.html) | `/assets/stitch/maven-orbit.png`, `/assets/stitch/auroral-spectrogram.png` |
 | **07** | **Spacecraft CAD Workbench** | `eb20bc7f6c0d4a3d90d4fd8bb5f2114c` | [`07-cad-workbench.html`](./07-cad-workbench.html) | Procedural SVG Spacecraft Bus & Panels |
 | **08** | **Live Mission Control Telemetry** | `db5385802eab4da9846c2ef636b9862d` | [`08-live-mission-control.html`](./08-live-mission-control.html) | Real-time Orbit SVG & Matrix Telemetry |
+| **09** | **Flight Readiness Review (FRR)** | `frr-clearance-console-2026` | [`09-flight-readiness-review.html`](./09-flight-readiness-review.html) | 7-Constraint Checklist & Go/No-Go Poll |
+| **10** | **Signal Loss Terminal (404)** | `dsn-404-signal-loss` | [`10-signal-loss-404.html`](./10-signal-loss-404.html) | Radar Beacon Sweep & DSN Matrix |
 
 ---
 
