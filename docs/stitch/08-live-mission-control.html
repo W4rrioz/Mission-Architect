@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "background": "#001330",
+          "surface-container": "#0c1f3d",
+          "primary-fixed": "#cfe5ff",
+          "secondary-container": "#3d475a",
+          "on-tertiary-fixed": "#23005c",
+          "outline": "#89919c",
+          "secondary-fixed": "#d9e3fa",
+          "primary-fixed-dim": "#98cbff",
+          "on-secondary-container": "#abb5cb",
+          "tertiary": "#d0bcff",
+          "primary-container": "#3da5f5",
+          "on-secondary-fixed-variant": "#3d475a",
+          "on-surface": "#d7e2ff",
+          "outline-variant": "#3f4851",
+          "on-background": "#d7e2ff",
+          "on-primary-fixed-variant": "#004a77",
+          "on-primary-container": "#00395d",
+          "on-tertiary": "#3c0091",
+          "tertiary-container": "#ac8bff",
+          "on-primary-fixed": "#001d33",
+          "on-surface-variant": "#bfc7d3",
+          "surface-container-low": "#071b38",
+          "on-primary": "#003354",
+          "surface-bright": "#283958",
+          "surface-variant": "#243553",
+          "error-container": "#93000a",
+          "surface-container-lowest": "#000e26",
+          "secondary-fixed-dim": "#bdc7dd",
+          "surface": "#001330",
+          "inverse-primary": "#00639c",
+          "surface-container-highest": "#243553",
+          "tertiary-fixed-dim": "#d0bcff",
+          "surface-container-high": "#182a48",
+          "on-tertiary-container": "#42009f",
+          "error": "#ffb4ab",
+          "inverse-surface": "#d7e2ff",
+          "secondary": "#bdc7dd",
+          "inverse-on-surface": "#1f304e",
+          "on-secondary-fixed": "#121c2c",
+          "surface-tint": "#98cbff",
+          "primary": "#98cbff",
+          "on-error-container": "#ffdad6",
+          "surface-dim": "#001330",
+          "on-secondary": "#273142",
+          "tertiary-fixed": "#e9ddff",
+          "on-tertiary-fixed-variant": "#5422b2",
+          "on-error": "#690005"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "margin-desktop": "1.5rem",
+          "gutter": "0.75rem",
+          "space-lg": "1rem",
+          "space-xs": "0.25rem",
+          "space-sm": "0.5rem",
+          "space-md": "0.75rem",
+          "gutter-desktop": "1rem",
+          "space-xl": "1.5rem",
+          "margin": "0.75rem"
+        },
+        "fontFamily": {
+          "body-caption": [
+            "Inter"
+          ],
+          "body-dense": [
+            "Inter"
+          ],
+          "telemetry-readout-xl": [
+            "JetBrains Mono"
+          ],
+          "telemetry-readout-md": [
+            "JetBrains Mono"
+          ],
+          "headline-panel": [
+            "Space Grotesk"
+          ],
+          "telemetry-label": [
+            "JetBrains Mono"
+          ],
+          "display-hero": [
+            "Space Grotesk"
+          ],
+          "body-default": [
+            "Inter"
+          ],
+          "display-hero-mobile": [
+            "Space Grotesk"
+          ],
+          "telemetry-clock": [
+            "JetBrains Mono"
+          ],
+          "subhead-tech": [
+            "Space Grotesk"
+          ]
+        },
+        "fontSize": {
+          "body-caption": [
+            "11px",
+            {
+              "lineHeight": "15px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "400"
+            }
+          ],
+          "body-dense": [
+            "13px",
+            {
+              "lineHeight": "18px",
+              "letterSpacing": "0.01em",
+              "fontWeight": "400"
+            }
+          ],
+          "telemetry-readout-xl": [
+            "26px",
+            {
+              "lineHeight": "30px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "600"
+            }
+          ],
+          "telemetry-readout-md": [
+            "14px",
+            {
+              "lineHeight": "18px",
+              "letterSpacing": "0em",
+              "fontWeight": "500"
+            }
+          ],
+          "headline-panel": [
+            "18px",
+            {
+              "lineHeight": "24px",
+              "letterSpacing": "0.06em",
+              "fontWeight": "600"
+            }
+          ],
+          "telemetry-label": [
+            "10px",
+            {
+              "lineHeight": "12px",
+              "letterSpacing": "0.08em",
+              "fontWeight": "500"
+            }
+          ],
+          "display-hero": [
+            "32px",
+            {
+              "lineHeight": "38px",
+              "letterSpacing": "0.08em",
+              "fontWeight": "700"
+            }
+          ],
+          "body-default": [
+            "15px",
+            {
+              "lineHeight": "22px",
+              "letterSpacing": "0.01em",
+              "fontWeight": "400"
+            }
+          ],
+          "display-hero-mobile": [
+            "24px",
+            {
+              "lineHeight": "30px",
+              "letterSpacing": "0.06em",
+              "fontWeight": "700"
+            }
+          ],
+          "telemetry-clock": [
+            "13px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.04em",
+              "fontWeight": "700"
+            }
+          ],
+          "subhead-tech": [
+            "13px",
+            {
+              "lineHeight": "18px",
+              "letterSpacing": "0.05em",
+              "fontWeight": "600"
+            }
+          ]
+        }
+      },
+    },
+  }</script></head><body class="bg-background font-body-default text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex flex-col"><div class="h-14 flex items-center px-space-md bg-surface-container-low gap-space-sm"><span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span><span class="font-headline-panel text-headline-panel tracking-wider text-primary uppercase">MISSION ARCHITECT</span></div><div class="px-space-md py-space-sm bg-surface-container-lowest"><span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase tracking-widest block">FLIGHT RACK MOUNT</span><span class="font-telemetry-readout-md text-telemetry-readout-md text-secondary">CORE RACK #04-JPL</span></div><nav class="flex flex-col gap-space-xs px-space-xs mt-space-sm" data-active-classes="bg-primary-container text-on-primary-container font-subhead-tech text-subhead-tech font-bold"><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm rounded transition-colors bg-primary-container text-on-primary-container font-subhead-tech text-subhead-tech font-bold" data-path="flight-telemetry-overview" href="#"><span class="material-symbols-outlined text-base">grid_view</span><span>Telemetry Overview</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-subhead-tech text-subhead-tech" data-path="orbital-trajectory-engine" href="#"><span class="material-symbols-outlined text-base">satellite_alt</span><span>Orbit Trajectory</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-subhead-tech text-subhead-tech" data-path="propulsion-delta-v" href="#"><span class="material-symbols-outlined text-base">rocket_launch</span><span>Propulsion &amp; Delta-V</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-subhead-tech text-subhead-tech" data-path="subsystem-diagnostics" href="#"><span class="material-symbols-outlined text-base">tune</span><span>Subsystems Health</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-subhead-tech text-subhead-tech" data-path="comms-deep-space-network" href="#"><span class="material-symbols-outlined text-base">settings_input_antenna</span><span>DSN Uplink &amp; Comm</span></a></nav></div><div class="p-space-md bg-surface-container-low flex flex-col gap-space-xs"><div class="flex items-center justify-between text-on-surface-variant font-telemetry-label text-telemetry-label"><span>HARDWARE BUS</span><span class="text-primary font-telemetry-clock text-telemetry-clock">ONLINE</span></div><div class="flex items-center justify-between text-on-surface-variant font-telemetry-label text-telemetry-label"><span>DOWNLINK LATENCY</span><span class="font-telemetry-clock text-telemetry-clock text-on-surface">14.2s</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-container-low/95 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.5)]"><div class="w-full h-14 px-gutter-desktop flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-telemetry-label text-telemetry-label uppercase tracking-widest text-on-surface-variant"><span class="text-primary font-bold">MISSION CONTROL</span><span class="text-outline-variant">//</span><span class="text-on-surface">MAVEN FLIGHT OPS</span></div><div class="h-4 w-px bg-surface-variant"></div><div class="flex items-center gap-space-xs px-space-xs py-0.5 rounded bg-surface-container"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span><span class="font-telemetry-label text-telemetry-label text-on-surface tracking-wider uppercase">DSN 43 CANBERRA</span></div></div><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-lowest"><span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">MET</span><span class="font-telemetry-clock text-telemetry-clock text-primary">T+ 348:19:04:12</span></div><div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-lowest"><span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">UTC</span><span class="font-telemetry-clock text-telemetry-clock text-on-surface">18:42:09 Z</span></div><div class="flex items-center gap-space-sm"><button class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors font-telemetry-label text-telemetry-label"><span class="material-symbols-outlined text-sm text-primary">volume_up</span><span>VOX LOOP 1</span></button><button class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors font-telemetry-label text-telemetry-label"><span class="material-symbols-outlined text-sm">headset_mic</span><span>INTERCOM</span></button></div><div class="h-4 w-px bg-surface-variant"></div><div class="flex items-center gap-space-sm"><span class="font-telemetry-label text-telemetry-label text-secondary hidden sm:inline-block uppercase tracking-wider">FLIGHT DIR</span><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="/assets/stitch/patch-insignia.png"/></div></div></div></header><main class="w-full pt-14 bg-background min-h-screen"><div class="flex flex-col w-full text-on-surface select-none pb-8">
+<!-- TOP TELEMETRY RACK HEADER -->
+<div class="w-full bg-surface-container-low px-gutter-desktop py-2 shadow-md">
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-3">
+<!-- Mission Identity & Uplink Ticker -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-lowest">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+<span class="w-2 h-2 rounded-full bg-primary-container -ml-2.5"></span>
+<span class="font-telemetry-label text-telemetry-label text-primary font-bold tracking-widest uppercase ml-1">UPLINK ACTIVE</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs font-headline-panel text-headline-panel tracking-wider text-on-surface uppercase">
+<span>MAVEN</span>
+<span class="text-outline-variant font-light">//</span>
+<span class="text-primary-fixed-dim">FLIGHT OPERATIONS CONTROL CONSOLE</span>
+</div>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">TARGET: MARS (AERONOMY DYNAMICS) • DSN TRANSCEIVER DACS-7</span>
+</div>
+</div>
+<!-- Center: Phase Progression Rail -->
+<div class="flex items-center gap-2 bg-surface-container-lowest px-4 py-1.5 rounded self-start xl:self-auto overflow-x-auto max-w-full">
+<!-- Stage 1 -->
+<div class="flex items-center gap-1.5 opacity-80 shrink-0">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface uppercase tracking-wide">1. LAUNCH [0-60s]</span>
+</div>
+<span class="w-4 h-px bg-surface-variant shrink-0"></span>
+<!-- Stage 2 -->
+<div class="flex items-center gap-1.5 opacity-80 shrink-0">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface uppercase tracking-wide">2. CRUISE [60-180s]</span>
+</div>
+<span class="w-4 h-px bg-surface-variant shrink-0"></span>
+<!-- Stage 3: ACTIVE -->
+<div class="flex items-center gap-1.5 bg-secondary-container px-2 py-0.5 rounded shadow-sm shrink-0">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface font-bold uppercase tracking-wide">3. ARRIVAL &amp; INSERTION [180-240s]</span>
+</div>
+<span class="w-4 h-px bg-surface-variant shrink-0"></span>
+<!-- Stage 4: Upcoming -->
+<div class="flex items-center gap-1.5 text-on-surface-variant/60 shrink-0">
+<span class="material-symbols-outlined text-sm">radio_button_unchecked</span>
+<span class="font-telemetry-label text-telemetry-label uppercase tracking-wide">4. SCIENCE OPS [240-360s]</span>
+</div>
+</div>
+<!-- Right Controls: MET Clock + Warp Buttons -->
+<div class="flex items-center gap-space-md shrink-0">
+<div class="flex items-center gap-2 bg-surface-container-lowest px-3 py-1 rounded">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">MET</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-primary font-bold tracking-wider" id="top-met-clock">T+ 02:45 MET</span>
+</div>
+<div class="flex items-center bg-surface-container rounded p-0.5 shadow-sm">
+<button class="time-warp-btn px-2.5 py-1 rounded font-telemetry-label text-telemetry-label font-bold uppercase bg-primary-container text-on-primary-container" data-speed="1">1X</button>
+<button class="time-warp-btn px-2.5 py-1 rounded font-telemetry-label text-telemetry-label uppercase text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-speed="2">2X</button>
+<button class="time-warp-btn px-2.5 py-1 rounded font-telemetry-label text-telemetry-label uppercase text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-speed="5">5X</button>
+<button class="px-2 py-1 rounded font-telemetry-label text-telemetry-label uppercase text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors flex items-center gap-0.5" id="pause-toggle-btn">
+<span class="material-symbols-outlined text-xs">pause</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- MAIN FLIGHT DASHBOARD SPLIT -->
+<div class="w-full px-gutter-desktop mt-space-md grid grid-cols-1 lg:grid-cols-12 gap-space-md items-start">
+<!-- LEFT 70% PANEL: 2D REAL-TIME ORBITAL TRAJECTORY CANVAS (8 COLS) -->
+<div class="lg:col-span-8 flex flex-col bg-surface-container-lowest rounded shadow-xl overflow-hidden relative">
+<!-- Canvas Tactical Topbar -->
+<div class="w-full h-10 px-4 flex items-center justify-between bg-surface-container-low shadow-sm z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">radar</span>
+<span class="font-headline-panel text-headline-panel text-on-surface uppercase tracking-wider text-sm">MARS ORBIT INSERTION (MOI) // VECTOR VECTOR VISUALIZER</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">PROJECTION: ECLIPTIC PLANAR</span>
+<div class="flex items-center gap-1 bg-surface-container px-2 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface uppercase">RETROGRADE LOCKED</span>
+</div>
+</div>
+</div>
+<!-- Tactical SVG Simulation Space -->
+<div class="relative w-full h-[540px] bg-[#050B18] overflow-hidden flex items-center justify-center">
+<!-- Technical Crosshair Grid Background Pattern -->
+<svg class="absolute inset-0 w-full h-full opacity-20 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="grid-pattern" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="#3da5f5" stroke-dasharray="2 6" stroke-width="0.5"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid-pattern)" height="100%" width="100%"></rect>
+</svg>
+<!-- Distance Range Rings -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" viewbox="0 0 900 540">
+<circle cx="480" cy="270" fill="none" r="120" stroke="#243553" stroke-dasharray="4 4" stroke-width="1"></circle>
+<circle cx="480" cy="270" fill="none" r="220" stroke="#182a48" stroke-dasharray="6 6" stroke-width="1"></circle>
+<circle cx="480" cy="270" fill="none" r="320" stroke="#182a48" stroke-width="0.75"></circle>
+<!-- Distance range labels -->
+<text fill="#89919c" font-family="JetBrains Mono" font-size="9" x="485" y="146">R: 1,500 KM</text>
+<text fill="#89919c" font-family="JetBrains Mono" font-size="9" x="485" y="46">R: 3,000 KM</text>
+</svg>
+<!-- Optical Umbra / Communication Blackout Shadow Cone -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" viewbox="0 0 900 540">
+<defs>
+<lineargradient id="umbraGrad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#000e26" stop-opacity="0.9"></stop>
+<stop offset="100%" stop-color="#000e26" stop-opacity="0.1"></stop>
+</lineargradient>
+<pattern height="8" id="hatchShadow" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="8">
+<line opacity="0.15" stroke="#3da5f5" stroke-width="0.8" x1="0" x2="0" y1="0" y2="8"></line>
+</pattern>
+</defs>
+<!-- Cylindrical cone cast towards right from Mars center (480, 270) -->
+<polygon fill="url(#umbraGrad)" points="480,215 880,180 880,360 480,325"></polygon>
+<polygon fill="url(#hatchShadow)" points="480,215 880,180 880,360 480,325"></polygon>
+<text fill="#89919c" font-family="JetBrains Mono" font-size="9" letter-spacing="0.1em" opacity="0.75" x="730" y="274">COMM BLACKOUT (UMBRA)</text>
+</svg>
+<!-- Dynamic Orbital Trajectory Ellipse and Vectors -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" id="orbital-svg" viewbox="0 0 900 540">
+<defs>
+<!-- Glow for engine burn plume -->
+<filter height="200%" id="plumeGlow" width="200%" x="-50%" y="-50%">
+<fegaussianblur in="SourceGraphic" stddeviation="4"></fegaussianblur>
+</filter>
+<!-- Planet atmospheric glow gradient -->
+<radialgradient cx="50%" cy="50%" id="marsAtmosphere" r="50%">
+<stop offset="70%" stop-color="#3da5f5" stop-opacity="0"></stop>
+<stop offset="96%" stop-color="#98cbff" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#d9e3fa" stop-opacity="0.7"></stop>
+</radialgradient>
+<radialgradient cx="38%" cy="32%" id="marsSurface" r="65%">
+<stop offset="0%" stop-color="#E26A44"></stop>
+<stop offset="45%" stop-color="#C24424"></stop>
+<stop offset="85%" stop-color="#731C05"></stop>
+<stop offset="100%" stop-color="#2D0B02"></stop>
+</radialgradient>
+</defs>
+<!-- Orbital Hyperbolic/Insertion Path Curve -->
+<!-- True ellipse entering from top-left, swinging tight past periapsis at (420, 215), into capture orbit -->
+<path d="M 60,60 C 220,180 340,215 420,215 C 560,215 620,380 480,440 C 360,490 250,380 290,280 C 320,200 460,160 580,210" fill="none" id="trajectory-path" opacity="0.8" stroke="#3da5f5" stroke-dasharray="6 3" stroke-width="2"></path>
+<!-- Periapsis (Rp) Marker -->
+<g transform="translate(420, 215)">
+<circle cx="0" cy="0" fill="none" r="4" stroke="#98cbff" stroke-width="1.5"></circle>
+<line stroke="#98cbff" stroke-width="1" x1="-8" x2="8" y1="0" y2="0"></line>
+<line stroke="#98cbff" stroke-width="1" x1="0" x2="0" y1="-8" y2="8"></line>
+<rect fill="#071b38" height="18" opacity="0.9" rx="2" width="86" x="8" y="-18"></rect>
+<text fill="#cfe5ff" font-family="JetBrains Mono" font-size="9" font-weight="600" x="12" y="-5">PERIAPSIS: 150 km</text>
+</g>
+<!-- Apoapsis (Ra) Marker in Orbit Forecast -->
+<g transform="translate(620, 380)">
+<circle cx="0" cy="0" fill="none" r="3.5" stroke="#bdc7dd" stroke-dasharray="2 2" stroke-width="1"></circle>
+<line opacity="0.6" stroke="#89919c" stroke-dasharray="3 3" stroke-width="0.5" x1="620" x2="480" y1="380" y2="270"></line>
+<rect fill="#071b38" height="18" opacity="0.9" rx="2" width="94" x="10" y="-8"></rect>
+<text fill="#bfc7d3" font-family="JetBrains Mono" font-size="9" x="14" y="5">APOAPSIS: 6,200 km</text>
+</g>
+<!-- True Anomaly Angle Sector Arc -->
+<path d="M 480,270 L 420,215 A 80 80 0 0 0 395,245 Z" fill="#3da5f5" opacity="0.12"></path>
+<text fill="#98cbff" font-family="JetBrains Mono" font-size="9" x="424" y="258">θ: 24.8°</text>
+<!-- MARS PLANET SPHERE -->
+<g transform="translate(480, 270)">
+<!-- Outer atmospheric halo ring -->
+<circle cx="0" cy="0" fill="url(#marsAtmosphere)" r="56"></circle>
+<!-- Mars body -->
+<circle cx="0" cy="0" fill="url(#marsSurface)" r="54"></circle>
+<!-- Mars Surface subtle topographic textures -->
+<path d="M -30,-10 Q -10,-22 15,-15 Q 35,-8 44,5 Q 20,20 -10,18 Z" fill="#501202" opacity="0.35"></path>
+<path d="M -45,10 Q -25,25 5,30 Q 30,35 40,24 Q 0,45 -35,32 Z" fill="#380C01" opacity="0.4"></path>
+<!-- North Polar Ice Cap -->
+<ellipse cx="-12" cy="-49" fill="#d7e2ff" opacity="0.9" rx="15" ry="4.5"></ellipse>
+<!-- Planet Coordinate crosshair & label -->
+<circle cx="0" cy="0" fill="#cfe5ff" r="1.5"></circle>
+<text fill="#bdc7dd" font-family="Space Grotesk" font-size="10" font-weight="700" letter-spacing="0.1em" x="-24" y="74">MARS (BARSOOM)</text>
+</g>
+<!-- SPACECRAFT PROBE + THRUSTER PLUME (Simulated MOI Position near Periapsis) -->
+<g id="spacecraft-node" transform="translate(380, 204) rotate(32)">
+<!-- Thrust Velocity Vector Arrow -->
+<line stroke="#cfe5ff" stroke-width="1.5" x1="0" x2="38" y1="0" y2="0"></line>
+<polygon fill="#cfe5ff" points="38,-3 44,0 38,3"></polygon>
+<text fill="#cfe5ff" font-family="JetBrains Mono" font-size="8" x="18" y="-7">v=4.12 km/s</text>
+<!-- Retrograde Thruster Plume Flame Burst -->
+<!-- Plume fires opposite to vector: backwards along -X -->
+<g class="animate-pulse">
+<!-- Outer diffuse glow -->
+<polygon fill="#3da5f5" filter="url(#plumeGlow)" opacity="0.75" points="0,-4 -36,-11 -54,0 -36,11 0,4"></polygon>
+<!-- Core energetic plume flare -->
+<polygon fill="#d9e3fa" opacity="0.95" points="0,-2 -24,-5 -38,0 -24,5 0,2"></polygon>
+</g>
+<!-- Spacecraft Main Bus -->
+<rect fill="#3d475a" height="14" rx="1" stroke="#cfe5ff" stroke-width="0.8" width="14" x="-7" y="-7"></rect>
+<!-- High-Gain Antenna dish -->
+<ellipse cx="6" cy="0" fill="#98cbff" rx="3.5" ry="6"></ellipse>
+<!-- Solar Array Wings Left & Right -->
+<rect fill="#003354" height="14" stroke="#98cbff" stroke-width="0.5" width="8" x="-4" y="-22"></rect>
+<rect fill="#003354" height="14" stroke="#98cbff" stroke-width="0.5" width="8" x="-4" y="8"></rect>
+<!-- Solar Array Grid lines -->
+<line stroke="#3da5f5" stroke-width="0.5" x1="-4" x2="4" y1="-15" y2="-15"></line>
+<line stroke="#3da5f5" stroke-width="0.5" x1="-4" x2="4" y1="15" y2="15"></line>
+<!-- Center beacon -->
+<circle cx="0" cy="0" fill="#3da5f5" r="1.5"></circle>
+</g>
+</svg>
+<!-- TOP-LEFT DOCKED HUD TELEMETRY OVERLAY BOX -->
+<div class="absolute top-3 left-3 bg-surface-container-lowest/90 backdrop-blur-md p-3 rounded shadow-lg flex flex-col gap-2 min-w-[210px] z-10">
+<div class="flex items-center justify-between">
+<span class="font-telemetry-label text-telemetry-label text-primary uppercase font-bold tracking-widest">LIVE ORBIT HUD</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-1">
+<div class="flex flex-col bg-surface-container-low p-1.5 rounded">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">ORBIT SPEED</span>
+<div class="flex items-baseline gap-1">
+<span class="font-telemetry-readout-md text-telemetry-readout-md font-bold text-on-surface" id="hud-speed">4,120</span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant">m/s</span>
+</div>
+</div>
+<div class="flex flex-col bg-surface-container-low p-1.5 rounded">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">ALTITUDE</span>
+<div class="flex items-baseline gap-1">
+<span class="font-telemetry-readout-md text-telemetry-readout-md font-bold text-primary" id="hud-altitude">1,240</span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant">km</span>
+</div>
+</div>
+<div class="flex flex-col bg-surface-container-low p-1.5 rounded">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">SOLAR DIST</span>
+<div class="flex items-baseline gap-1">
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-on-surface">1.52</span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant">AU</span>
+</div>
+</div>
+<div class="flex flex-col bg-surface-container-low p-1.5 rounded">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">DSN DELAY</span>
+<div class="flex items-baseline gap-1">
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-secondary">12m 44s</span>
+</div>
+</div>
+</div>
+</div>
+<!-- BOTTOM-RIGHT QUICK ANOMALY SHORTCUT BADGE -->
+<button class="absolute bottom-3 right-3 bg-secondary-container hover:bg-surface-container-high px-3 py-1.5 rounded shadow-lg flex items-center gap-2 cursor-pointer transition-all" id="trigger-anomaly-btn">
+<span class="material-symbols-outlined text-primary text-base">emergency</span>
+<span class="font-telemetry-label text-telemetry-label uppercase font-bold text-on-surface">INJECT WIND SHEAR EVENT</span>
+</button>
+</div>
+<!-- Bottom Trajectory Canvas Status Ticker -->
+<div class="w-full h-8 px-4 bg-surface-container-low flex items-center justify-between shadow-inner">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">FLIGHT MODE:</span>
+<span class="font-telemetry-label text-telemetry-label text-primary font-bold uppercase">RETROGRADE INSERTION BURN</span>
+</div>
+<div class="font-telemetry-label text-telemetry-label text-on-surface-variant">
+          ENGINE GIMBAL: <span class="text-on-surface font-semibold">-1.4° NOZZLE DEFLECTION</span>
+</div>
+</div>
+</div>
+<!-- RIGHT 30% SIDEBAR: SUBSYSTEM GAUGES & FLIGHT EVENT TERMINAL (4 COLS) -->
+<div class="lg:col-span-4 flex flex-col gap-space-md">
+<!-- SUBSYSTEM TELEMETRY GAUGES CARD -->
+<div class="bg-surface-container-low rounded p-space-md shadow-lg flex flex-col gap-3.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-base">tune</span>
+<span class="font-headline-panel text-headline-panel text-on-surface uppercase tracking-wider text-xs">SUBSYSTEM HEALTH &amp; MARGIN GAUGES</span>
+</div>
+<span class="font-telemetry-label text-telemetry-label text-primary font-bold uppercase bg-surface-container px-2 py-0.5 rounded">ALL NOMINAL</span>
+</div>
+<!-- Live Gauge 1: Propellant Remaining -->
+<div class="bg-surface-container-lowest p-2.5 rounded flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">PROPELLANT REMAINING (HYDRAZINE)</span>
+<span class="font-telemetry-label text-telemetry-label text-secondary font-bold">-4.2 kg/s BURN</span>
+</div>
+<div class="flex items-baseline justify-between">
+<div class="flex items-baseline gap-1">
+<span class="font-telemetry-readout-xl text-telemetry-readout-xl text-on-surface font-bold" id="propellant-val">640.0</span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant">/ 1,150 kg</span>
+</div>
+<span class="font-telemetry-readout-md text-telemetry-readout-md font-semibold text-primary">55.6%</span>
+</div>
+<!-- Gauge Bar with Threshold Marker -->
+<div class="w-full h-2 rounded bg-surface-container relative overflow-hidden">
+<div class="h-full bg-primary transition-all duration-300" id="propellant-bar" style="width: 55.6%;"></div>
+<!-- Amber threshold line at 20% -->
+<div class="absolute top-0 bottom-0 left-[20%] w-0.5 bg-secondary"></div>
+</div>
+</div>
+<!-- Live Gauge 2: Electrical Power Balance -->
+<div class="bg-surface-container-lowest p-2.5 rounded flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">ELECTRICAL BUS &amp; BATTERY STABILITY</span>
+<span class="font-telemetry-label text-telemetry-label text-primary font-bold">28.4 VDC</span>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-on-surface font-bold">+145 W Net Charging</span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant">GEN: 1,050W | LOAD: 905W</span>
+</div>
+<div class="grid grid-cols-2 gap-2 mt-0.5">
+<div class="flex flex-col gap-1 bg-surface-container p-1.5 rounded">
+<div class="flex justify-between font-telemetry-label text-telemetry-label text-on-surface-variant">
+<span>BATTERY CELL A</span>
+<span class="text-on-surface">94%</span>
+</div>
+<div class="w-full h-1.5 rounded bg-surface-container-low overflow-hidden">
+<div class="h-full bg-primary" style="width: 94%;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 bg-surface-container p-1.5 rounded">
+<div class="flex justify-between font-telemetry-label text-telemetry-label text-on-surface-variant">
+<span>BATTERY CELL B</span>
+<span class="text-on-surface">91%</span>
+</div>
+<div class="w-full h-1.5 rounded bg-surface-container-low overflow-hidden">
+<div class="h-full bg-primary" style="width: 91%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Gauge 3: Science Data Buffer & DSN Telemetry -->
+<div class="bg-surface-container-lowest p-2.5 rounded flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">SOLID STATE DATA RECORDER</span>
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-telemetry-label text-telemetry-label text-primary font-bold">+4.2 dB LOCK</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-on-surface font-medium">84,500 MB Stored</span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant">42,000 MB Sent</span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 42%;"></div>
+</div>
+</div>
+<!-- Additional Quick Diagnostic Indicator Grid -->
+<div class="grid grid-cols-3 gap-2">
+<div class="bg-surface-container-lowest p-2 rounded flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">THRUST TEMP</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-on-surface font-bold mt-0.5">1,420 K</span>
+<span class="font-telemetry-label text-telemetry-label text-primary mt-0.5 uppercase">NOMINAL</span>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">R-WHEEL</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-on-surface font-bold mt-0.5">3,150 <span class="text-xs">RPM</span></span>
+<span class="font-telemetry-label text-telemetry-label text-primary mt-0.5 uppercase">BALANCED</span>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">ARRAY GIMBAL</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-on-surface font-bold mt-0.5">42.0°</span>
+<span class="font-telemetry-label text-telemetry-label text-secondary mt-0.5 uppercase">TRACKING</span>
+</div>
+</div>
+</div>
+<!-- DOCKED FLIGHT EVENT LOG TERMINAL -->
+<div class="bg-surface-container-low rounded shadow-lg flex flex-col overflow-hidden">
+<div class="h-9 px-3 bg-surface-container flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">terminal</span>
+<span class="font-subhead-tech text-subhead-tech text-on-surface uppercase tracking-wider text-xs">EVENT LOG STREAM</span>
+</div>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">PACKET #4492</span>
+</div>
+<div class="p-3 bg-surface-container-lowest flex flex-col gap-2 max-h-[190px] overflow-y-auto font-telemetry-label text-telemetry-label" id="terminal-stream">
+<div class="flex gap-2">
+<span class="text-primary font-bold shrink-0">[T+01:00]</span>
+<span class="text-on-surface">Booster separation nominal. Spacecraft entering cruise trajectory.</span>
+</div>
+<div class="flex gap-2">
+<span class="text-on-surface-variant font-bold shrink-0">[T+01:45]</span>
+<span class="text-on-surface-variant">Trajectory Correction Maneuver (TCM-1) burn executed: delta-v 14.2 m/s.</span>
+</div>
+<div class="flex gap-2">
+<span class="text-on-surface-variant font-bold shrink-0">[T+02:15]</span>
+<span class="text-on-surface-variant">Deep Space Network Canberra station 43 confirms lock at 8415.2 MHz.</span>
+</div>
+<div class="flex gap-2">
+<span class="text-primary font-bold shrink-0">[T+02:40]</span>
+<span class="text-primary">Target approach vector locked. Commencing Orbit Insertion burn.</span>
+</div>
+<div class="flex gap-2 bg-secondary-container/40 p-1 rounded">
+<span class="text-primary font-bold shrink-0">[T+02:44]</span>
+<span class="text-on-surface font-semibold">WARNING: Aerodynamic drag spike detected in upper exosphere.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- HIGH-STAKES DECISION OVERLAY MODAL (Tactical Anomaly Alert) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-container-lowest/80 backdrop-blur-md" id="tactical-modal">
+<div class="relative w-full max-w-2xl bg-surface-container-low rounded shadow-2xl p-6 flex flex-col gap-5 overflow-hidden">
+<!-- Top Alert Chevron & Title Header -->
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-secondary-container flex items-center justify-center text-primary shrink-0 animate-bounce">
+<span class="material-symbols-outlined text-2xl">warning</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-panel text-headline-panel text-on-surface uppercase tracking-wider font-bold">TACTICAL ANOMALY</span>
+<span class="px-2 py-0.5 rounded bg-secondary-container text-primary font-telemetry-label text-telemetry-label font-bold uppercase">CRITICAL PRIORITY</span>
+</div>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase mt-0.5">UPPER-ATMOSPHERIC WIND SHEAR DETECTED</span>
+</div>
+</div>
+<!-- 15 SEC Countdown Radial Timer -->
+<div class="relative w-16 h-16 flex items-center justify-center shrink-0">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 48 48">
+<circle cx="24" cy="24" fill="none" r="20" stroke="#243553" stroke-width="4"></circle>
+<circle class="transition-all duration-1000 ease-linear" cx="24" cy="24" fill="none" id="modal-timer-circle" r="20" stroke="#3da5f5" stroke-dasharray="125.6" stroke-dashoffset="0" stroke-width="4"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-telemetry-clock text-telemetry-clock text-primary font-bold text-sm" id="modal-countdown-text">15s</span>
+</div>
+</div>
+</div>
+<!-- Incident Context Text -->
+<div class="bg-surface-container-lowest p-3.5 rounded flex flex-col gap-1">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">FLIGHT DYNAMICS ADVISORY</span>
+<p class="font-body-dense text-body-dense text-on-surface">
+          Doppler lidar detects rapid high-shear layer near Max-Q / Aerocapture atmospheric interface. Spacecraft orbital insertion flight path angle is compressing margins. Ground operator confirmation requested:
+        </p>
+</div>
+<!-- Action Protocol Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+<!-- OPTION 1 CARD -->
+<div class="protocol-card group cursor-pointer bg-surface-container p-4 rounded hover:bg-surface-container-high transition-all flex flex-col justify-between shadow-sm" data-option="1">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-telemetry-label text-telemetry-label text-primary font-bold uppercase">PROTOCOL 1 [KEY: 1]</span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">LOW RISK</span>
+</div>
+<h4 class="font-headline-panel text-headline-panel text-sm text-on-surface font-semibold">Hold for Backup Guidance Slot &amp; Vent Attitude Thrusters</h4>
+<div class="flex flex-col gap-1 text-xs text-on-surface-variant font-body-caption">
+<p>• Penalty: -25 kg Propellant boiloff on hold</p>
+<p>• Flight Path: Prolongs insertion by 4 orbits</p>
+</div>
+</div>
+<button class="mt-4 w-full py-2 rounded bg-surface-container-low group-hover:bg-surface-container-highest text-on-surface font-telemetry-label text-telemetry-label font-bold uppercase transition-colors">
+            SELECT PROTOCOL 1
+          </button>
+</div>
+<!-- OPTION 2 CARD (RECOMMENDED / AUTO-SELECT) -->
+<div class="protocol-card group cursor-pointer bg-secondary-container/30 p-4 rounded hover:bg-secondary-container/50 transition-all flex flex-col justify-between shadow-md" data-option="2">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-telemetry-label text-telemetry-label text-primary font-bold uppercase">PROTOCOL 2 [KEY: 2]</span>
+<span class="px-1.5 py-0.5 rounded bg-primary-container text-on-primary-container font-telemetry-label text-telemetry-label font-bold uppercase">TIMEOUT DEFAULT</span>
+</div>
+<h4 class="font-headline-panel text-headline-panel text-sm text-on-surface font-semibold">Commit to Heavy Throttle Profile &amp; Gimbal Correction</h4>
+<div class="flex flex-col gap-1 text-xs text-on-surface font-body-caption">
+<p>• Penalty: -50 kg Fuel burn at 108% thrust</p>
+<p>• Thermal load increases: +12% chamber dissipation</p>
+</div>
+</div>
+<button class="mt-4 w-full py-2 rounded bg-primary-container text-on-primary-container font-telemetry-label text-telemetry-label font-bold uppercase transition-transform active:scale-95 shadow-md">
+            ENGAGE PROTOCOL 2
+          </button>
+</div>
+</div>
+<!-- Footer Warning Note -->
+<div class="flex items-center justify-between pt-1 font-telemetry-label text-telemetry-label text-on-surface-variant">
+<span class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+          AUTONOMOUS FLIGHT COMPUTER WILL ENGAGE OPTION 2 IN <span class="text-primary font-bold" id="footer-timer">15</span> SECONDS
+        </span>
+<button class="hover:text-on-surface transition-colors underline uppercase" id="dismiss-modal-btn">BYPASS OVERLAY</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+(function() {
+  // Real-time Flight Clock & MET Simulation
+  let metSeconds = 165; // 2m 45s
+  let simulationWarp = 1;
+  let isPaused = false;
+  let propellantKg = 640.0;
+  let orbitSpeed = 4120;
+  let altitudeKm = 1240;
+
+  const metClockEl = document.getElementById('top-met-clock');
+  const propellantValEl = document.getElementById('propellant-val');
+  const propellantBarEl = document.getElementById('propellant-bar');
+  const hudSpeedEl = document.getElementById('hud-speed');
+  const hudAltitudeEl = document.getElementById('hud-altitude');
+
+  function updateClockDisplay() {
+    const mins = Math.floor(metSeconds / 60);
+    const secs = metSeconds % 60;
+    const formatted = 'T+ ' + String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0') + ' MET';
+    if (metClockEl) metClockEl.textContent = formatted;
+  }
+
+  // Simulation tick loop
+  setInterval(() => {
+    if (isPaused) return;
+
+    metSeconds += simulationWarp;
+    updateClockDisplay();
+
+    // Minor telemetry oscillations
+    if (propellantKg > 200) {
+      propellantKg -= (0.42 * simulationWarp);
+      if (propellantValEl) propellantValEl.textContent = propellantKg.toFixed(1);
+      if (propellantBarEl) {
+        const pct = ((propellantKg / 1150) * 100).toFixed(1);
+        propellantBarEl.style.width = pct + '%';
+      }
+    }
+
+    // Altitude & Speed micro jitter
+    if (hudSpeedEl) {
+      const speedJitter = orbitSpeed + Math.floor(Math.sin(Date.now() / 1000) * 4);
+      hudSpeedEl.textContent = speedJitter.toLocaleString();
+    }
+    if (hudAltitudeEl) {
+      const altJitter = altitudeKm - Math.floor((metSeconds - 165) * 0.1);
+      hudAltitudeEl.textContent = Math.max(150, altJitter).toLocaleString();
+    }
+  }, 1000);
+
+  // Time Warp Controls
+  document.querySelectorAll('.time-warp-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.time-warp-btn').forEach(b => {
+        b.classList.remove('bg-primary-container', 'text-on-primary-container');
+        b.classList.add('text-on-surface-variant');
+      });
+      this.classList.add('bg-primary-container', 'text-on-primary-container');
+      this.classList.remove('text-on-surface-variant');
+      simulationWarp = parseInt(this.getAttribute('data-speed'), 10);
+      isPaused = false;
+    });
+  });
+
+  const pauseBtn = document.getElementById('pause-toggle-btn');
+  if (pauseBtn) {
+    pauseBtn.addEventListener('click', function() {
+      isPaused = !isPaused;
+      this.classList.toggle('text-primary', isPaused);
+    });
+  }
+
+  // Tactical Decision Modal Logic
+  const tacticalModal = document.getElementById('tactical-modal');
+  const timerCircle = document.getElementById('modal-timer-circle');
+  const countdownText = document.getElementById('modal-countdown-text');
+  const footerTimer = document.getElementById('footer-timer');
+  const terminalStream = document.getElementById('terminal-stream');
+
+  let countdown = 15;
+  const initialOffset = 125.6; // 2 * PI * 20
+  let modalInterval;
+
+  function startModalCountdown() {
+    countdown = 15;
+    if (tacticalModal) tacticalModal.classList.remove('hidden');
+    if (timerCircle) timerCircle.style.strokeDashoffset = '0';
+
+    clearInterval(modalInterval);
+    modalInterval = setInterval(() => {
+      countdown--;
+      if (countdownText) countdownText.textContent = countdown + 's';
+      if (footerTimer) footerTimer.textContent = countdown;
+
+      if (timerCircle) {
+        const fraction = (15 - countdown) / 15;
+        timerCircle.style.strokeDashoffset = (fraction * initialOffset).toString();
+      }
+
+      if (countdown <= 0) {
+        clearInterval(modalInterval);
+        resolveProtocol(2, "Autonomous Timeout: Protocol 2 auto-committed by flight computer.");
+      }
+    }, 1000);
+  }
+
+  function resolveProtocol(protocolNumber, message) {
+    clearInterval(modalInterval);
+    if (tacticalModal) tacticalModal.classList.add('hidden');
+
+    if (terminalStream) {
+      const logEntry = document.createElement('div');
+      logEntry.className = 'flex gap-2 p-1 rounded bg-secondary-container/30';
+      logEntry.innerHTML = '<span class="text-primary font-bold shrink-0">[T+' + Math.floor(metSeconds/60) + ':' + (metSeconds%60) + ']</span><span class="text-on-surface">' + message + '</span>';
+      terminalStream.appendChild(logEntry);
+      terminalStream.scrollTop = terminalStream.scrollHeight;
+    }
+  }
+
+  // Protocol Card Clicks
+  document.querySelectorAll('.protocol-card').forEach(card => {
+    card.addEventListener('click', function() {
+      const opt = this.getAttribute('data-option');
+      if (opt === '1') {
+        resolveProtocol(1, "Flight Director selected Protocol 1: Holding for backup slot. Attitude thrusters vented.");
+      } else {
+        resolveProtocol(2, "Flight Director engaged Protocol 2: Heavy throttle gimbal profile active.");
+      }
+    });
+  });
+
+  // Manual Trigger & Dismiss Buttons
+  const triggerBtn = document.getElementById('trigger-anomaly-btn');
+  if (triggerBtn) {
+    triggerBtn.addEventListener('click', () => {
+      startModalCountdown();
+    });
+  }
+
+  const dismissBtn = document.getElementById('dismiss-modal-btn');
+  if (dismissBtn) {
+    dismissBtn.addEventListener('click', () => {
+      clearInterval(modalInterval);
+      if (tacticalModal) tacticalModal.classList.add('hidden');
+    });
+  }
+
+  // Keyboard Shortcuts (1 or 2)
+  window.addEventListener('keydown', (e) => {
+    if (tacticalModal && !tacticalModal.classList.contains('hidden')) {
+      if (e.key === '1') {
+        resolveProtocol(1, "Hotkey 1: Protocol 1 selected.");
+      } else if (e.key === '2') {
+        resolveProtocol(2, "Hotkey 2: Protocol 2 executed.");
+      } else if (e.key === 'Escape') {
+        clearInterval(modalInterval);
+        tacticalModal.classList.add('hidden');
+      }
+    }
+  });
+
+  // Launch initial countdown
+  startModalCountdown();
+})();
+</script></main></div></body></html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-tertiary": "#3c0091", "surface-container-highest": "#243553", "outline": "#89919c", "surface-tint": "#98cbff", "on-background": "#d7e2ff", "on-error-container": "#ffdad6", "primary-fixed": "#cfe5ff", "inverse-surface": "#d7e2ff", "surface-variant": "#243553", "background": "#001330", "surface": "#001330", "on-secondary": "#273142", "tertiary-fixed": "#e9ddff", "inverse-on-surface": "#1f304e", "on-error": "#690005", "tertiary-container": "#ac8bff", "secondary-fixed-dim": "#bdc7dd", "on-secondary-fixed-variant": "#3d475a", "surface-container-low": "#071b38", "on-primary": "#003354", "error": "#ffb4ab", "secondary": "#bdc7dd", "on-primary-fixed-variant": "#004a77", "primary-fixed-dim": "#98cbff", "on-secondary-container": "#abb5cb", "surface-dim": "#001330", "on-primary-fixed": "#001d33", "on-secondary-fixed": "#121c2c", "on-surface": "#d7e2ff", "on-surface-variant": "#bfc7d3", "tertiary-fixed-dim": "#d0bcff", "tertiary": "#d0bcff", "on-primary-container": "#00395d", "secondary-fixed": "#d9e3fa", "secondary-container": "#3d475a", "primary-container": "#3da5f5", "on-tertiary-fixed": "#23005c", "error-container": "#93000a", "inverse-primary": "#00639c", "outline-variant": "#3f4851", "surface-container-high": "#182a48", "surface-bright": "#283958", "surface-container": "#0c1f3d", "on-tertiary-container": "#42009f", "on-tertiary-fixed-variant": "#5422b2", "surface-container-lowest": "#000e26", "primary": "#98cbff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "space-sm": "0.5rem", "space-md": "0.75rem", "margin": "0.75rem", "margin-desktop": "1.5rem", "gutter": "0.75rem", "space-lg": "1rem", "gutter-desktop": "1rem", "space-xl": "1.5rem" }, "fontFamily": { "display-hero-mobile": [ "Space Grotesk" ], "display-hero": [ "Space Grotesk" ], "subhead-tech": [ "Space Grotesk" ], "telemetry-label": [ "JetBrains Mono" ], "body-dense": [ "Inter" ], "telemetry-readout-md": [ "JetBrains Mono" ], "body-default": [ "Inter" ], "headline-panel": [ "Space Grotesk" ], "telemetry-readout-xl": [ "JetBrains Mono" ], "body-caption": [ "Inter" ], "telemetry-clock": [ "JetBrains Mono" ] }, "fontSize": { "display-hero-mobile": [ "24px", { "lineHeight": "30px", "letterSpacing": "0.06em", "fontWeight": "700" } ], "display-hero": [ "32px", { "lineHeight": "38px", "letterSpacing": "0.08em", "fontWeight": "700" } ], "subhead-tech": [ "13px", { "lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "600" } ], "telemetry-label": [ "10px", { "lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "500" } ], "body-dense": [ "13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "telemetry-readout-md": [ "14px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "500" } ], "body-default": [ "15px", { "lineHeight": "22px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "headline-panel": [ "18px", { "lineHeight": "24px", "letterSpacing": "0.06em", "fontWeight": "600" } ], "telemetry-readout-xl": [ "26px", { "lineHeight": "30px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "body-caption": [ "11px", { "lineHeight": "15px", "letterSpacing": "0.02em", "fontWeight": "400" } ], "telemetry-clock": [ "13px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700" } ] } } } };</script></head><body class="bg-surface text-on-surface antialiased select-none"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.45)]"><div class="h-16 w-full px-space-xl flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-md"><img alt="Mission Patch" class="w-8 h-8 rounded-full object-cover" src="/assets/stitch/patch-insignia.png"/><div class="flex flex-col"><span class="font-subhead-tech text-subhead-tech text-primary uppercase">MISSION ARCHITECT</span><span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">FOD CONSOLE // OPS TIER-1</span></div></div><div class="h-6 w-px bg-surface-container-highest"></div><div class="flex items-center gap-space-xs"><span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">SYS_LOC:</span><span class="font-subhead-tech text-subhead-tech text-on-surface uppercase">FLIGHT DEBRIEF // MISSION 03: MAVEN MARS AERONOMY</span></div></div><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs bg-surface-container px-space-md py-space-xs"><span class="font-telemetry-label text-telemetry-label text-secondary">MET</span><span class="font-telemetry-clock text-telemetry-clock text-primary">312d 14h 22m 08s</span></div><button class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-high hover:bg-surface-bright hover:text-on-surface text-on-surface-variant transition-colors" type="button"><span class="material-symbols-outlined text-sm">volume_up</span><span class="font-telemetry-label text-telemetry-label uppercase">VOX LINK</span></button><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container"><span class="w-2 h-2 rounded-full bg-secondary-fixed-dim"></span><span class="font-telemetry-label text-telemetry-label text-secondary-fixed uppercase">TELEMETRY ARCHIVED</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="/assets/stitch/patch-insignia.png"/></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-lowest z-40 flex flex-col justify-between p-space-md"><div class="flex flex-col gap-space-md"><div class="px-space-sm py-space-xs"><span class="font-telemetry-label text-telemetry-label text-outline uppercase">FLIGHT INSTRUMENT BAYS</span></div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold"><a aria-current="page" class="flex items-center justify-between px-space-md py-space-sm transition-all bg-primary-container text-on-primary-container font-semibold" data-path="flight-debrief" href="#"><span class="font-subhead-tech text-subhead-tech uppercase">Flight Debrief</span><span class="font-telemetry-label text-telemetry-label">01</span></a><a class="flex items-center justify-between px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="trajectory-analysis" href="#"><span class="font-subhead-tech text-subhead-tech uppercase">Trajectory &amp; Delta-V</span><span class="font-telemetry-label text-telemetry-label">02</span></a><a class="flex items-center justify-between px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="subsystem-telemetry" href="#"><span class="font-subhead-tech text-subhead-tech uppercase">Subsystem Health</span><span class="font-telemetry-label text-telemetry-label">03</span></a><a class="flex items-center justify-between px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="spacecraft-cad" href="#"><span class="font-subhead-tech text-subhead-tech uppercase">Spacecraft CAD</span><span class="font-telemetry-label text-telemetry-label">04</span></a><a class="flex items-center justify-between px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="science-payloads" href="#"><span class="font-subhead-tech text-subhead-tech uppercase">Science Payloads</span><span class="font-telemetry-label text-telemetry-label">05</span></a></nav></div><div class="p-space-sm bg-surface-container-low flex flex-col gap-space-xs"><span class="font-telemetry-label text-telemetry-label text-outline uppercase">DOWNLINK STATUS</span><div class="flex items-center justify-between"><span class="font-telemetry-label text-telemetry-label text-on-surface-variant">DSN-GOLDSTONE</span><span class="font-telemetry-label text-telemetry-label text-primary">34.2 kbps</span></div><div class="w-full bg-surface-container-highest h-1"><div class="bg-primary h-1 w-3/4"></div></div></div></aside><div class="pl-64"><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full text-on-surface">
+<!-- AMBIENT SCANLINE & NOISE LAYER (AEROSPACE CRT BACKDROP) -->
+<div class="relative w-full flex flex-col gap-space-lg p-space-md lg:p-space-xl">
+<!-- 1. HERO VERDICT STATUS BANNER -->
+<section class="w-full bg-surface-container-low shadow-md rounded flex flex-col lg:flex-row items-stretch justify-between gap-space-md p-space-md border-l-4 border-[#3DBE7A]">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="relative flex items-center justify-center w-8 h-8 rounded bg-surface-container-high shrink-0">
+<span class="w-3 h-3 rounded-full bg-[#3DBE7A] animate-ping absolute opacity-75"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-[#3DBE7A] relative"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="font-headline-panel text-headline-panel text-on-surface uppercase tracking-wider">
+              MISSION ACCOMPLISHED // ALL FLIGHT OBJECTIVES SECURED
+            </span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-highest text-[#3DBE7A] font-telemetry-label text-telemetry-label tracking-widest uppercase">
+              TIER-1 VERIFIED
+            </span>
+</div>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase mt-space-xs">
+            DEBRIEF ARCHIVE REF: MAVEN-ORB-2026-T+312d-FINAL // GSE GOLDSTONE DOWNLINK SYNCHRONIZED
+          </span>
+</div>
+</div>
+<!-- Mode Switch & Simulation Preview Trigger -->
+<div class="flex items-center gap-space-sm shrink-0 self-end lg:self-center">
+<div class="flex items-center bg-surface-container px-space-sm py-space-xs rounded gap-space-xs">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">DEBRIEF ENGINE:</span>
+<span class="font-telemetry-clock text-telemetry-clock text-primary uppercase">NOMINAL (ACTUAL)</span>
+</div>
+<button class="flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-secondary hover:text-on-surface transition-colors cursor-pointer" id="toggle-sim-mode" title="Simulate Alt Abort Mode">
+<span class="material-symbols-outlined text-sm">swap_horiz</span>
+<span class="font-telemetry-label text-telemetry-label uppercase">SIM ALT MODES</span>
+</button>
+</div>
+</section>
+<!-- 2. TOP SCORE & TELEMETRY SUMMARY SPLIT (BENTO DECK) -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- LEFT HERO ARCHITECT SCORE CARD (5 COLS) -->
+<div class="lg:col-span-5 bg-surface-container-low rounded p-space-lg shadow-md flex flex-col justify-between relative overflow-hidden">
+<!-- Background Chamfer Accent -->
+<div class="absolute -top-12 -right-12 w-40 h-40 bg-primary/5 rounded-full pointer-events-none blur-2xl"></div>
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-base">military_tech</span>
+<span class="font-subhead-tech text-subhead-tech text-primary uppercase">EVALUATION SUMMARY</span>
+</div>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">SYS_REV: #A20-91</span>
+</div>
+<!-- Score Meter Gauge Center -->
+<div class="flex flex-col sm:flex-row items-center justify-around gap-space-md py-space-md">
+<div class="relative w-44 h-44 shrink-0 flex items-center justify-center">
+<!-- Radial SVG Arc Gauge -->
+<svg class="w-full h-full -rotate-90 transform" viewbox="0 0 120 120">
+<!-- Track Circle -->
+<circle class="stroke-surface-container-highest" cx="60" cy="60" fill="transparent" r="50" stroke-dasharray="314.159" stroke-dashoffset="0" stroke-width="8"></circle>
+<!-- Indicator Fill Arc (91% -> offset 28.27) -->
+<circle class="stroke-primary" cx="60" cy="60" fill="transparent" r="50" stroke-dasharray="314.159" stroke-dashoffset="28.27" stroke-linecap="butt" stroke-width="9" style="filter: drop-shadow(0px 0px 4px rgba(61,165,245,0.45));"></circle>
+<!-- Target Calibration Tick -->
+<line class="text-tertiary-container" stroke="currentColor" stroke-width="2" x1="60" x2="60" y1="8" y2="15"></line>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-telemetry-readout-xl text-telemetry-readout-xl text-on-surface font-bold leading-none" id="score-counter">91</span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase mt-1">/ 100 PTS</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm items-start">
+<div class="flex items-center gap-space-xs bg-[#E0A030]/15 px-space-md py-space-xs rounded">
+<span class="w-2 h-2 rounded-sm bg-[#E0A030]"></span>
+<span class="font-subhead-tech text-subhead-tech text-[#FFE066] uppercase tracking-wide">ARCHITECT // RANK S</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded">
+<span class="material-symbols-outlined text-[#3DBE7A] text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-telemetry-label text-telemetry-label text-secondary uppercase">NEW PERSONAL BEST (PREV: 86)</span>
+</div>
+<p class="font-body-caption text-body-caption text-on-surface-variant max-w-[200px]">
+              Top 2.4% tier performance relative to NASA baseline mission trajectories.
+            </p>
+</div>
+</div>
+<div class="pt-space-sm flex items-center justify-between">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant">FLIGHT DIRECTOR DECREE</span>
+<span class="font-telemetry-label text-telemetry-label text-[#3DBE7A]">FLIGHT CLEARED FOR DEEP SPACE</span>
+</div>
+</div>
+<!-- RIGHT QUICK METRIC TELEMETRY TILES (7 COLS) -->
+<div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+<!-- Metric Tile 1: Budget -->
+<div class="bg-surface-container-low rounded p-space-md flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">TOTAL COST</span>
+<span class="material-symbols-outlined text-secondary text-sm">account_balance</span>
+</div>
+<div class="my-space-sm">
+<div class="font-telemetry-readout-xl text-telemetry-readout-xl text-on-surface font-semibold truncate">$585.0M</div>
+<div class="flex items-center gap-1 mt-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-[#3DBE7A]"></span>
+<span class="font-telemetry-label text-telemetry-label text-[#3DBE7A] uppercase">-$65.0M (10% UNDER)</span>
+</div>
+</div>
+<div class="bg-surface-container-highest p-space-xs rounded">
+<div class="flex justify-between font-telemetry-label text-telemetry-label text-on-surface-variant">
+<span>CAP: $650.0M</span>
+<span class="text-primary">90.0% UTIL</span>
+</div>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded-full mt-1 overflow-hidden">
+<div class="bg-primary h-full w-[90%]"></div>
+</div>
+</div>
+</div>
+<!-- Metric Tile 2: Science Return -->
+<div class="bg-surface-container-low rounded p-space-md flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">SCIENCE PAYLOAD</span>
+<span class="material-symbols-outlined text-primary text-sm">satellite_alt</span>
+</div>
+<div class="my-space-sm">
+<div class="font-telemetry-readout-xl text-telemetry-readout-xl text-on-surface font-semibold truncate">248.6 GB</div>
+<div class="flex items-center gap-1 mt-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-[#3DBE7A]"></span>
+<span class="font-telemetry-label text-telemetry-label text-[#3DBE7A] uppercase">+124.3% OVER QUOTA</span>
+</div>
+</div>
+<div class="bg-surface-container-highest p-space-xs rounded">
+<div class="flex justify-between font-telemetry-label text-telemetry-label text-on-surface-variant">
+<span>REQ: 200.0 GB</span>
+<span class="text-[#3DBE7A]">SURPLUS +48.6G</span>
+</div>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded-full mt-1 overflow-hidden">
+<div class="bg-[#3DBE7A] h-full w-full"></div>
+</div>
+</div>
+</div>
+<!-- Metric Tile 3: MET & Orbits -->
+<div class="bg-surface-container-low rounded p-space-md flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">MET DURATION</span>
+<span class="material-symbols-outlined text-tertiary text-sm">schedule</span>
+</div>
+<div class="my-space-sm">
+<div class="font-telemetry-readout-xl text-telemetry-readout-xl text-on-surface font-semibold truncate">312d 14h</div>
+<div class="flex items-center gap-1 mt-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-telemetry-label text-telemetry-label text-primary uppercase">1,420 SCIENCE ORBITS</span>
+</div>
+</div>
+<div class="bg-surface-container-highest p-space-xs rounded">
+<div class="flex justify-between font-telemetry-label text-telemetry-label text-on-surface-variant">
+<span>MARS PERIAPSIS</span>
+<span class="text-secondary">151.2 KM</span>
+</div>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded-full mt-1 overflow-hidden">
+<div class="bg-tertiary-container h-full w-[85%]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. DETAILED 5-COMPONENT SCORING BREAKDOWN -->
+<section class="bg-surface-container-low rounded p-space-lg shadow-md flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-4 bg-primary rounded-xs"></span>
+<span class="font-headline-panel text-headline-panel text-on-surface uppercase">PERFORMANCE EVALUATION MATRIX // 5-TIER TELEMETRY BREAKDOWN</span>
+</div>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">ALGORITHM: NASA-SP-2020-5002</span>
+</div>
+<div class="grid grid-cols-1 gap-space-sm">
+<!-- Component 1: Science Return -->
+<div class="bg-surface-container rounded p-space-md flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex flex-col min-w-[240px]">
+<div class="flex items-center justify-between">
+<span class="font-subhead-tech text-subhead-tech text-on-surface uppercase">01 // SCIENCE RETURN &amp; SENSOR COMPLEMENT</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-primary font-bold">34 / 35 PTS</span>
+</div>
+<span class="font-body-caption text-body-caption text-[#3DA5F5] uppercase mt-0.5">EXEMPLARY SENSOR COVERAGE &amp; DOWNLINK FIDELITY</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden flex">
+<div class="bg-primary-container h-full w-[97%] transition-all duration-1000"></div>
+</div>
+<div class="flex justify-between font-telemetry-label text-telemetry-label text-on-surface-variant">
+<span>97.1% TARGET RESOLVED (SWEA, STATIC, IUVS SYNCHRONOUS)</span>
+<span class="text-primary font-mono">WEIGHT: 35%</span>
+</div>
+</div>
+</div>
+<!-- Component 2: Budget Efficiency -->
+<div class="bg-surface-container rounded p-space-md flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex flex-col min-w-[240px]">
+<div class="flex items-center justify-between">
+<span class="font-subhead-tech text-subhead-tech text-on-surface uppercase">02 // BUDGET EFFICIENCY &amp; CONTRACT ALLOCATION</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#3DBE7A] font-bold">18 / 20 PTS</span>
+</div>
+<span class="font-body-caption text-body-caption text-[#3DBE7A] uppercase mt-0.5">COST-EFFECTIVE AVIONICS SELECTION</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden flex">
+<div class="bg-[#3DBE7A] h-full w-[90%] transition-all duration-1000"></div>
+</div>
+<div class="flex justify-between font-telemetry-label text-telemetry-label text-on-surface-variant">
+<span>UNDER BUDGET ENVELOPE BY $65.0M</span>
+<span class="text-[#3DBE7A] font-mono">WEIGHT: 20%</span>
+</div>
+</div>
+</div>
+<!-- Component 3: Technical Health -->
+<div class="bg-surface-container rounded p-space-md flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex flex-col min-w-[240px]">
+<div class="flex items-center justify-between">
+<span class="font-subhead-tech text-subhead-tech text-on-surface uppercase">03 // TECHNICAL HEALTH &amp; SAFETY MARGINS</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#3DBE7A] font-bold">19 / 20 PTS</span>
+</div>
+<span class="font-body-caption text-body-caption text-[#3DBE7A] uppercase mt-0.5">MLI THERMAL ENVELOPE UNCOMPROMISED</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden flex">
+<div class="bg-[#3DBE7A] h-full w-[95%] transition-all duration-1000"></div>
+</div>
+<div class="flex justify-between font-telemetry-label text-telemetry-label text-on-surface-variant">
+<span>PROPULSION RCS PRESSURE &amp; POWER BUS VOLTAGE NOMINAL</span>
+<span class="text-[#3DBE7A] font-mono">WEIGHT: 20%</span>
+</div>
+</div>
+</div>
+<!-- Component 4: Tactical Decisions -->
+<div class="bg-surface-container rounded p-space-md flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex flex-col min-w-[240px]">
+<div class="flex items-center justify-between">
+<span class="font-subhead-tech text-subhead-tech text-on-surface uppercase">04 // TACTICAL DECISIONS &amp; DRIFT ADAPTABILITY</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#E0A030] font-bold">12 / 15 PTS</span>
+</div>
+<span class="font-body-caption text-body-caption text-[#E0A030] uppercase mt-0.5">SOLAR FLUX DRIFT RESOLVED IN +14s</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden flex">
+<div class="bg-[#E0A030] h-full w-[80%] transition-all duration-1000"></div>
+</div>
+<div class="flex justify-between font-telemetry-label text-telemetry-label text-on-surface-variant">
+<span>3 RAPID RE-ATTITUDES // 1 MINOR TIME-OUT PENALTY DETECTED</span>
+<span class="text-[#E0A030] font-mono">WEIGHT: 15%</span>
+</div>
+</div>
+</div>
+<!-- Component 5: Subsystem Reliability -->
+<div class="bg-surface-container rounded p-space-md flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex flex-col min-w-[240px]">
+<div class="flex items-center justify-between">
+<span class="font-subhead-tech text-subhead-tech text-on-surface uppercase">05 // SUBSYSTEM REDUNDANCY &amp; RISK PROFILE</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#3DBE7A] font-bold">8 / 10 PTS</span>
+</div>
+<span class="font-body-caption text-body-caption text-[#3DBE7A] uppercase mt-0.5">BACKUP GYROS ENGAGED ON T+184d</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden flex">
+<div class="bg-[#3DBE7A] h-full w-[80%] transition-all duration-1000"></div>
+</div>
+<div class="flex justify-between font-telemetry-label text-telemetry-label text-on-surface-variant">
+<span>DUAL-STRING ARCHITECTURE ISOLATED REACTION WHEEL RECKONING</span>
+<span class="text-[#3DBE7A] font-mono">WEIGHT: 10%</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. VISUAL TELEMETRY & FLIGHT HERITAGE MOSAIC (PHOTOS + ORBIT VIS) -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-stretch">
+<!-- Spacecraft Orbit & Instrument Imagery (7 cols) -->
+<div class="lg:col-span-7 bg-surface-container-low rounded p-space-lg shadow-md flex flex-col justify-between">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-sm">photo_camera</span>
+<span class="font-subhead-tech text-subhead-tech text-on-surface uppercase">PAYLOAD OBSERVATION LOG &amp; ORBIT MAP</span>
+</div>
+<span class="font-telemetry-label text-telemetry-label text-primary uppercase">CAMERA BAY: IUVS-EXT</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md my-space-sm">
+<!-- Image 1: Spacecraft in Orbit -->
+<div class="relative rounded overflow-hidden group bg-surface-container-highest h-48">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" data-alt="Technical wide render of NASA MAVEN Mars orbiter spacecraft in deep black space showing extended solar panels reflecting orange sunlight, high-gain antenna pointed towards Earth, and glowing thrusters against Martian upper atmosphere limb with deep indigo cosmic background." src="/assets/stitch/maven-orbit.png"/>
+<div class="absolute bottom-0 left-0 right-0 p-space-xs bg-surface-container-lowest/80 backdrop-blur-sm flex justify-between items-center">
+<span class="font-telemetry-label text-telemetry-label text-on-surface">SIMULATED INSERTION VECTOR</span>
+<span class="font-telemetry-label text-telemetry-label text-primary">T+312d</span>
+</div>
+</div>
+<!-- Image 2: Atmospheric Auroral Spectrogram -->
+<div class="relative rounded overflow-hidden group bg-surface-container-highest h-48">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" data-alt="Ultraviolet imaging spectrograph false color visualization of Mars atmospheric corona glowing in electric cyan and purple tones showing solar wind ion stripping and hydrogen escape plume against dark planetary silhouette." src="/assets/stitch/auroral-spectrogram.png"/>
+<div class="absolute bottom-0 left-0 right-0 p-space-xs bg-surface-container-lowest/80 backdrop-blur-sm flex justify-between items-center">
+<span class="font-telemetry-label text-telemetry-label text-on-surface">IUVS ION ESCAPE PROFILE</span>
+<span class="font-telemetry-label text-tertiary">UV 121.6 nm</span>
+</div>
+</div>
+</div>
+<!-- Trajectory Vector Inline SVG Mini-Chart -->
+<div class="bg-surface-container p-space-sm rounded flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-base">alt_route</span>
+<div class="flex flex-col">
+<span class="font-subhead-tech text-subhead-tech text-on-surface uppercase">ORBIT ECCENTRICITY: 0.141</span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant">PERIAPSIS PASSES: 1,420 // APOAPSIS: 6,200 KM</span>
+</div>
+</div>
+<!-- Vector Sparkline -->
+<svg class="h-6 w-36 text-primary shrink-0" fill="none" viewbox="0 0 140 24">
+<path d="M0 20 Q 25 2, 50 18 T 100 8 T 140 4" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path>
+<circle cx="140" cy="4" fill="currentColor" r="2.5"></circle>
+</svg>
+</div>
+</div>
+<!-- Real-Time Debrief Log Matrix (5 cols) -->
+<div class="lg:col-span-5 bg-surface-container-low rounded p-space-lg shadow-md flex flex-col justify-between">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-sm">terminal</span>
+<span class="font-subhead-tech text-subhead-tech text-on-surface uppercase">TIMELINE ANOMALY LOG</span>
+</div>
+<span class="font-telemetry-label text-telemetry-label text-[#3DBE7A] uppercase">0 FATAL / 1 WARN</span>
+</div>
+<div class="flex flex-col gap-space-xs overflow-y-auto max-h-56 pr-1 font-telemetry-label text-telemetry-label">
+<div class="bg-surface-container p-space-xs rounded flex items-start gap-space-xs">
+<span class="text-on-surface-variant shrink-0 font-mono">T+000d:</span>
+<span class="text-on-surface flex-1">Launch vehicle separation Atlas V Centaur nominal. Solar arrays deployed in 84s.</span>
+</div>
+<div class="bg-surface-container p-space-xs rounded flex items-start gap-space-xs">
+<span class="text-on-surface-variant shrink-0 font-mono">T+062d:</span>
+<span class="text-on-surface flex-1">TCM-1 Midcourse trajectory correction executed (+12.4 m/s Delta-V).</span>
+</div>
+<div class="bg-surface-container p-space-xs rounded flex items-start gap-space-xs">
+<span class="text-[#E0A030] shrink-0 font-mono">T+184d:</span>
+<span class="text-on-surface flex-1">Reaction Wheel Assembly 2 tachometer drift alert. Switched to RWA-4 backup seamlessly.</span>
+</div>
+<div class="bg-surface-container p-space-xs rounded flex items-start gap-space-xs">
+<span class="text-on-surface-variant shrink-0 font-mono">T+308d:</span>
+<span class="text-on-surface flex-1">Mars Orbit Insertion (MOI) main engine burn fired for 33m 12s. Aerobraking phase lock.</span>
+</div>
+<div class="bg-surface-container p-space-xs rounded flex items-start gap-space-xs">
+<span class="text-[#3DBE7A] shrink-0 font-mono">T+312d:</span>
+<span class="text-on-surface flex-1">Science orbit target acquired (151km x 6,200km). Primary science objectives achieved.</span>
+</div>
+</div>
+<div class="pt-space-sm flex items-center justify-between">
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant">FLIGHT DIRECTOR SIGN-OFF</span>
+<span class="font-telemetry-label text-telemetry-label text-primary font-mono">NASA JPL FOD // AUTH_ID: 994-ALPHA</span>
+</div>
+</div>
+</section>
+<!-- 5. REAL-WORLD NASA BENCHMARK COMPARISON TABLE -->
+<section class="bg-surface-container-low rounded p-space-lg shadow-md flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-base">balance</span>
+<span class="font-headline-panel text-headline-panel text-on-surface uppercase">
+            HISTORICAL FLIGHT BENCHMARK // YOUR ARCHITECTURE VS. NASA MAVEN
+          </span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-on-surface-variant font-telemetry-label text-telemetry-label">
+            NASA RECON REF: SP-4212
+          </span>
+</div>
+</div>
+<!-- High Density Telemetry Matrix Table -->
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-highest text-on-surface-variant font-telemetry-label text-telemetry-label uppercase tracking-wider">
+<th class="py-space-sm px-space-md">METRIC</th>
+<th class="py-space-sm px-space-md text-primary">YOUR ARCHITECTURE (SIMULATED)</th>
+<th class="py-space-sm px-space-md">ACTUAL NASA MAVEN (2013-14)</th>
+<th class="py-space-sm px-space-md">DELTA VARIANCE / NOTES</th>
+</tr>
+</thead>
+<tbody class="font-body-dense text-body-dense divide-y-0">
+<!-- Row 1: Booster -->
+<tr class="bg-surface-container hover:bg-surface-container-high transition-colors">
+<td class="py-space-sm px-space-md font-subhead-tech text-subhead-tech uppercase text-on-surface">Launch Vehicle</td>
+<td class="py-space-sm px-space-md font-telemetry-readout-md text-telemetry-readout-md text-on-surface font-semibold">Atlas V 401</td>
+<td class="py-space-sm px-space-md font-telemetry-readout-md text-telemetry-readout-md text-secondary">Atlas V 401</td>
+<td class="py-space-sm px-space-md">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-highest text-[#3DBE7A] font-telemetry-label text-telemetry-label uppercase">
+                  IDENTICAL BOOSTER CLASS [MATCH]
+                </span>
+</td>
+</tr>
+<!-- Row 2: Wet Launch Mass -->
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<td class="py-space-sm px-space-md font-subhead-tech text-subhead-tech uppercase text-on-surface">Wet Launch Mass</td>
+<td class="py-space-sm px-space-md font-telemetry-readout-md text-telemetry-readout-md text-on-surface font-semibold">2,120 kg</td>
+<td class="py-space-sm px-space-md font-telemetry-readout-md text-telemetry-readout-md text-secondary">2,454 kg</td>
+<td class="py-space-sm px-space-md">
+<span class="text-[#3DBE7A] font-telemetry-label text-telemetry-label uppercase">
+                  -334 KG (-13.6% MASS SAVINGS ACHIEVED)
+                </span>
+</td>
+</tr>
+<!-- Row 3: Dry Mass -->
+<tr class="bg-surface-container hover:bg-surface-container-high transition-colors">
+<td class="py-space-sm px-space-md font-subhead-tech text-subhead-tech uppercase text-on-surface">Dry Spacecraft Mass</td>
+<td class="py-space-sm px-space-md font-telemetry-readout-md text-telemetry-readout-md text-on-surface font-semibold">970 kg</td>
+<td class="py-space-sm px-space-md font-telemetry-readout-md text-telemetry-readout-md text-secondary">809 kg</td>
+<td class="py-space-sm px-space-md">
+<span class="text-[#E0A030] font-telemetry-label text-telemetry-label uppercase">
+                  +161 KG (HEAVIER REDUNDANT AVIONICS BUS)
+                </span>
+</td>
+</tr>
+<!-- Row 4: Program Cost -->
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<td class="py-space-sm px-space-md font-subhead-tech text-subhead-tech uppercase text-on-surface">Total Program Cost</td>
+<td class="py-space-sm px-space-md font-telemetry-readout-md text-telemetry-readout-md text-primary font-semibold">$585,000,000</td>
+<td class="py-space-sm px-space-md font-telemetry-readout-md text-telemetry-readout-md text-secondary">$670,000,000</td>
+<td class="py-space-sm px-space-md">
+<span class="text-[#3DBE7A] font-telemetry-label text-telemetry-label uppercase">
+                  -$85,000,000 (12.7% LOWER COST EFFICIENCY)
+                </span>
+</td>
+</tr>
+<!-- Row 5: Solar Power -->
+<tr class="bg-surface-container hover:bg-surface-container-high transition-colors">
+<td class="py-space-sm px-space-md font-subhead-tech text-subhead-tech uppercase text-on-surface">Solar Power (1.52 AU)</td>
+<td class="py-space-sm px-space-md font-telemetry-readout-md text-telemetry-readout-md text-on-surface font-semibold">1,050 W</td>
+<td class="py-space-sm px-space-md font-telemetry-readout-md text-telemetry-readout-md text-secondary">1,135 W</td>
+<td class="py-space-sm px-space-md">
+<span class="text-on-surface-variant font-telemetry-label text-telemetry-label uppercase">
+                  -85 W (ADEQUATE MARGIN FOR INSTRUMENT SUITE)
+                </span>
+</td>
+</tr>
+<!-- Row 6: Orbital Delta-V -->
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<td class="py-space-sm px-space-md font-subhead-tech text-subhead-tech uppercase text-on-surface">Orbital Delta-V Total</td>
+<td class="py-space-sm px-space-md font-telemetry-readout-md text-telemetry-readout-md text-on-surface font-semibold">2,280 m/s</td>
+<td class="py-space-sm px-space-md font-telemetry-readout-md text-telemetry-readout-md text-secondary">2,050 m/s</td>
+<td class="py-space-sm px-space-md">
+<span class="text-[#3DBE7A] font-telemetry-label text-telemetry-label uppercase">
+                  +230 M/S (EXTENDED LIFESPAN FUEL RESERVE)
+                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- 6. ACTION FOOTER DOCK (STICKY TACTILE FLIGHT CONTROL) -->
+<footer class="sticky bottom-0 z-30 bg-surface-container-lowest/95 backdrop-blur shadow-xl rounded p-space-md flex flex-col sm:flex-row items-center justify-between gap-space-md border-t border-surface-container-highest">
+<!-- Left Secondary Operations Group -->
+<div class="flex items-center gap-space-sm w-full sm:w-auto">
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-all cursor-pointer" type="button">
+<span class="material-symbols-outlined text-sm">tune</span>
+<span class="font-subhead-tech text-subhead-tech uppercase">RE-ENTER CAD &amp; OPTIMIZE</span>
+</button>
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-all cursor-pointer" type="button">
+<span class="material-symbols-outlined text-sm">dashboard</span>
+<span class="font-subhead-tech text-subhead-tech uppercase">MISSION SELECT</span>
+</button>
+</div>
+<!-- Right Mission Advancement CTA Button -->
+<div class="flex items-center gap-space-sm w-full sm:w-auto justify-end">
+<button class="w-full sm:w-auto flex items-center justify-center gap-space-md px-space-lg py-space-sm rounded bg-gradient-to-r from-tertiary-container via-[#9D74FF] to-tertiary hover:opacity-95 text-on-tertiary font-display-hero text-headline-panel tracking-wider uppercase shadow-lg transition-transform active:scale-95 cursor-pointer" type="button">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">lock_open</span>
+<span>NEXT MISSION: OSIRIS-REx UNLOCKED</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</footer>
+</div>
+<!-- SCRIPT: INTERACTIVE SIMULATION TOGGLE & SCORE ANIMATION -->
+<script>
+    (function initFlightDebrief() {
+      const toggleBtn = document.getElementById('toggle-sim-mode');
+      const scoreCounter = document.getElementById('score-counter');
+      let isSimulatedAlternative = false;
+
+      if (toggleBtn && scoreCounter) {
+        toggleBtn.addEventListener('click', () => {
+          isSimulatedAlternative = !isSimulatedAlternative;
+          if (isSimulatedAlternative) {
+            scoreCounter.textContent = '74';
+            scoreCounter.classList.remove('text-on-surface');
+            scoreCounter.classList.add('text-[#E0A030]');
+            toggleBtn.querySelector('span:last-child').textContent = 'RESTORE NOMINAL';
+          } else {
+            scoreCounter.textContent = '91';
+            scoreCounter.classList.remove('text-[#E0A030]');
+            scoreCounter.classList.add('text-on-surface');
+            toggleBtn.querySelector('span:last-child').textContent = 'SIM ALT MODES';
+          }
+        });
+      }
+    })();
+  </script>
+</div></main></div></body></html>

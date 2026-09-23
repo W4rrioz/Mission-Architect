@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Mission Architect — Title & Flight Initialization</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            deepSpace: '#0B1020',
+            panelBase: '#10172B',
+            panelElevated: '#131A30',
+            panelSurface: '#18223E',
+            borderHairline: '#2A3350',
+            borderGlow: '#3E4D78',
+            primary: '#3DA5F5',
+            textPrimary: '#E6ECF8',
+            textMuted: '#8FA0C4',
+          },
+          fontFamily: {
+            orbitron: ['Orbitron', 'sans-serif'],
+            rajdhani: ['Rajdhani', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .star-layer {
+      background-image: 
+        radial-gradient(1px 1px at 25px 35px, #ffffff, rgba(255,255,255,0)),
+        radial-gradient(1.5px 1.5px at 150px 80px, #3da5f5, rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 280px 190px, #ffffff, rgba(255,255,255,0)),
+        radial-gradient(1.5px 1.5px at 400px 320px, #9d74ff, rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 600px 120px, #ffffff, rgba(255,255,255,0)),
+        radial-gradient(2px 2px at 780px 240px, #e0703d, rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 920px 400px, #ffffff, rgba(255,255,255,0));
+      background-size: 1000px 600px;
+    }
+  </style>
+</head>
+<body class="bg-deepSpace text-textPrimary min-h-screen flex flex-col justify-between star-layer relative selection:bg-primary/20 selection:text-primary overflow-x-hidden">
+  
+  <!-- Subtle Horizon Glow -->
+  <div class="absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-primary/10 via-transparent to-transparent pointer-events-none"></div>
+
+  <!-- Header -->
+  <header class="w-full px-8 py-5 flex items-center justify-between border-b border-borderHairline/50 backdrop-blur-md z-10">
+    <div class="flex items-center gap-3">
+      <img src="/assets/stitch/patch-insignia.png" alt="Mission Architect Patch" class="w-9 h-9 object-contain drop-shadow"/>
+      <div class="flex flex-col">
+        <span class="font-orbitron text-sm font-bold tracking-widest text-textPrimary">MISSION ARCHITECT</span>
+        <span class="font-mono text-[10px] text-textMuted uppercase tracking-wider">NASA SPACE APPS CHALLENGE // ID: 611bc2c2d60b4e27bc9a689efcb71111</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <span class="px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs rounded-full flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        FLIGHT DYNAMICS SIMULATOR READY
+      </span>
+      <a href="01-design-system.md" class="text-textMuted hover:text-textPrimary transition p-1.5" title="Design System Spec">
+        <span class="material-symbols-outlined text-lg">palette</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Content -->
+  <main class="flex-1 flex flex-col items-center justify-center text-center px-6 py-12 z-10 max-w-4xl mx-auto">
+    
+    <!-- Central Patch Insignia with Glow -->
+    <div class="relative mb-8 group">
+      <div class="absolute -inset-4 bg-gradient-to-r from-primary/30 to-violet-500/30 rounded-full blur-xl group-hover:blur-2xl transition duration-500 opacity-75"></div>
+      <div class="relative w-44 h-44 rounded-full p-2 bg-panelBase border border-borderGlow flex items-center justify-center shadow-2xl">
+        <img src="/assets/stitch/patch-insignia.png" alt="Mission Patch" class="w-36 h-36 object-contain rounded-full drop-shadow-2xl"/>
+      </div>
+    </div>
+
+    <!-- Title & Badges -->
+    <div class="inline-flex items-center gap-2 px-3 py-1 bg-panelElevated/80 border border-borderHairline rounded-full mb-4">
+      <span class="font-rajdhani text-xs font-semibold uppercase tracking-widest text-primary">FLIGHT DYNAMICS & SPACECRAFT CAD CONSOLE</span>
+    </div>
+
+    <h1 class="font-orbitron text-4xl sm:text-6xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-b from-white via-textPrimary to-textMuted mb-6 drop-shadow-md">
+      MISSION ARCHITECT
+    </h1>
+
+    <p class="font-sans text-base sm:text-lg text-textMuted max-w-2xl mx-auto leading-relaxed mb-10">
+      Architect, simulate, and command authentic robotic missions across the solar system. Balance mass limits, power budgets, delta-v constraints, and real orbital physics.
+    </p>
+
+    <!-- Tactical CTAs -->
+    <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+      <a href="04-flight-catalog.html" class="w-full sm:w-auto px-8 py-4 bg-primary text-deepSpace font-orbitron font-bold text-sm tracking-wider rounded-lg shadow-lg shadow-primary/25 hover:brightness-110 active:scale-95 transition flex items-center justify-center gap-3">
+        <span class="material-symbols-outlined text-xl">rocket_launch</span>
+        INITIALIZE FLIGHT ARCHITECTURE
+      </a>
+      <a href="05-mission-briefing.html" class="w-full sm:w-auto px-8 py-4 bg-panelSurface hover:bg-panelElevated border border-borderHairline text-textPrimary font-rajdhani font-bold text-base tracking-wider rounded-lg transition flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-lg">description</span>
+        VIEW MISSION BRIEFING (MAVEN)
+      </a>
+    </div>
+
+    <!-- Keyboard Hint -->
+    <div class="mt-8 font-mono text-xs text-textMuted/70 flex items-center gap-2">
+      <span class="px-2 py-0.5 bg-panelElevated border border-borderHairline rounded text-[11px]">SPACE</span>
+      <span>or</span>
+      <span class="px-2 py-0.5 bg-panelElevated border border-borderHairline rounded text-[11px]">ENTER</span>
+      <span>to commence flight configuration</span>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full px-8 py-4 border-t border-borderHairline/50 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-textMuted z-10 bg-deepSpace/80 backdrop-blur-sm">
+    <div class="flex items-center gap-4 mb-2 sm:mb-0">
+      <span>NASA SPACE APPS CHALLENGE 2026</span>
+      <span class="hidden sm:inline">•</span>
+      <span>CLIENT-SIDE FLIGHT DYNAMICS KERNEL v1.0.0</span>
+    </div>
+    <div class="flex items-center gap-6">
+      <a href="07-cad-workbench.html" class="hover:text-primary transition">CAD WORKBENCH</a>
+      <a href="08-live-mission-control.html" class="hover:text-primary transition">LIVE TELEMETRY</a>
+      <a href="06-flight-debrief.html" class="hover:text-primary transition">FLIGHT DEBRIEF</a>
+    </div>
+  </footer>
+</body>
+</html>
