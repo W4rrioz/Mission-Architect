@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>Mission Architect // Flight Dynamics Console</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}.tactical-grid-bg{background-color:#001330;background-image:linear-gradient(to right,rgba(36,53,83,0.25) 1px,transparent 1px),linear-gradient(to bottom,rgba(36,53,83,0.25) 1px,transparent 1px);background-size:24px 24px;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-container-high":"#182a48","on-surface":"#d7e2ff","surface-variant":"#243553","surface-container-low":"#071b38","outline-variant":"#3f4851","primary":"#98cbff","on-primary-container":"#00395d","secondary-container":"#3d475a","tertiary-container":"#ac8bff","surface-container-highest":"#243553","on-secondary-fixed":"#121c2c","error-container":"#93000a","on-surface-variant":"#bfc7d3","on-background":"#d7e2ff","inverse-primary":"#00639c","on-secondary":"#273142","on-tertiary-fixed-variant":"#5422b2","background":"#001330","surface-container-lowest":"#000e26","primary-fixed-dim":"#98cbff","on-primary":"#003354","surface-dim":"#001330","secondary":"#bdc7dd","tertiary-fixed-dim":"#d0bcff","surface-bright":"#283958","tertiary-fixed":"#e9ddff","on-primary-fixed":"#001d33","on-error":"#690005","inverse-surface":"#d7e2ff","tertiary":"#d0bcff","primary-container":"#3da5f5","on-error-container":"#ffdad6","on-primary-fixed-variant":"#004a77","surface":"#001330","primary-fixed":"#cfe5ff","surface-tint":"#98cbff","error":"#ffb4ab","on-secondary-fixed-variant":"#3d475a","on-tertiary-container":"#42009f","secondary-fixed":"#d9e3fa","on-secondary-container":"#abb5cb","on-tertiary-fixed":"#23005c","outline":"#89919c","on-tertiary":"#3c0091","secondary-fixed-dim":"#bdc7dd","inverse-on-surface":"#1f304e","surface-container":"#0c1f3d"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin-desktop":"1.5rem","space-xs":"0.25rem","space-lg":"1rem","space-md":"0.75rem","gutter-desktop":"1rem","gutter":"0.75rem","space-sm":"0.5rem","margin":"0.75rem","space-xl":"1.5rem"},"fontFamily":{"body-default":["Inter"],"telemetry-readout-xl":["JetBrains Mono"],"headline-panel":["Space Grotesk"],"display-hero":["Space Grotesk"],"telemetry-clock":["JetBrains Mono"],"telemetry-readout-md":["JetBrains Mono"],"body-caption":["Inter"],"display-hero-mobile":["Space Grotesk"],"telemetry-label":["JetBrains Mono"],"body-dense":["Inter"],"subhead-tech":["Space Grotesk"]},"fontSize":{"body-default":["15px",{"lineHeight":"22px","letterSpacing":"0.01em","fontWeight":"400"}],"telemetry-readout-xl":["26px",{"lineHeight":"30px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-panel":["18px",{"lineHeight":"24px","letterSpacing":"0.06em","fontWeight":"600"}],"display-hero":["32px",{"lineHeight":"38px","letterSpacing":"0.08em","fontWeight":"700"}],"telemetry-clock":["13px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"700"}],"telemetry-readout-md":["14px",{"lineHeight":"18px","letterSpacing":"0em","fontWeight":"500"}],"body-caption":["11px",{"lineHeight":"15px","letterSpacing":"0.02em","fontWeight":"400"}],"display-hero-mobile":["24px",{"lineHeight":"30px","letterSpacing":"0.06em","fontWeight":"700"}],"telemetry-label":["10px",{"lineHeight":"12px","letterSpacing":"0.08em","fontWeight":"500"}],"body-dense":["13px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"400"}],"subhead-tech":["13px",{"lineHeight":"18px","letterSpacing":"0.05em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface text-on-surface font-body-default text-body-default tactical-grid-bg min-h-screen"><header class="fixed top-0 left-0 w-full z-50 bg-[#0B1020] border-b border-[#2A3350]"><div class="h-16 w-full px-margin-desktop flex items-center justify-between"><div class="flex items-center space-x-space-md"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant" src="https://lh3.googleusercontent.com/aida/AEtjO1VmfNgugJ9moiWniLIaOgOwqPxrrqw_8uqHfqEXUY_GSc3oITRvaJ1qtXIe5RLMb-UcnMBUMANucVsfSCsWNpDYrSgWXDhvEAoqT3n_B_vL4sLq7Qi4BVovW35_oXeeCYHPBb9qcAhQwjOOhNeLpQbEll5ANFBIatOVhq-fFNusgvtzgqmbqEnHYu4J6pY2m4mrJgJPFw3nsQQze7D_SeDki2WGwcVeXKNJtg3I1BjqMgRFHmXlEDhOBkM"/><div class="flex items-baseline space-x-space-sm"><span class="font-headline-panel text-subhead-tech text-primary tracking-widest uppercase">MISSION ARCHITECT</span><span class="font-telemetry-label text-telemetry-label text-outline">//</span><span class="font-subhead-tech text-subhead-tech tracking-widest text-[#8FA0C4] uppercase hidden lg:inline-block">CATALOG // SELECT FLIGHT PROFILE</span></div></div><nav class="hidden xl:flex items-center space-x-space-xs" data-active-classes="bg-surface-variant text-on-surface"><a aria-current="page" class="px-space-md py-space-xs font-subhead-tech transition-colors uppercase bg-surface-variant text-on-surface" data-path="flight-profile-catalog" href="#">Flight Catalog</a><a class="px-space-md py-space-xs font-subhead-tech text-subhead-tech text-on-surface-variant hover:text-on-surface transition-colors uppercase" data-path="orbital-mechanics-planner" href="#">Trajectory Planner</a><a class="px-space-md py-space-xs font-subhead-tech text-subhead-tech text-on-surface-variant hover:text-on-surface transition-colors uppercase" data-path="subsystem-telemetry-matrix" href="#">Telemetry Matrix</a><a class="px-space-md py-space-xs font-subhead-tech text-subhead-tech text-on-surface-variant hover:text-on-surface transition-colors uppercase" data-path="mission-directives-log" href="#">Directives Log</a></nav><div class="flex items-center space-x-space-md"><div class="hidden md:flex items-center space-x-space-sm bg-surface-container-lowest px-space-md py-space-xs border border-surface-variant rounded-DEFAULT"><div class="flex flex-col"><span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">CERTIFICATION TIER</span><span class="font-telemetry-clock text-telemetry-clock text-on-surface">MISSIONS: 2 / 4</span></div><div class="h-6 w-[1px] bg-surface-variant mx-space-xs"></div><div class="flex flex-col"><span class="font-telemetry-label text-telemetry-label text-[#3DBE7A]">[PROGRESS: 50%]</span><div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden mt-0.5"><div class="h-full bg-[#3DBE7A] w-1/2"></div></div></div></div><div class="hidden sm:flex flex-col items-end border-l border-surface-variant pl-space-md"><span class="font-telemetry-clock text-telemetry-clock text-primary tracking-widest">MET: T+00:00:00</span><span class="font-telemetry-label text-telemetry-label text-on-surface-variant">UTC 2026.290.14:32:00</span></div><div class="flex items-center space-x-space-xs"><button aria-label="Toggle Audio Telemetry" class="w-[44px] h-[44px] flex items-center justify-center bg-surface-container-lowest hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface border border-surface-variant transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">volume_up</span></button><button aria-label="Console Configuration" class="w-[44px] h-[44px] flex items-center justify-center bg-surface-container-lowest hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface border border-surface-variant transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">settings</span></button></div></div></div></header><main class="w-full pt-16"><div class="flex flex-col w-full">
+<div class="w-full max-w-[1200px] mx-auto px-4 md:px-6 py-8 md:py-12 flex flex-col gap-8">
+<!-- Top Sub-Header & Briefing Bar -->
+<header class="flex flex-col gap-4 bg-[#131A30] border border-[#2A3350] p-5 md:p-6 rounded-lg relative overflow-hidden">
+<div class="absolute top-0 left-0 w-32 h-1 bg-[#3DA5F5]"></div>
+<div class="absolute top-2 right-3 font-telemetry-label text-telemetry-label text-[#8FA0C4] tracking-widest hidden sm:inline-block">SYS_ID: NAS-OPS-8842-REV9</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-block w-2 h-2 rounded-full bg-[#3DA5F5] animate-ping"></span>
+<span class="font-telemetry-label text-telemetry-label text-[#3DA5F5] uppercase tracking-widest">Target Selection Matrix</span>
+</div>
+<h1 class="font-headline-panel text-display-hero-mobile md:text-display-hero text-[#E6ECF8] uppercase tracking-wider">
+            MISSION ARCHIVE <span class="text-[#8FA0C4]">//</span> SELECT TARGET PROFILE
+          </h1>
+<p class="font-body-default text-body-dense text-[#8FA0C4] max-w-3xl mt-1">
+            Design, balance, and fly certified robotic deep-space flight profiles. Complete predecessor flight trajectories to unlock advanced interplanetary orbits.
+          </p>
+</div>
+<div class="flex items-center gap-2 bg-[#0B1020] border border-[#2A3350] px-3 py-2 rounded self-start md:self-auto">
+<span class="w-2.5 h-2.5 rounded-full bg-[#3DBE7A] shadow-[0_0_8px_#3DBE7A]"></span>
+<span class="font-telemetry-clock text-telemetry-clock text-[#3DBE7A] tracking-wider uppercase">SIM LINK: NOMINAL [99.8%]</span>
+</div>
+</div>
+<!-- Filter Rail & Quick Switchers -->
+<div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#2A3350]">
+<div class="flex flex-wrap items-center gap-2" id="filter-group">
+<button class="filter-btn active px-3 py-1.5 rounded-sm bg-[#192342] border border-[#3DA5F5] text-[#3DA5F5] font-subhead-tech text-subhead-tech tracking-wider uppercase transition-all flex items-center gap-2" data-target="all" type="button">
+<span class="w-1.5 h-1.5 bg-[#3DA5F5] rounded-full"></span> ALL PROFILES (4)
+          </button>
+<button class="filter-btn px-3 py-1.5 rounded-sm bg-[#0B1020] border border-[#2A3350] text-[#8FA0C4] hover:text-[#E6ECF8] font-subhead-tech text-subhead-tech tracking-wider uppercase transition-all" data-target="inner" type="button">
+            INNER SOLAR SYSTEM (3)
+          </button>
+<button class="filter-btn px-3 py-1.5 rounded-sm bg-[#0B1020] border border-[#2A3350] text-[#8FA0C4] hover:text-[#E6ECF8] font-subhead-tech text-subhead-tech tracking-wider uppercase transition-all" data-target="deep-space" type="button">
+            DEEP SPACE SAMPLE RETURN (1)
+          </button>
+</div>
+<div class="font-telemetry-label text-telemetry-label text-[#8FA0C4] flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">tune</span>
+          FILTER: GRAVITATIONAL WELL / VELOCITY VECTORS
+        </div>
+</div>
+</header>
+<!-- Mission Cards Grid (2x2) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-5 w-full">
+<!-- CARD 1: Landsat 9 Profile -->
+<article class="mission-card group relative bg-[#131A30] border border-[#2A3350] hover:border-[#3DA5F5] rounded-lg p-5 flex flex-col justify-between transition-all duration-300 shadow-md hover:shadow-[0_0_24px_rgba(61,165,245,0.18)]" data-zone="inner">
+<div class="absolute top-0 left-0 right-0 h-1 bg-[#3DA5F5] rounded-t-lg"></div>
+<div class="absolute top-3 right-3 text-[#3DA5F5] font-telemetry-label text-telemetry-label tracking-widest pointer-events-none opacity-40">GRID: L9-TERRA</div>
+<!-- Upper Info & Target Graphic -->
+<div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#3DA5F5] animate-ping"></span>
+<span class="font-telemetry-label text-telemetry-label text-[#3DA5F5] uppercase tracking-wider bg-[rgba(61,165,245,0.1)] border border-[#3DA5F5]/30 px-2 py-0.5 rounded-sm">UNLOCKED // TUTORIAL ACTIVE</span>
+</div>
+<span class="font-telemetry-clock text-telemetry-clock text-[#3DBE7A] bg-[#3DBE7A]/10 border border-[#3DBE7A]/30 px-2 py-0.5 rounded-sm">★ BEST: 94 / 100 [RANK S]</span>
+</div>
+<div class="font-subhead-tech text-subhead-tech text-[#8FA0C4] tracking-wider uppercase mb-1">
+            TIER 1 // SUN-SYNCHRONOUS ORBIT (705 KM)
+          </div>
+<h2 class="font-headline-panel text-headline-panel text-[#E6ECF8] font-bold tracking-wide uppercase mb-4">
+            LANDSAT 9 // TERRESTRIAL OBSERVATORY
+          </h2>
+<!-- Tactical Earth Vector Graphic -->
+<div class="relative w-full h-44 bg-[#0B1020] border border-[#2A3350] rounded flex items-center justify-center overflow-hidden mb-4">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(61,165,245,0.15),transparent_70%)]"></div>
+<!-- Telemetry Reticle -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none stroke-[#2A3350]" xmlns="http://www.w3.org/2000/svg">
+<line stroke-dasharray="4 4" stroke-width="0.75" x1="50%" x2="50%" y1="0" y2="100%"></line>
+<line stroke-dasharray="4 4" stroke-width="0.75" x1="0" x2="100%" y1="50%" y2="50%"></line>
+</svg>
+<!-- Vector Planet Earth -->
+<svg class="w-36 h-36 relative z-10" fill="none" viewbox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+<!-- Polar Orbit Track -->
+<ellipse class="opacity-80" cx="80" cy="80" rx="28" ry="72" stroke="#3DA5F5" stroke-dasharray="3 3" stroke-width="1.2" transform="rotate(-25 80 80)"></ellipse>
+<!-- Satellite icon on orbit -->
+<g transform="translate(68, 16)">
+<rect fill="#E6ECF8" height="6" rx="1" width="8" x="0" y="4"></rect>
+<rect fill="#3DA5F5" height="3" width="7" x="-8" y="5.5"></rect>
+<rect fill="#3DA5F5" height="3" width="7" x="9" y="5.5"></rect>
+<circle cx="4" cy="4" fill="#3DBE7A" r="1.5"></circle>
+</g>
+<!-- Earth Base -->
+<circle cx="80" cy="80" fill="#0C1B33" r="48" stroke="#3DA5F5" stroke-width="1.5"></circle>
+<!-- Atmosphere Glow -->
+<circle class="opacity-40" cx="80" cy="80" r="50" stroke="#3DA5F5" stroke-width="2"></circle>
+<!-- Tactical Continents -->
+<path d="M62 50 C 68 52, 75 48, 80 54 C 82 58, 76 64, 72 68 C 65 67, 60 62, 62 50 Z" fill="#205886" opacity="0.8"></path>
+<path d="M85 65 C 95 62, 102 70, 100 78 C 94 82, 88 88, 82 82 C 84 75, 80 70, 85 65 Z" fill="#205886" opacity="0.8"></path>
+<path d="M68 85 C 75 88, 78 98, 72 108 C 66 102, 64 94, 68 85 Z" fill="#205886" opacity="0.8"></path>
+<path d="M96 95 C 104 96, 112 104, 106 112 C 100 114, 95 106, 96 95 Z" fill="#205886" opacity="0.8"></path>
+<!-- Terminator Shadow -->
+<path d="M80 32 A 48 48 0 0 1 80 128 A 24 48 0 0 0 80 32 Z" fill="#000E26" opacity="0.55"></path>
+<!-- Sub-satellite Track Dot -->
+<circle cx="73" cy="84" fill="#E6ECF8" r="2"></circle>
+</svg>
+<div class="absolute bottom-2 left-3 font-telemetry-label text-telemetry-label text-[#8FA0C4]">ALT: 705 KM // INC: 98.2° (SSO)</div>
+<div class="absolute bottom-2 right-3 font-telemetry-label text-telemetry-label text-[#3DBE7A]">PASS: ASCENDING NODE</div>
+</div>
+<!-- Technical Specs Grid -->
+<div class="grid grid-cols-2 gap-2 bg-[#0B1020] p-3 rounded border border-[#2A3350] mb-4">
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Budget Ceiling</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#E6ECF8] font-bold">$300,000,000 <span class="text-xs text-[#8FA0C4]">($300M)</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Payload Mass Limit</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#E6ECF8] font-bold">3,000 <span class="text-xs text-[#8FA0C4]">kg</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Min Science Telemetry</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#E6ECF8] font-bold">50,000 <span class="text-xs text-[#8FA0C4]">MB</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Difficulty Rating</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#3DA5F5]">★☆☆☆ <span class="text-xs text-[#8FA0C4]">(STANDARD)</span></span>
+</div>
+</div>
+</div>
+<!-- Action CTA -->
+<button class="w-full h-12 bg-[#3DA5F5] hover:bg-[#98cbff] text-[#0B1020] font-headline-panel text-headline-panel font-bold tracking-widest uppercase rounded flex items-center justify-center gap-2 transition-all active:scale-[0.99] shadow-[0_2px_0_rgba(0,0,0,0.6)]" type="button">
+<span class="material-symbols-outlined text-[20px]">rocket_launch</span>
+          [ ARCHITECT LANDSAT 9 ]
+        </button>
+</article>
+<!-- CARD 2: LRO Profile -->
+<article class="mission-card group relative bg-[#131A30] border border-[#2A3350] hover:border-[#C9D3EA] rounded-lg p-5 flex flex-col justify-between transition-all duration-300 shadow-md hover:shadow-[0_0_24px_rgba(201,211,234,0.18)]" data-zone="inner">
+<div class="absolute top-0 left-0 right-0 h-1 bg-[#C9D3EA] rounded-t-lg"></div>
+<div class="absolute top-3 right-3 text-[#C9D3EA] font-telemetry-label text-telemetry-label tracking-widest pointer-events-none opacity-40">GRID: LRO-SELENA</div>
+<div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#C9D3EA]"></span>
+<span class="font-telemetry-label text-telemetry-label text-[#C9D3EA] uppercase tracking-wider bg-[rgba(201,211,234,0.1)] border border-[#C9D3EA]/30 px-2 py-0.5 rounded-sm">UNLOCKED // SYSTEM CERTIFIED</span>
+</div>
+<span class="font-telemetry-clock text-telemetry-clock text-[#98cbff] bg-[#98cbff]/10 border border-[#98cbff]/30 px-2 py-0.5 rounded-sm">★ BEST: 88 / 100 [RANK A]</span>
+</div>
+<div class="font-subhead-tech text-subhead-tech text-[#8FA0C4] tracking-wider uppercase mb-1">
+            TIER 2 // POLAR LUNAR MAPPING (50 KM)
+          </div>
+<h2 class="font-headline-panel text-headline-panel text-[#E6ECF8] font-bold tracking-wide uppercase mb-4">
+            LUNAR RECONNAISSANCE ORBITER (LRO)
+          </h2>
+<!-- Tactical Moon Vector Graphic -->
+<div class="relative w-full h-44 bg-[#0B1020] border border-[#2A3350] rounded flex items-center justify-center overflow-hidden mb-4">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(201,211,234,0.12),transparent_70%)]"></div>
+<!-- Telemetry Reticle -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none stroke-[#2A3350]" xmlns="http://www.w3.org/2000/svg">
+<circle cx="50%" cy="50%" r="68" stroke-dasharray="2 4" stroke-width="0.75"></circle>
+<line stroke-dasharray="4 4" stroke-width="0.75" x1="50%" x2="50%" y1="0" y2="100%"></line>
+</svg>
+<!-- Vector Moon & Orbit -->
+<svg class="w-36 h-36 relative z-10" fill="none" viewbox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+<!-- Elliptical Polar Orbit -->
+<ellipse class="opacity-80" cx="80" cy="80" rx="30" ry="68" stroke="#C9D3EA" stroke-dasharray="4 3" stroke-width="1.2" transform="rotate(18 80 80)"></ellipse>
+<!-- Moon Body -->
+<circle cx="80" cy="80" fill="#1A2033" r="46" stroke="#C9D3EA" stroke-width="1.5"></circle>
+<!-- Topographical Craters (Tycho, Shackleton, Mare basins) -->
+<circle cx="68" cy="62" fill="#141928" r="9" stroke="#C9D3EA" stroke-width="0.9"></circle>
+<circle cx="68" cy="62" fill="#2A3350" r="3"></circle>
+<circle cx="95" cy="92" fill="#141928" r="14" stroke="#C9D3EA" stroke-dasharray="3 1" stroke-width="0.9"></circle>
+<!-- Shackleton South Pole -->
+<circle cx="80" cy="116" fill="#0E1424" r="6" stroke="#C9D3EA" stroke-width="1"></circle>
+<path d="M80 112 L 80 120" stroke="#C9D3EA" stroke-width="0.5"></path>
+<!-- Mare Imbrium Contour -->
+<path d="M60 76 Q 74 88 90 74 Q 85 60 65 65 Z" fill="#242C44" opacity="0.6"></path>
+<!-- Ray features -->
+<path d="M95 92 L 118 108 M95 92 L 72 108 M95 92 L 114 78" opacity="0.7" stroke="#8FA0C4" stroke-dasharray="2 2" stroke-width="0.5"></path>
+<!-- Spacecraft Marker -->
+<circle cx="98" cy="24" fill="#C9D3EA" r="2.5"></circle>
+<line stroke="#C9D3EA" stroke-width="1.5" x1="93" x2="103" y1="24" y2="24"></line>
+</svg>
+<div class="absolute bottom-2 left-3 font-telemetry-label text-telemetry-label text-[#8FA0C4]">PERILUNE: 30 KM // APOLUNE: 216 KM</div>
+<div class="absolute bottom-2 right-3 font-telemetry-label text-telemetry-label text-[#C9D3EA]">POLAR INSERTION: LOCKED</div>
+</div>
+<!-- Specs Grid -->
+<div class="grid grid-cols-2 gap-2 bg-[#0B1020] p-3 rounded border border-[#2A3350] mb-4">
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Budget Ceiling</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#E6ECF8] font-bold">$550,000,000 <span class="text-xs text-[#8FA0C4]">($550M)</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Payload Mass Limit</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#E6ECF8] font-bold">1,900 <span class="text-xs text-[#8FA0C4]">kg</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Min Science Telemetry</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#E6ECF8] font-bold">150,000 <span class="text-xs text-[#8FA0C4]">MB</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Difficulty Rating</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#C9D3EA]">★★☆☆ <span class="text-xs text-[#8FA0C4]">(INTERMEDIATE)</span></span>
+</div>
+</div>
+</div>
+<button class="w-full h-12 border-2 border-[#C9D3EA] hover:bg-[#C9D3EA] text-[#C9D3EA] hover:text-[#0B1020] font-headline-panel text-headline-panel font-bold tracking-widest uppercase rounded flex items-center justify-center gap-2 transition-all active:scale-[0.99]" type="button">
+<span class="material-symbols-outlined text-[20px]">explore</span>
+          [ ARCHITECT LRO ]
+        </button>
+</article>
+<!-- CARD 3: MAVEN Profile -->
+<article class="mission-card group relative bg-[#131A30] border border-[#2A3350] hover:border-[#E0703D] rounded-lg p-5 flex flex-col justify-between transition-all duration-300 shadow-md hover:shadow-[0_0_24px_rgba(224,112,61,0.18)]" data-zone="inner">
+<div class="absolute top-0 left-0 right-0 h-1 bg-[#E0703D] rounded-t-lg"></div>
+<div class="absolute top-3 right-3 text-[#E0703D] font-telemetry-label text-telemetry-label tracking-widest pointer-events-none opacity-40">GRID: MVN-ARES</div>
+<div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#E0703D]"></span>
+<span class="font-telemetry-label text-telemetry-label text-[#E0703D] uppercase tracking-wider bg-[rgba(224,112,61,0.1)] border border-[#E0703D]/30 px-2 py-0.5 rounded-sm">UNLOCKED // READY FOR FLIGHT</span>
+</div>
+<span class="font-telemetry-clock text-telemetry-clock text-[#E0A030] bg-[#E0A030]/10 border border-[#E0A030]/30 px-2 py-0.5 rounded-sm">PENDING CERTIFICATION RUN</span>
+</div>
+<div class="font-subhead-tech text-subhead-tech text-[#8FA0C4] tracking-wider uppercase mb-1">
+            TIER 3 // HIGH-ELLIPTICITY AERONOMY
+          </div>
+<h2 class="font-headline-panel text-headline-panel text-[#E6ECF8] font-bold tracking-wide uppercase mb-4">
+            MAVEN // MARTIAN AERONOMY EXPLORER
+          </h2>
+<!-- Tactical Mars Vector Graphic -->
+<div class="relative w-full h-44 bg-[#0B1020] border border-[#2A3350] rounded flex items-center justify-center overflow-hidden mb-4">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(224,112,61,0.15),transparent_70%)]"></div>
+<!-- Reticle Crosshairs -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none stroke-[#2A3350]" xmlns="http://www.w3.org/2000/svg">
+<line stroke-width="1" x1="20" x2="40" y1="20" y2="20"></line>
+<line stroke-width="1" x1="20" x2="20" y1="20" y2="40"></line>
+<line stroke-width="1" x1="100%" x2="calc(100% - 20px)" y1="100%" y2="100%"></line>
+<line stroke-width="1" x1="100%" x2="100%" y1="100%" y2="calc(100% - 20px)"></line>
+</svg>
+<!-- Vector Mars with High-Ellipticity Orbit -->
+<svg class="w-40 h-40 relative z-10" fill="none" viewbox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+<!-- Eccentric Aerobraking Orbit (150 x 6200 km) -->
+<path class="opacity-80" d="M35 125 C 20 80, 50 25, 140 35 C 175 40, 160 120, 100 135 C 75 142, 45 145, 35 125 Z" stroke="#E0703D" stroke-dasharray="4 3" stroke-width="1.2"></path>
+<!-- Mars Body -->
+<circle cx="85" cy="85" fill="#3D1D14" r="44" stroke="#E0703D" stroke-width="1.5"></circle>
+<!-- Northern Polar Ice Cap -->
+<path d="M72 43 Q 85 50 98 43 Q 85 41 72 43 Z" fill="#E6ECF8" opacity="0.9"></path>
+<!-- Valles Marineris Canyon Rift -->
+<path d="M64 88 Q 80 94 105 84 Q 112 86 118 84" fill="none" stroke="#E0703D" stroke-linecap="round" stroke-width="2"></path>
+<path d="M68 91 Q 84 97 106 87" fill="none" stroke="#1F0D09" stroke-width="1"></path>
+<!-- Olympus Mons Feature -->
+<circle cx="60" cy="72" fill="#5E2818" r="5" stroke="#E0703D" stroke-width="0.8"></circle>
+<circle cx="60" cy="72" fill="#E6ECF8" r="1.5"></circle>
+<!-- Aeropause Dip indicator -->
+<path d="M42 105 L 50 115" stroke="#3DBE7A" stroke-width="1.5"></path>
+<circle cx="42" cy="105" fill="#3DBE7A" r="2"></circle>
+</svg>
+<div class="absolute bottom-2 left-3 font-telemetry-label text-telemetry-label text-[#8FA0C4]">PERIAPSIS: 150 KM // APOAPSIS: 6,200 KM</div>
+<div class="absolute bottom-2 right-3 font-telemetry-label text-telemetry-label text-[#E0A030]">AEROBRAKE DIP: ACTIVE</div>
+</div>
+<!-- Specs Grid -->
+<div class="grid grid-cols-2 gap-2 bg-[#0B1020] p-3 rounded border border-[#2A3350] mb-4">
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Budget Ceiling</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#E6ECF8] font-bold">$650,000,000 <span class="text-xs text-[#8FA0C4]">($650M)</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Payload Mass Limit</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#E6ECF8] font-bold">2,500 <span class="text-xs text-[#8FA0C4]">kg</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Min Science Telemetry</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#E6ECF8] font-bold">200,000 <span class="text-xs text-[#8FA0C4]">MB</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Difficulty Rating</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#E0703D]">★★★☆ <span class="text-xs text-[#8FA0C4]">(ADVANCED)</span></span>
+</div>
+</div>
+</div>
+<button class="w-full h-12 bg-[#E0703D] hover:bg-[#ff8f5a] text-[#0B1020] font-headline-panel text-headline-panel font-bold tracking-widest uppercase rounded flex items-center justify-center gap-2 transition-all active:scale-[0.99] shadow-[0_2px_0_rgba(0,0,0,0.6)]" type="button">
+<span class="material-symbols-outlined text-[20px]">flight_takeoff</span>
+          [ ARCHITECT MAVEN ]
+        </button>
+</article>
+<!-- CARD 4: OSIRIS-REx Profile (Progressive Unlock Locked) -->
+<article class="mission-card group relative bg-[#131A30]/60 border border-[#2A3350] rounded-lg p-5 flex flex-col justify-between overflow-hidden" data-zone="deep-space">
+<!-- Accent indicator bar -->
+<div class="absolute top-0 left-0 right-0 h-1 bg-[#9D74FF]/40 rounded-t-lg"></div>
+<div class="absolute top-3 right-3 text-[#9D74FF] font-telemetry-label text-telemetry-label tracking-widest pointer-events-none opacity-40">GRID: ORX-BENNU</div>
+<!-- Dimmed content container with crosshatch styling -->
+<div class="opacity-45 select-none pointer-events-none">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#E0A030] text-[16px]">lock</span>
+<span class="font-telemetry-label text-telemetry-label text-[#E0A030] uppercase tracking-wider bg-[rgba(224,160,48,0.1)] border border-[#E0A030]/30 px-2 py-0.5 rounded-sm">LOCKED (REQUIRES MARS CLEARANCE)</span>
+</div>
+<span class="font-telemetry-clock text-telemetry-clock text-[#8FA0C4]">TIER 4 ACCESS ONLY</span>
+</div>
+<div class="font-subhead-tech text-subhead-tech text-[#8FA0C4] tracking-wider uppercase mb-1">
+            TIER 4 // DEEP SPACE SAMPLE RETURN &amp; RE-ENTRY
+          </div>
+<h2 class="font-headline-panel text-headline-panel text-[#E6ECF8] font-bold tracking-wide uppercase mb-4">
+            OSIRIS-REx // BENNU SAMPLE RETURN
+          </h2>
+<!-- Bennu Diamond Polygonal Vector Graphic -->
+<div class="relative w-full h-44 bg-[#0B1020] border border-[#2A3350] rounded flex items-center justify-center overflow-hidden mb-4">
+<svg class="w-36 h-36" fill="none" viewbox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+<!-- Microgravity Orbit line -->
+<ellipse cx="80" cy="80" rx="65" ry="32" stroke="#9D74FF" stroke-dasharray="2 4" stroke-width="1" transform="rotate(-30 80 80)"></ellipse>
+<!-- Bennu Polygonal Asteroid -->
+<polygon fill="#1A192E" points="80,36 118,58 126,92 98,124 58,122 36,90 44,56" stroke="#9D74FF" stroke-width="1.5"></polygon>
+<!-- Topographical facets -->
+<polyline opacity="0.6" points="80,36 82,78 126,92" stroke="#9D74FF" stroke-width="0.8"></polyline>
+<polyline opacity="0.6" points="82,78 98,124" stroke="#9D74FF" stroke-width="0.8"></polyline>
+<polyline opacity="0.6" points="82,78 58,122" stroke="#9D74FF" stroke-width="0.8"></polyline>
+<polyline opacity="0.6" points="82,78 36,90" stroke="#9D74FF" stroke-width="0.8"></polyline>
+<polyline opacity="0.6" points="82,78 44,56" stroke="#9D74FF" stroke-width="0.8"></polyline>
+<!-- TAGSAM sampling indicator -->
+<circle cx="82" cy="78" fill="#9D74FF" r="4"></circle>
+<line stroke="#3DBE7A" stroke-dasharray="2 2" stroke-width="1" x1="82" x2="108" y1="78" y2="48"></line>
+<rect fill="#E6ECF8" height="6" width="8" x="106" y="44"></rect>
+</svg>
+<div class="absolute bottom-2 left-3 font-telemetry-label text-telemetry-label text-[#8FA0C4]">TARGET: 101955 BENNU // DIA: 490 M</div>
+</div>
+<!-- Specs Grid -->
+<div class="grid grid-cols-2 gap-2 bg-[#0B1020] p-3 rounded border border-[#2A3350] mb-4">
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Budget Ceiling</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#E6ECF8] font-bold">$800,000,000 <span class="text-xs text-[#8FA0C4]">($800M)</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Payload Mass Limit</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#E6ECF8] font-bold">2,110 <span class="text-xs text-[#8FA0C4]">kg</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Sample Objective</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#E6ECF8] font-bold">500k MB <span class="text-xs text-[#8FA0C4]">+ 60g SAMPLE</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">Difficulty Rating</span>
+<span class="font-telemetry-readout-md text-telemetry-readout-md text-[#9D74FF]">★★★★ <span class="text-xs text-[#8FA0C4]">(MASTER)</span></span>
+</div>
+</div>
+</div>
+<!-- Lockout Overlay Banner Centered -->
+<div class="absolute inset-x-5 top-1/2 -translate-y-1/2 bg-[#0B1020]/95 border border-[#E0A030] p-4 rounded text-center backdrop-blur-sm z-20 shadow-xl">
+<div class="flex items-center justify-center gap-2 mb-1.5">
+<span class="material-symbols-outlined text-[#E0A030] text-[22px]">lock_clock</span>
+<span class="font-headline-panel text-headline-panel text-[#E0A030] font-bold uppercase tracking-wider">RESTRICTED CLEARANCE</span>
+</div>
+<p class="font-body-default text-body-dense text-[#E6ECF8]">
+            Complete the <strong class="text-[#E0703D]">MAVEN Martian Flight Certification</strong> trajectory run to unlock Bennu asteroid rendezvous &amp; Earth atmospheric re-entry profile.
+          </p>
+</div>
+<!-- Disabled CTA -->
+<button class="w-full h-12 border border-[#2A3350] bg-[#0B1020] text-[#8FA0C4] font-headline-panel text-headline-panel font-semibold tracking-widest uppercase rounded flex items-center justify-center gap-2 cursor-not-allowed opacity-60" disabled="" type="button">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+          [ CLEARANCE RESTRICTED - LOCKED ]
+        </button>
+</article>
+</div>
+<!-- Bottom Telemetry Summary Dock -->
+<footer class="bg-[#131A30] border border-[#2A3350] rounded-lg p-4 flex flex-col lg:flex-row items-center justify-between gap-4">
+<div class="flex flex-wrap items-center gap-4 md:gap-6 w-full lg:w-auto">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded bg-[#192342] border border-[#2A3350] flex items-center justify-center text-[#3DA5F5]">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">ACTIVE OPERATOR</span>
+<span class="font-headline-panel text-subhead-tech text-[#E6ECF8] font-bold">CDR. ALEX VANCE</span>
+</div>
+</div>
+<div class="hidden sm:block h-7 w-[1px] bg-[#2A3350]"></div>
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded bg-[#192342] border border-[#2A3350] flex items-center justify-center text-[#3DBE7A]">
+<span class="material-symbols-outlined text-[20px]">database</span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-label text-telemetry-label text-[#8FA0C4] uppercase">CUMULATIVE SCIENCE ARCHIVE</span>
+<span class="font-telemetry-clock text-telemetry-clock text-[#3DBE7A]">344,800 MB // LEVEL 04 CERTIFIED</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 w-full lg:w-auto justify-end">
+<button class="px-4 py-2 bg-[#0B1020] hover:bg-[#192342] border border-[#2A3350] text-[#8FA0C4] hover:text-[#E6ECF8] font-subhead-tech text-subhead-tech rounded flex items-center gap-1.5 transition-colors uppercase tracking-wider" type="button">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+          AEROSPACE MANUAL
+        </button>
+<button class="px-4 py-2 bg-[#0B1020] hover:bg-[#192342] border border-[#2A3350] text-[#3DA5F5] hover:text-[#98cbff] font-subhead-tech text-subhead-tech rounded flex items-center gap-1.5 transition-colors uppercase tracking-wider" type="button">
+<span class="material-symbols-outlined text-[16px]">rocket</span>
+          FLEET MATRIX
+        </button>
+</div>
+</footer>
+</div>
+</div>
+<script>
+  // Simple interactive filter tabs
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.mission-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => {
+        b.classList.remove('bg-[#192342]', 'border-[#3DA5F5]', 'text-[#3DA5F5]');
+        b.classList.add('bg-[#0B1020]', 'border-[#2A3350]', 'text-[#8FA0C4]');
+      });
+      btn.classList.remove('bg-[#0B1020]', 'border-[#2A3350]', 'text-[#8FA0C4]');
+      btn.classList.add('bg-[#192342]', 'border-[#3DA5F5]', 'text-[#3DA5F5]');
+
+      const target = btn.getAttribute('data-target');
+      cards.forEach(card => {
+        const zone = card.getAttribute('data-zone');
+        if (target === 'all' || zone === target) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script></main><footer class="w-full bg-[#0B1020] border-t border-[#2A3350] py-space-lg"><div class="w-full px-margin-desktop flex flex-col md:flex-row items-center justify-between gap-space-sm"><div class="flex items-center space-x-space-md"><span class="font-telemetry-label text-telemetry-label text-outline uppercase">NASA SPACE APPS CHALLENGE // FLIGHT OPERATIONS ARCHITECTURE</span><span class="font-telemetry-label text-telemetry-label text-[#3DBE7A] flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[#3DBE7A]"></span>OPERATIONAL</span></div><div class="font-telemetry-label text-telemetry-label text-on-surface-variant tracking-wider uppercase">© MISSION ARCHITECT CONSOLE • ALL DELTA-V SYSTEMS VERIFIED</div></div></footer></body></html>

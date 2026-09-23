@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Architect — Spacecraft CAD Workbench</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            deepSpace: '#0B1020',
+            panelBase: '#10172B',
+            panelElevated: '#131A30',
+            panelSurface: '#18223E',
+            borderHairline: '#2A3350',
+            borderGlow: '#3E4D78',
+            blueprintBg: '#0A0F1D',
+            
+            earthOrbit: '#3DA5F5',
+            moonPolar: '#C9D3EA',
+            marsRust: '#E0703D',
+            asteroidViolet: '#9D74FF',
+
+            telemetryGreen: '#3DBE7A',
+            telemetryAmber: '#E0A030',
+            telemetryRed: '#E0453D',
+            
+            textPrimary: '#E6ECF8',
+            textMuted: '#8FA0C4',
+          },
+          fontFamily: {
+            orbitron: ['Orbitron', 'sans-serif'],
+            rajdhani: ['Rajdhani', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0B1020; }
+    ::-webkit-scrollbar-thumb { background: #2A3350; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3E4D78; }
+
+    /* Range slider custom styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: #18223E;
+      height: 6px;
+      border-radius: 3px;
+      outline: none;
+      border: 1px solid #2A3350;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #E0703D;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(224, 112, 61, 0.6);
+      border: 2px solid #FFFFFF;
+      transition: transform 0.1s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    /* Blueprint grid pattern */
+    .blueprint-grid {
+      background-color: #0A0F1D;
+      background-image: 
+        linear-gradient(rgba(42, 51, 80, 0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(42, 51, 80, 0.25) 1px, transparent 1px),
+        linear-gradient(rgba(61, 165, 245, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(61, 165, 245, 0.08) 1px, transparent 1px);
+      background-size: 10px 10px, 10px 10px, 50px 50px, 50px 50px;
+    }
+
+    .gauge-pulse {
+      animation: gaugePulse 3s infinite alternate ease-in-out;
+    }
+    @keyframes gaugePulse {
+      0% { opacity: 0.85; }
+      100% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); }
+    }
+  </style>
+</head>
+<body class="bg-deepSpace text-textPrimary font-sans h-full flex flex-col antialiased select-none overflow-hidden">
+
+  <!-- TOP APP NAVIGATION & BREADCRUMB -->
+  <header class="h-12 bg-panelElevated border-b border-borderHairline flex items-center justify-between px-4 z-40 shrink-0">
+    <div class="flex items-center gap-3">
+      <!-- Vector Insignia Patch Thumbnail -->
+      <div class="w-8 h-8 rounded-full border border-borderHairline bg-deepSpace flex items-center justify-center p-0.5 relative group cursor-pointer" title="NASA Mission Architect">
+        <img src="https://lh3.googleusercontent.com/aida/AEtjO1VmfNgugJ9moiWniLIaOgOwqPxrrqw_8uqHfqEXUY_GSc3oITRvaJ1qtXIe5RLMb-UcnMBUMANucVsfSCsWNpDYrSgWXDhvEAoqT3n_B_vL4sLq7Qi4BVovW35_oXeeCYHPBb9qcAhQwjOOhNeLpQbEll5ANFBIatOVhq-fFNusgvtzgqmbqEnHYu4J6pY2m4mrJgJPFw3nsQQze7D_SeDki2WGwcVeXKNJtg3I1BjqMgRFHmXlEDhOBkM" alt="Mission Architect Patch" class="w-full h-full object-contain">
+      </div>
+      <div class="flex items-baseline gap-2">
+        <span class="font-orbitron font-bold text-xs tracking-wider text-white">MISSION ARCHITECT</span>
+        <span class="text-xs text-borderGlow">//</span>
+        <span class="font-rajdhani font-semibold text-xs tracking-wide text-marsRust">PROFILE 03: MAVEN MARS AERONOMY</span>
+        <span class="text-xs text-borderGlow">//</span>
+        <span class="font-mono text-[11px] text-textMuted bg-panelBase px-1.5 py-0.5 rounded border border-borderHairline">CAD WORKBENCH REV 4.2</span>
+      </div>
+    </div>
+
+    <!-- Quick Telemetry Clock & Flight Directorate Flags -->
+    <div class="flex items-center gap-4 text-xs font-mono">
+      <div class="hidden md:flex items-center gap-2 text-textMuted">
+        <span class="inline-block w-2 h-2 rounded-full bg-telemetryGreen animate-pulse"></span>
+        <span>SYS KINEMATICS: NOMINAL</span>
+      </div>
+      <div class="bg-panelBase border border-borderHairline rounded px-2.5 py-1 text-marsRust font-mono text-xs flex items-center gap-1.5">
+        <span class="text-textMuted text-[10px]">T-MINUS:</span>
+        <span id="met-clock">00:14:32.08</span>
+      </div>
+      <button class="text-xs text-textMuted hover:text-white px-2 py-1 rounded hover:bg-panelSurface transition border border-transparent hover:border-borderHairline">
+        [ HOTKEYS: ? ]
+      </button>
+    </div>
+  </header>
+
+  <!-- ZONE 1: TOP HORIZONTAL TELEMETRY CONSTRAINT STATUS BAR (7 LIVE GAUGES) -->
+  <section class="bg-panelBase border-b border-borderHairline px-4 py-2 shrink-0 z-30 shadow-md">
+    <div class="flex items-center justify-between mb-1.5">
+      <div class="flex items-center gap-2">
+        <span class="font-rajdhani font-bold text-xs tracking-widest text-textMuted uppercase flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-marsRust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+          LIVE CONSTRAINT MARGIN TELEMETRY MATRIX
+        </span>
+        <span class="text-[10px] font-mono text-textMuted bg-deepSpace px-1.5 py-0.2 rounded border border-borderHairline">REAL-TIME PROPAGATOR</span>
+      </div>
+      <div class="flex items-center gap-3 text-[11px] font-mono">
+        <span class="flex items-center gap-1 text-telemetryGreen"><span class="w-2 h-2 rounded-sm bg-telemetryGreen"></span> NOMINAL (&lt;85%)</span>
+        <span class="flex items-center gap-1 text-telemetryAmber"><span class="w-2 h-2 rounded-sm bg-telemetryAmber"></span> CAUTION (&ge;85%)</span>
+        <span class="flex items-center gap-1 text-telemetryRed"><span class="w-2 h-2 rounded-sm bg-telemetryRed"></span> VIOLATION (&ge;100%)</span>
+      </div>
+    </div>
+
+    <!-- 7 Live Gauges Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+      <!-- 1. Program Cost -->
+      <div id="gauge-card-cost" class="bg-panelElevated border border-borderHairline rounded p-2 flex flex-col justify-between transition-colors">
+        <div class="flex items-center justify-between text-[11px] text-textMuted mb-0.5">
+          <span class="font-semibold uppercase truncate">1. Cost Cap</span>
+          <span id="status-badge-cost" class="font-mono text-[10px] text-telemetryGreen flex items-center gap-0.5">● NOM</span>
+        </div>
+        <div class="flex items-baseline justify-between font-mono text-xs">
+          <span id="val-cost" class="font-bold text-textPrimary">$585M</span>
+          <span class="text-[10px] text-textMuted">/ $650M</span>
+        </div>
+        <!-- Progress Bar -->
+        <div class="w-full bg-deepSpace h-1.5 rounded-full overflow-hidden mt-1.5 border border-borderHairline">
+          <div id="bar-cost" class="bg-telemetryGreen h-full transition-all duration-300" style="width: 90%;"></div>
+        </div>
+      </div>
+
+      <!-- 2. Wet Mass vs Booster -->
+      <div id="gauge-card-mass" class="bg-panelElevated border border-borderHairline rounded p-2 flex flex-col justify-between transition-colors">
+        <div class="flex items-center justify-between text-[11px] text-textMuted mb-0.5">
+          <span class="font-semibold uppercase truncate">2. Wet Mass</span>
+          <span id="status-badge-mass" class="font-mono text-[10px] text-telemetryGreen flex items-center gap-0.5">● NOM</span>
+        </div>
+        <div class="flex items-baseline justify-between font-mono text-xs">
+          <span id="val-mass" class="font-bold text-textPrimary">2,120 kg</span>
+          <span class="text-[10px] text-textMuted">/ 2,500 kg</span>
+        </div>
+        <div class="w-full bg-deepSpace h-1.5 rounded-full overflow-hidden mt-1.5 border border-borderHairline">
+          <div id="bar-mass" class="bg-telemetryGreen h-full transition-all duration-300" style="width: 84.8%;"></div>
+        </div>
+      </div>
+
+      <!-- 3. Delta-V Margin -->
+      <div id="gauge-card-deltav" class="bg-panelElevated border border-borderHairline rounded p-2 flex flex-col justify-between transition-colors">
+        <div class="flex items-center justify-between text-[11px] text-textMuted mb-0.5">
+          <span class="font-semibold uppercase truncate">3. &Delta;v Margin</span>
+          <span id="status-badge-deltav" class="font-mono text-[10px] text-telemetryGreen flex items-center gap-0.5">● +230 m/s</span>
+        </div>
+        <div class="flex items-baseline justify-between font-mono text-xs">
+          <span id="val-deltav" class="font-bold text-textPrimary">2,280 m/s</span>
+          <span class="text-[10px] text-textMuted">&ge; 2,050 req</span>
+        </div>
+        <div class="w-full bg-deepSpace h-1.5 rounded-full overflow-hidden mt-1.5 border border-borderHairline">
+          <div id="bar-deltav" class="bg-telemetryGreen h-full transition-all duration-300" style="width: 100%;"></div>
+        </div>
+      </div>
+
+      <!-- 4. Power (at 1.52 AU) -->
+      <div id="gauge-card-power" class="bg-panelElevated border border-borderHairline rounded p-2 flex flex-col justify-between transition-colors">
+        <div class="flex items-center justify-between text-[11px] text-textMuted mb-0.5">
+          <span class="font-semibold uppercase truncate">4. Solar (1.52 AU)</span>
+          <span id="status-badge-power" class="font-mono text-[10px] text-telemetryGreen flex items-center gap-0.5">● NOM</span>
+        </div>
+        <div class="flex items-baseline justify-between font-mono text-xs">
+          <span id="val-power" class="font-bold text-textPrimary">1,050 W</span>
+          <span class="text-[10px] text-textMuted">&ge; 920 W req</span>
+        </div>
+        <div class="w-full bg-deepSpace h-1.5 rounded-full overflow-hidden mt-1.5 border border-borderHairline">
+          <div id="bar-power" class="bg-telemetryGreen h-full transition-all duration-300" style="width: 87.6%;"></div>
+        </div>
+      </div>
+
+      <!-- 5. Thermal Margin -->
+      <div id="gauge-card-thermal" class="bg-panelElevated border border-borderHairline rounded p-2 flex flex-col justify-between transition-colors">
+        <div class="flex items-center justify-between text-[11px] text-textMuted mb-0.5">
+          <span class="font-semibold uppercase truncate">5. Thermal Env</span>
+          <span id="status-badge-thermal" class="font-mono text-[10px] text-telemetryGreen flex items-center gap-0.5">● NOM</span>
+        </div>
+        <div class="flex items-baseline justify-between font-mono text-xs">
+          <span id="val-thermal" class="font-bold text-textPrimary">-42°C</span>
+          <span class="text-[10px] text-textMuted">[-150°..+120°]</span>
+        </div>
+        <div class="w-full bg-deepSpace h-1.5 rounded-full overflow-hidden mt-1.5 border border-borderHairline">
+          <div id="bar-thermal" class="bg-telemetryGreen h-full transition-all duration-300" style="width: 65%;"></div>
+        </div>
+      </div>
+
+      <!-- 6. Comms Link Margin -->
+      <div id="gauge-card-comms" class="bg-panelElevated border border-borderHairline rounded p-2 flex flex-col justify-between transition-colors">
+        <div class="flex items-center justify-between text-[11px] text-textMuted mb-0.5">
+          <span class="font-semibold uppercase truncate">6. DSN Lock</span>
+          <span id="status-badge-comms" class="font-mono text-[10px] text-telemetryGreen flex items-center gap-0.5">● LOCKED</span>
+        </div>
+        <div class="flex items-baseline justify-between font-mono text-xs">
+          <span id="val-comms" class="font-bold text-textPrimary">+4.2 dB</span>
+          <span class="text-[10px] text-textMuted">&ge; +3.0 req</span>
+        </div>
+        <div class="w-full bg-deepSpace h-1.5 rounded-full overflow-hidden mt-1.5 border border-borderHairline">
+          <div id="bar-comms" class="bg-telemetryGreen h-full transition-all duration-300" style="width: 78%;"></div>
+        </div>
+      </div>
+
+      <!-- 7. Onboard Storage -->
+      <div id="gauge-card-storage" class="bg-panelElevated border border-borderHairline rounded p-2 flex flex-col justify-between transition-colors">
+        <div class="flex items-center justify-between text-[11px] text-textMuted mb-0.5">
+          <span class="font-semibold uppercase truncate">7. Data Storage</span>
+          <span id="status-badge-storage" class="font-mono text-[10px] text-telemetryGreen flex items-center gap-0.5">● NOM</span>
+        </div>
+        <div class="flex items-baseline justify-between font-mono text-xs">
+          <span id="val-storage" class="font-bold text-textPrimary">256,000 MB</span>
+          <span class="text-[10px] text-textMuted">&ge; 200k req</span>
+        </div>
+        <div class="w-full bg-deepSpace h-1.5 rounded-full overflow-hidden mt-1.5 border border-borderHairline">
+          <div id="bar-storage" class="bg-telemetryGreen h-full transition-all duration-300" style="width: 78%;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN INTERACTIVE SPLIT WORKSPACE: ZONE 2 (CATALOG) & ZONE 3 (BLUEPRINT CANVAS) -->
+  <main class="flex-1 flex flex-col lg:flex-row min-h-0 overflow-hidden">
+    
+    <!-- ======================================================== -->
+    <!-- ZONE 2 (MIDDLE-LEFT): SUBSYSTEM CATEGORY TABS & PARTS   -->
+    <!-- ======================================================== -->
+    <section class="w-full lg:w-7/12 flex flex-col bg-deepSpace border-r border-borderHairline min-h-0">
+      
+      <!-- 8 Category Tabs Scrollable Header -->
+      <div class="bg-panelElevated border-b border-borderHairline px-3 py-2 shrink-0">
+        <div class="flex items-center justify-between mb-1.5">
+          <div class="flex items-center gap-2">
+            <span class="font-rajdhani font-bold text-xs tracking-wider text-textMuted uppercase">SUBSYSTEM MANIFEST ARCHITECTURE</span>
+            <span class="text-[10px] font-mono text-marsRust bg-marsRust/10 px-1 rounded border border-marsRust/30">8 / 8 REQUIRED</span>
+          </div>
+          <span class="text-[11px] font-mono text-textMuted">ACTIVE SUB: <strong class="text-white" id="active-subsystem-label">PROPULSION (ACS / TMI)</strong></span>
+        </div>
+
+        <!-- 8 Pill Tabs -->
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs font-rajdhani font-semibold">
+          <button onclick="switchTab('launch')" class="subsystem-tab px-3 py-1.5 rounded whitespace-nowrap transition border border-borderHairline bg-panelBase text-textMuted hover:text-white" data-tab="launch">
+            [1] LAUNCH VEHICLE
+          </button>
+          <button onclick="switchTab('bus')" class="subsystem-tab px-3 py-1.5 rounded whitespace-nowrap transition border border-borderHairline bg-panelBase text-textMuted hover:text-white" data-tab="bus">
+            [2] BUS STRUCTURE
+          </button>
+          <button onclick="switchTab('power')" class="subsystem-tab px-3 py-1.5 rounded whitespace-nowrap transition border border-borderHairline bg-panelBase text-textMuted hover:text-white" data-tab="power">
+            [3] POWER &amp; SOLAR
+          </button>
+          <button onclick="switchTab('propulsion')" class="subsystem-tab px-3 py-1.5 rounded whitespace-nowrap transition border border-marsRust bg-marsRust text-deepSpace font-bold shadow-sm" data-tab="propulsion">
+            [4] PROPULSION
+          </button>
+          <button onclick="switchTab('comms')" class="subsystem-tab px-3 py-1.5 rounded whitespace-nowrap transition border border-borderHairline bg-panelBase text-textMuted hover:text-white" data-tab="comms">
+            [5] COMMS (RF/X-BAND)
+          </button>
+          <button onclick="switchTab('instruments')" class="subsystem-tab px-3 py-1.5 rounded whitespace-nowrap transition border border-borderHairline bg-panelBase text-textMuted hover:text-white" data-tab="instruments">
+            [6] INSTRUMENTS
+          </button>
+          <button onclick="switchTab('thermal')" class="subsystem-tab px-3 py-1.5 rounded whitespace-nowrap transition border border-borderHairline bg-panelBase text-textMuted hover:text-white" data-tab="thermal">
+            [7] THERMAL MLI
+          </button>
+          <button onclick="switchTab('redundancy')" class="subsystem-tab px-3 py-1.5 rounded whitespace-nowrap transition border border-borderHairline bg-panelBase text-textMuted hover:text-white" data-tab="redundancy">
+            [8] REDUNDANCY
+          </button>
+        </div>
+      </div>
+
+      <!-- Part Selection Pane (Scrollable Content) -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-4">
+
+        <!-- Active Subsystem Briefing Banner -->
+        <div class="p-3 bg-panelElevated/80 border-l-2 border-marsRust border border-borderHairline rounded flex items-start justify-between">
+          <div>
+            <h3 class="font-orbitron text-xs font-bold text-white flex items-center gap-2">
+              <span class="inline-block w-2 h-2 rounded-full bg-marsRust"></span>
+              PROPULSION STAGE &amp; TRAJECTORY MANEUVER SYSTEM
+            </h3>
+            <p class="text-xs text-textMuted mt-1 leading-relaxed">
+              MAVEN requires sufficient delta-v to execute Trajectory Correction Maneuvers (TCM 1–4), Mars Orbit Insertion (MOI, 1,250 m/s), period-reduction burns, and reaction wheel desaturations across a 2-year orbital baseline.
+            </p>
+          </div>
+          <span class="font-mono text-xs text-textMuted border border-borderHairline bg-panelBase px-2 py-1 rounded shrink-0 ml-3">REQ &Delta;v: 2,050 m/s</span>
+        </div>
+
+        <!-- Part Selection Cards (2-Column Grid) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+          <!-- OPTION 1: Hydrazine Monopropellant (CURRENTLY SELECTED / DEFAULT) -->
+          <div id="part-card-1" class="border-2 border-marsRust bg-panelElevated rounded-lg p-3.5 relative shadow-lg cursor-pointer transition-all hover:border-marsRust">
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <input type="radio" name="prop_sys" id="prop-hydrazine" checked onchange="selectPropulsion('hydrazine')" class="accent-marsRust w-4 h-4 cursor-pointer">
+                <label for="prop-hydrazine" class="font-orbitron font-bold text-xs text-white cursor-pointer tracking-wide">
+                  Hydrazine Monopropellant
+                </label>
+              </div>
+              <span class="font-mono text-[10px] text-marsRust bg-marsRust/15 px-1.5 py-0.5 rounded border border-marsRust/40 uppercase font-semibold">SELECTED</span>
+            </div>
+
+            <p class="text-[11px] text-textMuted mb-3 leading-tight">
+              Six 170N trajectory thrusters + six 22N attitude thrusters utilizing catalytic decomposition of N<sub>2</sub>H<sub>4</sub>. Exact flight architecture of NASA MAVEN.
+            </p>
+
+            <!-- Technical Monospace Specs Grid -->
+            <div class="grid grid-cols-3 gap-1.5 bg-deepSpace p-2 rounded border border-borderHairline font-mono text-[10px] mb-3">
+              <div>
+                <span class="text-textMuted block">Dry Mass</span>
+                <span class="font-bold text-textPrimary">45 kg</span>
+              </div>
+              <div>
+                <span class="text-textMuted block">Specific Imp (Isp)</span>
+                <span class="font-bold text-textPrimary">225 sec</span>
+              </div>
+              <div>
+                <span class="text-textMuted block">Base Cost</span>
+                <span class="font-bold text-textPrimary">$48M</span>
+              </div>
+            </div>
+
+            <!-- Dynamic Slider: Propellant Load -->
+            <div class="bg-panelBase p-2.5 rounded border border-borderHairline">
+              <div class="flex items-center justify-between text-xs mb-1.5">
+                <span class="font-rajdhani font-semibold text-textMuted uppercase text-[11px]">Propellant Tank Fill (N<sub>2</sub>H<sub>4</sub>):</span>
+                <span class="font-mono font-bold text-marsRust text-xs" id="readout-propellant">1,150 kg</span>
+              </div>
+              <input type="range" id="slider-propellant" min="500" max="1450" step="25" value="1150" class="w-full" oninput="updatePropellant(this.value)">
+              <div class="flex justify-between text-[10px] font-mono text-textMuted mt-1">
+                <span>500 kg (Underpowered)</span>
+                <span>1,000 kg</span>
+                <span>1,450 kg (Max Tank)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- OPTION 2: Bi-propellant (MMH/NTO) Staged Combustion -->
+          <div id="part-card-2" class="border border-borderHairline bg-panelBase hover:bg-panelElevated rounded-lg p-3.5 relative cursor-pointer transition-all hover:border-borderGlow opacity-90">
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <input type="radio" name="prop_sys" id="prop-biprop" onchange="selectPropulsion('biprop')" class="accent-marsRust w-4 h-4 cursor-pointer">
+                <label for="prop-biprop" class="font-orbitron font-bold text-xs text-textPrimary cursor-pointer tracking-wide">
+                  MMH / NTO Bi-Propellant
+                </label>
+              </div>
+              <span class="font-mono text-[10px] text-textMuted bg-deepSpace px-1.5 py-0.5 rounded border border-borderHairline uppercase">HIGH ISP</span>
+            </div>
+
+            <p class="text-[11px] text-textMuted mb-3 leading-tight">
+              Dual hypergolic fuel/oxidizer setup. Higher specific impulse, but heavier plumbing dry mass and increased thermal valve heaters cost.
+            </p>
+
+            <div class="grid grid-cols-3 gap-1.5 bg-deepSpace p-2 rounded border border-borderHairline font-mono text-[10px] mb-3">
+              <div>
+                <span class="text-textMuted block">Dry Mass</span>
+                <span class="font-bold text-textPrimary">78 kg</span>
+              </div>
+              <div>
+                <span class="text-textMuted block">Specific Imp (Isp)</span>
+                <span class="font-bold text-telemetryGreen">312 sec</span>
+              </div>
+              <div>
+                <span class="text-textMuted block">Base Cost</span>
+                <span class="font-bold text-telemetryAmber">$82M</span>
+              </div>
+            </div>
+
+            <div class="p-2 rounded bg-deepSpace/60 border border-borderHairline text-[11px] text-textMuted flex items-center justify-between">
+              <span>Heater &amp; Pressurization:</span>
+              <span class="font-mono text-xs text-textPrimary">+85 W draw</span>
+            </div>
+          </div>
+
+          <!-- OPTION 3: Hall Effect Xenon Ion Propulsion -->
+          <div id="part-card-3" class="border border-borderHairline bg-panelBase hover:bg-panelElevated rounded-lg p-3.5 relative cursor-pointer transition-all hover:border-borderGlow opacity-90">
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <input type="radio" name="prop_sys" id="prop-ion" onchange="selectPropulsion('ion')" class="accent-marsRust w-4 h-4 cursor-pointer">
+                <label for="prop-ion" class="font-orbitron font-bold text-xs text-textPrimary cursor-pointer tracking-wide">
+                  NEXT-C Xenon Ion Thruster
+                </label>
+              </div>
+              <span class="font-mono text-[10px] text-asteroidViolet bg-asteroidViolet/15 px-1.5 py-0.5 rounded border border-asteroidViolet/40 uppercase font-semibold">ION ELECTRIC</span>
+            </div>
+
+            <p class="text-[11px] text-textMuted mb-3 leading-tight">
+              Electrostatic ion thruster with extreme efficiency. Drastically lowers fuel mass, but requires massive 2,400W solar array and 380 days of continuous low-thrust spiral.
+            </p>
+
+            <div class="grid grid-cols-3 gap-1.5 bg-deepSpace p-2 rounded border border-borderHairline font-mono text-[10px] mb-3">
+              <div>
+                <span class="text-textMuted block">Dry Mass</span>
+                <span class="font-bold text-textPrimary">110 kg</span>
+              </div>
+              <div>
+                <span class="text-textMuted block">Specific Imp (Isp)</span>
+                <span class="font-bold text-telemetryGreen">3,400 sec</span>
+              </div>
+              <div>
+                <span class="text-textMuted block">Base Cost</span>
+                <span class="font-bold text-telemetryRed">$115M</span>
+              </div>
+            </div>
+
+            <div class="p-2 rounded bg-deepSpace/60 border border-borderHairline text-[11px] text-telemetryAmber flex items-center justify-between font-mono">
+              <span>Solar Requirement:</span>
+              <span class="font-bold">&ge; 2,400 W (DEFICIT)</span>
+            </div>
+          </div>
+
+          <!-- OPTION 4: Cold Gas RCS Only (Sub-orbital / Cubesat) -->
+          <div id="part-card-4" class="border border-borderHairline bg-panelBase rounded-lg p-3.5 relative opacity-60">
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <input type="radio" name="prop_sys" id="prop-coldgas" disabled class="accent-marsRust w-4 h-4 cursor-not-allowed">
+                <label for="prop-coldgas" class="font-orbitron font-bold text-xs text-textMuted cursor-not-allowed tracking-wide">
+                  Cold Gas N<sub>2</sub> Micro-Thruster
+                </label>
+              </div>
+              <span class="font-mono text-[10px] text-telemetryRed bg-telemetryRed/15 px-1.5 py-0.5 rounded border border-telemetryRed/40 uppercase">INCOMPATIBLE</span>
+            </div>
+            <p class="text-[11px] text-textMuted mb-2">
+              Insufficient thrust impulse for Trans-Mars Injection or Mars Orbit Capture burns. Suitable only for smallsat orbiters.
+            </p>
+            <div class="text-[10px] font-mono text-telemetryRed bg-telemetryRed/10 p-1.5 rounded border border-telemetryRed/30">
+              ERR: DELTA-V CEILING &lt; 280 m/s (MAVEN requires 2,050 m/s)
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary Subsystem Interactive Sliders: Solar Wings & Antenna Tuners -->
+        <div class="bg-panelElevated border border-borderHairline rounded-lg p-4 mt-2">
+          <div class="flex items-center justify-between mb-3 border-b border-borderHairline pb-2">
+            <span class="font-orbitron text-xs font-bold text-white flex items-center gap-2">
+              <svg class="w-4 h-4 text-earthOrbit" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+              DYNAMIC SYSTEM SCALING TUNERS
+            </span>
+            <span class="text-[11px] font-mono text-textMuted">AFFECTS SCHEMATIC BLUEPRINT GEOMETRY</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Solar Array Area Slider -->
+            <div class="bg-panelBase p-3 rounded border border-borderHairline">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-rajdhani font-semibold text-xs text-textPrimary">Twin Solar Array Area:</span>
+                <span class="font-mono text-xs font-bold text-earthOrbit" id="readout-solar-area">11.4 m² (1,050 W)</span>
+              </div>
+              <input type="range" id="slider-solar" min="6.0" max="18.0" step="0.2" value="11.4" class="w-full" oninput="updateSolarArea(this.value)">
+              <div class="flex justify-between text-[10px] font-mono text-textMuted mt-1">
+                <span>6.0 m² (550 W)</span>
+                <span>11.4 m² (Baseline)</span>
+                <span>18.0 m² (1,650 W)</span>
+              </div>
+            </div>
+
+            <!-- High-Gain Antenna Diameter Slider -->
+            <div class="bg-panelBase p-3 rounded border border-borderHairline">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-rajdhani font-semibold text-xs text-textPrimary">High-Gain Antenna Dish Diameter:</span>
+                <span class="font-mono text-xs font-bold text-earthOrbit" id="readout-antenna-size">&Oslash; 2.0 m (+4.2 dB)</span>
+              </div>
+              <input type="range" id="slider-antenna" min="1.0" max="3.2" step="0.1" value="2.0" class="w-full" oninput="updateAntennaDiameter(this.value)">
+              <div class="flex justify-between text-[10px] font-mono text-textMuted mt-1">
+                <span>1.0 m (Poor DSN link)</span>
+                <span>2.0 m (Benchmark)</span>
+                <span>3.2 m (Heavy Dish)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- ZONE 3 (MIDDLE-RIGHT): 2D TECHNICAL BLUEPRINT SCHEMATIC  -->
+    <!-- ======================================================== -->
+    <section class="w-full lg:w-5/12 flex flex-col bg-blueprintBg min-h-0 relative">
+      
+      <!-- Blueprint Top Control Bar -->
+      <div class="bg-panelElevated/90 border-b border-borderHairline px-4 py-2 flex items-center justify-between shrink-0 z-20">
+        <div class="flex items-center gap-2">
+          <div class="w-2.5 h-2.5 rounded-sm bg-earthOrbit shadow-[0_0_8px_#3DA5F5]"></div>
+          <span class="font-orbitron font-bold text-xs text-white tracking-wider">ORTHOGRAPHIC BLUEPRINT SCHEMATIC</span>
+        </div>
+        <div class="flex items-center gap-2 font-mono text-[11px]">
+          <span class="text-textMuted">SCALE: 1:25</span>
+          <span class="text-borderGlow">|</span>
+          <span class="text-marsRust">VIEW: NADIR / VECTOR FORWARD</span>
+        </div>
+      </div>
+
+      <!-- Interactive SVG Canvas Canvas -->
+      <div class="flex-1 blueprint-grid relative flex items-center justify-center p-4 overflow-hidden">
+        
+        <!-- Center Origin Marker -->
+        <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+          <div class="w-full h-[1px] bg-borderHairline/40"></div>
+          <div class="absolute h-full w-[1px] bg-borderHairline/40"></div>
+          <!-- Coordinate labels -->
+          <span class="absolute top-2 left-2 font-mono text-[10px] text-borderGlow">+Z NADIR / SCIENCE INSTRUMENTS</span>
+          <span class="absolute bottom-2 left-2 font-mono text-[10px] text-borderGlow">-Z PROPULSION EXHAUST / TMI STAGE</span>
+          <span class="absolute top-2 right-2 font-mono text-[10px] text-borderGlow">+Y / -Y SOLAR BOOMS</span>
+        </div>
+
+        <!-- DYNAMIC 2D VECTOR SPACECRAFT CROSS-SECTION -->
+        <svg id="spacecraft-schematic" viewBox="0 0 600 480" class="w-full h-full max-h-[460px] object-contain drop-shadow-2xl z-10">
+          <defs>
+            <!-- Solar cell photovoltaic texture -->
+            <pattern id="solarGrid" width="12" height="12" patternUnits="userSpaceOnUse">
+              <rect width="12" height="12" fill="#132448" stroke="#3DA5F5" stroke-width="0.75" stroke-opacity="0.6"/>
+              <line x1="0" y1="6" x2="12" y2="6" stroke="#3DA5F5" stroke-width="0.3" stroke-opacity="0.4"/>
+            </pattern>
+            
+            <!-- Metallic Bus Linear Gradient -->
+            <linearGradient id="busGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#243358"/>
+              <stop offset="50%" stop-color="#162038"/>
+              <stop offset="100%" stop-color="#0E172A"/>
+            </linearGradient>
+
+            <!-- Thrust Plume Gradient (Faint simulation) -->
+            <radialGradient id="nozzleGrad" cx="50%" cy="0%" r="100%">
+              <stop offset="0%" stop-color="#E0703D" stop-opacity="0.8"/>
+              <stop offset="70%" stop-color="#E0453D" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="#0B1020" stop-opacity="0"/>
+            </radialGradient>
+
+            <!-- Dimension Line Marker -->
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#8FA0C4"/>
+            </marker>
+          </defs>
+
+          <!-- ================= SENSORS & BOOMS ================= -->
+          <!-- Top Science Magnetometer / Langmuir Probe Boom -->
+          <line x1="300" y1="130" x2="300" y2="55" stroke="#E6ECF8" stroke-width="2.5"/>
+          <circle cx="300" cy="50" r="6" fill="#3DA5F5" stroke="#E6ECF8" stroke-width="1.5"/>
+          <line x1="288" y1="50" x2="312" y2="50" stroke="#3DA5F5" stroke-width="1.5"/>
+          <text x="315" y="55" fill="#8FA0C4" font-family="'JetBrains Mono'" font-size="9">SWEA / MAG BOOM</text>
+
+          <!-- IUVS Ultraviolet Spectrograph Sensor Head -->
+          <rect x="285" y="115" width="30" height="15" fill="#C9D3EA" stroke="#162038" stroke-width="1.5"/>
+          <circle cx="300" cy="122" r="3" fill="#E0703D"/>
+
+          <!-- ================= LEFT SOLAR ARRAY WING ================= -->
+          <!-- Dynamic Left Solar Wing Group -->
+          <g id="solar-wing-left" transform="translate(0, 0)">
+            <!-- Gull-wing Articulation Joint -->
+            <rect id="left-panel-outer" x="70" y="195" width="130" height="70" rx="3" fill="url(#solarGrid)" stroke="#3DA5F5" stroke-width="1.5"/>
+            <rect id="left-panel-inner" x="205" y="200" width="30" height="60" fill="#182542" stroke="#2A3350" stroke-width="1"/>
+            <!-- Solar Boom Strut -->
+            <line x1="205" y1="230" x2="245" y2="230" stroke="#E6ECF8" stroke-width="3"/>
+            <!-- Panel Edge Trim -->
+            <line x1="70" y1="195" x2="70" y2="265" stroke="#3DA5F5" stroke-width="3"/>
+            <text x="75" y="210" fill="#8FA0C4" font-family="'JetBrains Mono'" font-size="9">SOLAR WING 1 (-Y)</text>
+          </g>
+
+          <!-- ================= RIGHT SOLAR ARRAY WING ================= -->
+          <!-- Dynamic Right Solar Wing Group -->
+          <g id="solar-wing-right" transform="translate(0, 0)">
+            <!-- Gull-wing Articulation Joint -->
+            <line x1="355" y1="230" x2="395" y2="230" stroke="#E6ECF8" stroke-width="3"/>
+            <rect id="right-panel-inner" x="365" y="200" width="30" height="60" fill="#182542" stroke="#2A3350" stroke-width="1"/>
+            <rect id="right-panel-outer" x="400" y="195" width="130" height="70" rx="3" fill="url(#solarGrid)" stroke="#3DA5F5" stroke-width="1.5"/>
+            <line x1="530" y1="195" x2="530" y2="265" stroke="#3DA5F5" stroke-width="3"/>
+            <text x="410" y="210" fill="#8FA0C4" font-family="'JetBrains Mono'" font-size="9">SOLAR WING 2 (+Y)</text>
+          </g>
+
+          <!-- ================= CENTRAL HEXAGONAL SPACECRAFT BUS ================= -->
+          <!-- Hex Bus Body: Points centered at (300, 230) -->
+          <polygon points="245,170 355,170 380,230 355,290 245,290 220,230" fill="url(#busGrad)" stroke="#3DA5F5" stroke-width="2"/>
+          
+          <!-- Tactical Panel Seams & Avionics Bays -->
+          <line x1="245" y1="170" x2="355" y2="290" stroke="#2A3350" stroke-width="1"/>
+          <line x1="355" y1="170" x2="245" y2="290" stroke="#2A3350" stroke-width="1"/>
+          <rect x="270" y="200" width="60" height="60" rx="4" fill="#0E172A" stroke="#2A3350" stroke-width="1.5"/>
+          
+          <!-- Central Propellant Tank Silhouette inside Bus -->
+          <circle cx="300" cy="230" r="24" fill="#1A2644" stroke="#E0703D" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <text x="300" y="233" fill="#E0703D" font-family="'JetBrains Mono'" font-size="8" text-anchor="middle">N2H4 TANK</text>
+
+          <!-- NASA Meatball Watermark Badge on Bus Plate -->
+          <circle cx="300" cy="207" r="4" fill="#3DA5F5"/>
+
+          <!-- ================= HIGH-GAIN PARABOLIC DISH ANTENNA (EARTH VECTOR) ================= -->
+          <g id="hga-group" transform="translate(0, 0)">
+            <!-- Feed Horn Gimbal Struts -->
+            <line x1="280" y1="150" x2="280" y2="105" stroke="#8FA0C4" stroke-width="1.5"/>
+            <!-- Parabolic Curvature Arc -->
+            <path id="hga-dish-path" d="M 235,110 Q 280,140 325,110" fill="none" stroke="#E6ECF8" stroke-width="3"/>
+            <!-- Secondary reflector feed tip -->
+            <circle cx="280" cy="125" r="3" fill="#E0703D"/>
+            <line x1="280" y1="125" x2="280" y2="110" stroke="#E0703D" stroke-width="1.5"/>
+            <text x="250" y="98" fill="#8FA0C4" font-family="'JetBrains Mono'" font-size="9">HIGH GAIN DISH (2.0m)</text>
+          </g>
+
+          <!-- ================= PROPULSION ENGINE NOZZLE & ACS CLUSTERS ================= -->
+          <!-- Main Gimballed Engine Bell Nozzle (-Z Axis) -->
+          <path d="M 285,290 L 280,335 L 320,335 L 315,290 Z" fill="#1C2744" stroke="#E0703D" stroke-width="2"/>
+          <ellipse cx="300" cy="335" rx="20" ry="5" fill="#E0703D" stroke="#FFA49E" stroke-width="1"/>
+          <!-- Simulated faint test thrust cone -->
+          <polygon points="280,336 320,336 340,390 260,390" fill="url(#nozzleGrad)"/>
+          <text x="300" y="360" fill="#E0703D" font-family="'JetBrains Mono'" font-size="8" text-anchor="middle">170N REA NOZZLE</text>
+
+          <!-- Attitude Control Thrusters (ACS) Quads -->
+          <rect x="215" y="222" width="6" height="16" fill="#E0703D"/>
+          <rect x="379" y="222" width="6" height="16" fill="#E0703D"/>
+
+          <!-- ================= ANNOTATED DIMENSION ARROWS ================= -->
+          <!-- Span Width Annotation (Wingspan) -->
+          <line x1="70" y1="415" x2="530" y2="415" stroke="#8FA0C4" stroke-width="1" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+          <text id="dim-wingspan-text" x="300" y="432" fill="#E6ECF8" font-family="'JetBrains Mono'" font-size="11" font-weight="bold" text-anchor="middle">WINGSPAN: 11.42 m (SOLAR EXTENDED)</text>
+
+          <!-- Height Annotation -->
+          <line x1="45" y1="50" x2="45" y2="335" stroke="#8FA0C4" stroke-width="1" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+          <text x="35" y="200" fill="#8FA0C4" font-family="'JetBrains Mono'" font-size="10" transform="rotate(-90 35 200)" text-anchor="middle">TOTAL HEIGHT: 3.15 m</text>
+        </svg>
+
+        <!-- Blueprint Real-Time Mass & Power Overlay Pill -->
+        <div class="absolute bottom-3 right-3 bg-panelBase/90 border border-borderHairline backdrop-blur p-2.5 rounded font-mono text-[11px] text-textMuted shadow-lg">
+          <div class="flex justify-between gap-4">
+            <span>DRY MASS:</span>
+            <span class="text-textPrimary font-bold" id="blueprint-dry-mass">970 kg</span>
+          </div>
+          <div class="flex justify-between gap-4">
+            <span>PROPELLANT:</span>
+            <span class="text-marsRust font-bold" id="blueprint-prop-mass">1,150 kg</span>
+          </div>
+          <div class="flex justify-between gap-4 border-t border-borderHairline mt-1 pt-1">
+            <span>TOTAL WET:</span>
+            <span class="text-white font-bold" id="blueprint-wet-mass">2,120 kg</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- ZONE 4: BOTTOM STICKY SUMMARY & MISSION PROCEED CTA BAR  -->
+  <!-- ======================================================== -->
+  <footer class="h-16 bg-panelElevated border-t border-borderHairline px-6 flex items-center justify-between z-40 shrink-0 shadow-2xl">
+    
+    <!-- Left: Bill of Materials & Flight Readiness Digest -->
+    <div class="flex items-center gap-6">
+      <div class="flex flex-col">
+        <span class="text-[10px] font-rajdhani font-bold text-textMuted uppercase tracking-wider">FLIGHT BILL OF MATERIALS // SUMMARY</span>
+        <div class="flex items-center gap-3 font-mono text-sm">
+          <span class="text-white">TOTAL COST: <strong id="footer-total-cost" class="text-telemetryGreen font-bold">$585M</strong></span>
+          <span class="text-borderHairline">|</span>
+          <span class="text-white">TOTAL WET MASS: <strong id="footer-total-mass" class="text-white font-bold">2,120 kg</strong></span>
+          <span class="text-borderHairline">|</span>
+          <span class="text-white">&Delta;V BUDGET: <strong id="footer-total-deltav" class="text-telemetryGreen font-bold">2,280 m/s</strong></span>
+        </div>
+      </div>
+
+      <!-- Constraint Checklist Status Pill -->
+      <div id="flight-readiness-pill" class="hidden sm:flex items-center gap-2 bg-telemetryGreen/10 border border-telemetryGreen/30 text-telemetryGreen px-3 py-1.5 rounded text-xs font-mono">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+        <span>ALL 7 CONSTRAINTS NOMINAL // GO FOR PRE-FLIGHT REVIEW</span>
+      </div>
+    </div>
+
+    <!-- Right: Navigation Actions -->
+    <div class="flex items-center gap-3">
+      <!-- Revert to Benchmark -->
+      <button onclick="resetDefaults()" class="px-3 py-2 rounded text-xs font-rajdhani font-bold text-textMuted hover:text-white border border-borderHairline hover:bg-panelSurface transition">
+        REVERT TO NASA BENCHMARK
+      </button>
+
+      <!-- Primary Action CTA -->
+      <button id="btn-proceed" onclick="proceedToReview()" class="h-11 px-6 rounded bg-marsRust hover:bg-[#eb7a47] text-white font-orbitron font-bold text-xs tracking-wider flex items-center gap-2 shadow-[0_0_15px_rgba(224,112,61,0.4)] transition-all transform active:scale-95">
+        <span>[ PROCEED TO PRE-FLIGHT REVIEW ]</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+      </button>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT REAL-TIME TELEMETRY ENGINE & DYNAMIC BLUEPRINT SYNC -->
+  <script>
+    // State representation
+    const state = {
+      baseCost: 585, // M USD
+      dryMass: 970, // kg
+      propMass: 1150, // kg
+      solarArea: 11.4, // m2
+      antennaDiam: 2.0, // m
+      propType: 'hydrazine', // 'hydrazine' | 'biprop' | 'ion'
+      
+      // Constraints limits
+      maxCost: 650,
+      maxMass: 2500,
+      reqDeltaV: 2050,
+      reqPower: 920,
+      reqComms: 3.0,
+      reqStorage: 200000,
+    };
+
+    // Tab switcher
+    function switchTab(tabId) {
+      document.querySelectorAll('.subsystem-tab').forEach(btn => {
+        if(btn.dataset.tab === tabId) {
+          btn.className = 'subsystem-tab px-3 py-1.5 rounded whitespace-nowrap transition border border-marsRust bg-marsRust text-deepSpace font-bold shadow-sm';
+        } else {
+          btn.className = 'subsystem-tab px-3 py-1.5 rounded whitespace-nowrap transition border border-borderHairline bg-panelBase text-textMuted hover:text-white';
+        }
+      });
+      const labelMap = {
+        'launch': 'LAUNCH VEHICLE (ATLAS V 401 CEILING)',
+        'bus': 'BUS STRUCTURE (CENTRAL HEX CORE)',
+        'power': 'POWER & DUAL SOLAR ARRAYS',
+        'propulsion': 'PROPULSION (ACS / TMI REA CLUSTER)',
+        'comms': 'TELECOMMUNICATIONS (HIGH GAIN X-BAND)',
+        'instruments': 'SCIENCE SUITE (IUVS, SWEA, STATIC, MAG)',
+        'thermal': 'PASSIVE MLI BLANKETS & HEATERS',
+        'redundancy': 'DUAL AVIONICS & FAULT DETECTION'
+      };
+      document.getElementById('active-subsystem-label').innerText = labelMap[tabId] || tabId.toUpperCase();
+    }
+
+    // Dynamic Slider 1: Propellant Load
+    function updatePropellant(val) {
+      state.propMass = parseInt(val);
+      document.getElementById('readout-propellant').innerText = `${state.propMass.toLocaleString()} kg`;
+      recalculateTelemetry();
+    }
+
+    // Dynamic Slider 2: Solar Array Area
+    function updateSolarArea(val) {
+      state.solarArea = parseFloat(val);
+      const watts = Math.round(state.solarArea * 92.1); // ~92W/m2 at Mars 1.52 AU
+      document.getElementById('readout-solar-area').innerText = `${state.solarArea.toFixed(1)} m² (${watts.toLocaleString()} W)`;
+      
+      // Dynamic SVG Blueprint updates
+      const scaleX = state.solarArea / 11.4;
+      const leftPanel = document.getElementById('left-panel-outer');
+      const rightPanel = document.getElementById('right-panel-outer');
+      if (leftPanel && rightPanel) {
+        const newWidth = Math.round(130 * scaleX);
+        leftPanel.setAttribute('width', newWidth);
+        leftPanel.setAttribute('x', 200 - newWidth);
+        rightPanel.setAttribute('width', newWidth);
+      }
+      document.getElementById('dim-wingspan-text').innerText = `WINGSPAN: ${(state.solarArea * 1.0).toFixed(2)} m (SOLAR EXTENDED)`;
+
+      recalculateTelemetry();
+    }
+
+    // Dynamic Slider 3: Antenna Dish Diameter
+    function updateAntennaDiameter(val) {
+      state.antennaDiam = parseFloat(val);
+      // Link margin formula: +4.2 dB nominal at 2.0m dish
+      const db = (4.2 + (state.antennaDiam - 2.0) * 4.5).toFixed(1);
+      document.getElementById('readout-antenna-size').innerText = `\u00D8 ${state.antennaDiam.toFixed(1)} m (${db > 0 ? '+' : ''}${db} dB)`;
+      
+      // Dynamic SVG Blueprint antenna path
+      const dishPath = document.getElementById('hga-dish-path');
+      if (dishPath) {
+        const span = state.antennaDiam * 22; // px radius
+        dishPath.setAttribute('d', `M ${280 - span},${130 - span/3} Q 280,140 ${280 + span},${130 - span/3}`);
+      }
+
+      recalculateTelemetry();
+    }
+
+    // Radio button Propulsion selector
+    function selectPropulsion(type) {
+      state.propType = type;
+      
+      // Highlight card borders
+      ['1', '2', '3'].forEach(id => {
+        const card = document.getElementById('part-card-' + id);
+        if (card) {
+          card.classList.remove('border-2', 'border-marsRust', 'shadow-lg');
+          card.classList.add('border-borderHairline');
+        }
+      });
+
+      if (type === 'hydrazine') {
+        document.getElementById('part-card-1').classList.add('border-2', 'border-marsRust', 'shadow-lg');
+        state.baseCost = 585;
+        state.dryMass = 970;
+      } else if (type === 'biprop') {
+        document.getElementById('part-card-2').classList.add('border-2', 'border-marsRust', 'shadow-lg');
+        state.baseCost = 619;
+        state.dryMass = 1003;
+      } else if (type === 'ion') {
+        document.getElementById('part-card-3').classList.add('border-2', 'border-marsRust', 'shadow-lg');
+        state.baseCost = 652;
+        state.dryMass = 1035;
+      }
+
+      recalculateTelemetry();
+    }
+
+    // Core Physics & Telemetry Propagation Calculation
+    function recalculateTelemetry() {
+      const wetMass = state.dryMass + state.propMass;
+      
+      // Delta-V using Tsiolkovsky rocket equation: dV = Isp * 9.80665 * ln(m0 / mf)
+      let isp = 225;
+      if (state.propType === 'biprop') isp = 312;
+      if (state.propType === 'ion') isp = 3400;
+      
+      const massRatio = wetMass / state.dryMass;
+      const deltaV = Math.round(isp * 9.80665 * Math.log(massRatio));
+
+      // Power calculation at 1.52 AU Mars orbit
+      const solarPower = Math.round(state.solarArea * 92.1);
+
+      // Comms Link Margin
+      const linkMargin = parseFloat((4.2 + (state.antennaDiam - 2.0) * 4.5).toFixed(1));
+
+      // Storage
+      const storage = 256000;
+
+      // Program Cost calculation
+      let currentCost = state.baseCost + Math.round((state.solarArea - 11.4) * 4) + Math.round((state.antennaDiam - 2.0) * 12);
+      if (state.propMass > 1200) currentCost += 6;
+
+      // Update Blueprint stats
+      document.getElementById('blueprint-dry-mass').innerText = `${state.dryMass.toLocaleString()} kg`;
+      document.getElementById('blueprint-prop-mass').innerText = `${state.propMass.toLocaleString()} kg`;
+      document.getElementById('blueprint-wet-mass').innerText = `${wetMass.toLocaleString()} kg`;
+
+      // Update Bottom Footer Summary
+      document.getElementById('footer-total-cost').innerText = `$${currentCost}M`;
+      document.getElementById('footer-total-mass').innerText = `${wetMass.toLocaleString()} kg`;
+      document.getElementById('footer-total-deltav').innerText = `${deltaV.toLocaleString()} m/s`;
+
+      // Telemetry Gauge Evaluations
+      let hasViolations = false;
+
+      // 1. Cost Gauge
+      updateGauge(
+        'cost',
+        `$${currentCost}M`,
+        currentCost,
+        state.maxCost,
+        currentCost / state.maxCost,
+        currentCost > state.maxCost,
+        currentCost >= (state.maxCost * 0.85) && currentCost <= state.maxCost
+      );
+
+      // 2. Mass Gauge
+      updateGauge(
+        'mass',
+        `${wetMass.toLocaleString()} kg`,
+        wetMass,
+        state.maxMass,
+        wetMass / state.maxMass,
+        wetMass > state.maxMass,
+        wetMass >= (state.maxMass * 0.85) && wetMass <= state.maxMass
+      );
+
+      // 3. Delta-V Gauge (Reversed: lower than req is critical)
+      const dvPercent = Math.min(1.0, deltaV / state.reqDeltaV);
+      const isDvCritical = deltaV < state.reqDeltaV;
+      const isDvCaution = deltaV >= state.reqDeltaV && deltaV < (state.reqDeltaV + 100);
+      updateGauge(
+        'deltav',
+        `${deltaV.toLocaleString()} m/s`,
+        deltaV,
+        state.reqDeltaV,
+        dvPercent,
+        isDvCritical,
+        isDvCaution
+      );
+
+      // 4. Power Gauge (Lower than 920W is critical)
+      const isPowerCritical = solarPower < state.reqPower;
+      const isPowerCaution = solarPower >= state.reqPower && solarPower < (state.reqPower + 60);
+      updateGauge(
+        'power',
+        `${solarPower.toLocaleString()} W`,
+        solarPower,
+        state.reqPower,
+        Math.min(1.0, solarPower / 1200),
+        isPowerCritical,
+        isPowerCaution
+      );
+
+      // 6. Comms Gauge
+      const isCommsCritical = linkMargin < state.reqComms;
+      const isCommsCaution = linkMargin >= state.reqComms && linkMargin < 3.8;
+      updateGauge(
+        'comms',
+        `${linkMargin > 0 ? '+' : ''}${linkMargin} dB`,
+        linkMargin,
+        state.reqComms,
+        Math.max(0.1, Math.min(1.0, (linkMargin + 2) / 10)),
+        isCommsCritical,
+        isCommsCaution
+      );
+
+      // Check violation state
+      if (currentCost > state.maxCost || wetMass > state.maxMass || isDvCritical || isPowerCritical || isCommsCritical) {
+        hasViolations = true;
+      }
+
+      // Update CTA button & readiness banner
+      const proceedBtn = document.getElementById('btn-proceed');
+      const readinessPill = document.getElementById('flight-readiness-pill');
+      if (hasViolations) {
+        proceedBtn.classList.add('opacity-50', 'cursor-not-allowed', 'bg-telemetryRed', 'hover:bg-telemetryRed');
+        proceedBtn.classList.remove('bg-marsRust', 'hover:bg-[#eb7a47]');
+        proceedBtn.innerHTML = `<span>[ FLIGHT CONSTRAINTS VIOLATED ]</span>`;
+        readinessPill.className = "hidden sm:flex items-center gap-2 bg-telemetryRed/15 border border-telemetryRed/40 text-telemetryRed px-3 py-1.5 rounded text-xs font-mono";
+        readinessPill.innerHTML = `<span>&#9888; CRITICAL SYSTEM VIOLATION DETECTED</span>`;
+      } else {
+        proceedBtn.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-telemetryRed', 'hover:bg-telemetryRed');
+        proceedBtn.classList.add('bg-marsRust', 'hover:bg-[#eb7a47]');
+        proceedBtn.innerHTML = `<span>[ PROCEED TO PRE-FLIGHT REVIEW &gt; ]</span>`;
+        readinessPill.className = "hidden sm:flex items-center gap-2 bg-telemetryGreen/10 border border-telemetryGreen/30 text-telemetryGreen px-3 py-1.5 rounded text-xs font-mono";
+        readinessPill.innerHTML = `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg><span>ALL 7 CONSTRAINTS NOMINAL // GO FOR PRE-FLIGHT REVIEW</span>`;
+      }
+    }
+
+    // Helper for gauge colors & status pills
+    function updateGauge(key, displayVal, curVal, maxVal, ratio, isCritical, isCaution) {
+      const valEl = document.getElementById(`val-${key}`);
+      const barEl = document.getElementById(`bar-${key}`);
+      const badgeEl = document.getElementById(`status-badge-${key}`);
+      const cardEl = document.getElementById(`gauge-card-${key}`);
+
+      if (!valEl || !barEl || !badgeEl || !cardEl) return;
+
+      valEl.innerText = displayVal;
+      barEl.style.width = `${Math.min(100, Math.max(5, ratio * 100))}%`;
+
+      if (isCritical) {
+        cardEl.className = 'bg-telemetryRed/10 border border-telemetryRed rounded p-2 flex flex-col justify-between transition-colors shadow-[0_0_8px_rgba(224,69,61,0.2)]';
+        barEl.className = 'bg-telemetryRed h-full transition-all duration-300';
+        badgeEl.className = 'font-mono text-[10px] text-telemetryRed font-bold flex items-center gap-0.5 animate-pulse';
+        badgeEl.innerText = '● CRIT FAIL';
+      } else if (isCaution) {
+        cardEl.className = 'bg-telemetryAmber/10 border border-telemetryAmber rounded p-2 flex flex-col justify-between transition-colors';
+        barEl.className = 'bg-telemetryAmber h-full transition-all duration-300';
+        badgeEl.className = 'font-mono text-[10px] text-telemetryAmber font-bold flex items-center gap-0.5';
+        badgeEl.innerText = '▲ WARN ≥85%';
+      } else {
+        cardEl.className = 'bg-panelElevated border border-borderHairline rounded p-2 flex flex-col justify-between transition-colors';
+        barEl.className = 'bg-telemetryGreen h-full transition-all duration-300';
+        badgeEl.className = 'font-mono text-[10px] text-telemetryGreen flex items-center gap-0.5';
+        badgeEl.innerText = '● NOMINAL';
+      }
+    }
+
+    // Revert button
+    function resetDefaults() {
+      document.getElementById('prop-hydrazine').checked = true;
+      selectPropulsion('hydrazine');
+      document.getElementById('slider-propellant').value = 1150;
+      updatePropellant(1150);
+      document.getElementById('slider-solar').value = 11.4;
+      updateSolarArea(11.4);
+      document.getElementById('slider-antenna').value = 2.0;
+      updateAntennaDiameter(2.0);
+    }
+
+    function proceedToReview() {
+      alert("FLIGHT ARCHITECTURE APPROVED!\nProceeding to Orbit Insertion & Mission Execution Phase.");
+    }
+
+    // Live clock ticker
+    setInterval(() => {
+      const d = new Date();
+      const ms = Math.floor(d.getMilliseconds() / 10).toString().padStart(2, '0');
+      const sec = d.getSeconds().toString().padStart(2, '0');
+      const min = d.getMinutes().toString().padStart(2, '0');
+      const hr = d.getHours().toString().padStart(2, '0');
+      const clock = document.getElementById('met-clock');
+      if (clock) clock.innerText = `${hr}:${min}:${sec}.${ms}`;
+    }, 90);
+
+    // Initial calculation run
+    recalculateTelemetry();
+  </script>
+</body>
+</html>

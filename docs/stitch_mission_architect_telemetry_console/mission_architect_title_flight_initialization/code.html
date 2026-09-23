@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_blank" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-high":"#182a48","primary-fixed-dim":"#98cbff","on-tertiary-fixed-variant":"#5422b2","on-tertiary-container":"#42009f","on-surface-variant":"#bfc7d3","outline-variant":"#3f4851","error-container":"#93000a","on-tertiary":"#3c0091","on-surface":"#d7e2ff","on-secondary-container":"#abb5cb","surface-bright":"#283958","surface-tint":"#98cbff","on-background":"#d7e2ff","outline":"#89919c","surface-container-highest":"#243553","tertiary-fixed":"#e9ddff","on-primary":"#003354","on-secondary-fixed":"#121c2c","on-tertiary-fixed":"#23005c","primary-container":"#3da5f5","on-primary-container":"#00395d","tertiary-container":"#ac8bff","surface":"#001330","surface-container-low":"#071b38","on-secondary":"#273142","on-primary-fixed-variant":"#004a77","primary-fixed":"#cfe5ff","surface-dim":"#001330","on-secondary-fixed-variant":"#3d475a","inverse-primary":"#00639c","surface-variant":"#243553","inverse-on-surface":"#1f304e","on-error":"#690005","surface-container-lowest":"#000e26","secondary-container":"#3d475a","on-primary-fixed":"#001d33","secondary":"#bdc7dd","on-error-container":"#ffdad6","error":"#ffb4ab","tertiary-fixed-dim":"#d0bcff","secondary-fixed-dim":"#bdc7dd","primary":"#98cbff","secondary-fixed":"#d9e3fa","inverse-surface":"#d7e2ff","surface-container":"#0c1f3d","tertiary":"#d0bcff","background":"#001330"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-sm":"0.5rem",gutter:"0.75rem","space-lg":"1rem","space-md":"0.75rem","space-xl":"1.5rem","margin-desktop":"1.5rem","gutter-desktop":"1rem","space-xs":"0.25rem",margin:"0.75rem"},fontFamily:{"telemetry-label":["JetBrains Mono"],"body-dense":["Inter"],"telemetry-readout-xl":["JetBrains Mono"],"headline-panel":["Space Grotesk"],"body-caption":["Inter"],"display-hero":["Space Grotesk"],"telemetry-clock":["JetBrains Mono"],"subhead-tech":["Space Grotesk"],"telemetry-readout-md":["JetBrains Mono"],"body-default":["Inter"],"display-hero-mobile":["Space Grotesk"]},fontSize:{"telemetry-label":["10px",{lineHeight:"12px",letterSpacing:"0.08em",fontWeight:"500"}],"body-dense":["13px",{lineHeight:"18px",letterSpacing:"0.01em",fontWeight:"400"}],"telemetry-readout-xl":["26px",{lineHeight:"30px",letterSpacing:"-0.02em",fontWeight:"600"}],"headline-panel":["18px",{lineHeight:"24px",letterSpacing:"0.06em",fontWeight:"600"}],"body-caption":["11px",{lineHeight:"15px",letterSpacing:"0.02em",fontWeight:"400"}],"display-hero":["32px",{lineHeight:"38px",letterSpacing:"0.08em",fontWeight:"700"}],"telemetry-clock":["13px",{lineHeight:"16px",letterSpacing:"0.04em",fontWeight:"700"}],"subhead-tech":["13px",{lineHeight:"18px",letterSpacing:"0.05em",fontWeight:"600"}],"telemetry-readout-md":["14px",{lineHeight:"18px",letterSpacing:"0em",fontWeight:"500"}],"body-default":["15px",{lineHeight:"22px",letterSpacing:"0.01em",fontWeight:"400"}],"display-hero-mobile":["24px",{lineHeight:"30px",letterSpacing:"0.06em",fontWeight:"700"}]}}}</script></head><body class="bg-surface font-body-default text-on-surface min-h-screen flex items-center justify-center"><main class="w-full"><div class="flex flex-col w-full relative min-h-screen overflow-hidden select-none bg-surface text-on-surface">
+<!-- Ambient Space Horizon & Procedural Starfield Canvas -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden">
+<svg class="w-full h-full opacity-65" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialgradient cx="50%" cy="32%" id="nebulaA" r="48%">
+<stop offset="0%" stop-color="#3da5f5" stop-opacity="0.14"></stop>
+<stop offset="45%" stop-color="#ac8bff" stop-opacity="0.06"></stop>
+<stop offset="100%" stop-color="#001330" stop-opacity="0"></stop>
+</radialgradient>
+<radialgradient cx="50%" cy="100%" id="horizonGlow" r="60%">
+<stop offset="0%" stop-color="#3da5f5" stop-opacity="0.22"></stop>
+<stop offset="35%" stop-color="#0c1f3d" stop-opacity="0.65"></stop>
+<stop offset="100%" stop-color="#001330" stop-opacity="0"></stop>
+</radialgradient>
+</defs>
+<rect fill="url(#nebulaA)" height="100%" width="100%"></rect>
+<!-- Coordinate Reticle Gridlines -->
+<g opacity="0.45" stroke="#243553" stroke-dasharray="4,8" stroke-width="0.5">
+<line x1="12%" x2="12%" y1="0" y2="100%"></line>
+<line x1="88%" x2="88%" y1="0" y2="100%"></line>
+<line x1="50%" x2="50%" y1="0" y2="100%"></line>
+<line x1="0" x2="100%" y1="50%" y2="50%"></line>
+</g>
+<!-- Tactical Reticle Crosshairs -->
+<circle cx="50%" cy="50%" fill="none" opacity="0.5" r="380" stroke="#182a48" stroke-width="1"></circle>
+<circle cx="50%" cy="50%" fill="none" opacity="0.3" r="390" stroke="#3da5f5" stroke-dasharray="3,12" stroke-width="0.75"></circle>
+<!-- Fixed & Twinkling Stellar Positions -->
+<g fill="#d7e2ff">
+<circle cx="8%" cy="14%" opacity="0.8" r="1"></circle>
+<circle cx="15%" cy="28%" opacity="0.9" r="1.5"></circle>
+<circle cx="23%" cy="11%" opacity="0.4" r="0.8"></circle>
+<circle cx="34%" cy="22%" opacity="0.7" r="1.2"></circle>
+<circle cx="42%" cy="9%" opacity="0.8" r="1"></circle>
+<circle cx="67%" cy="17%" opacity="0.9" r="1.4"></circle>
+<circle cx="78%" cy="26%" opacity="0.5" r="0.9"></circle>
+<circle cx="84%" cy="13%" opacity="0.85" r="1.8"></circle>
+<circle cx="92%" cy="34%" opacity="0.6" r="1"></circle>
+<circle cx="11%" cy="65%" opacity="0.5" r="1.2"></circle>
+<circle cx="19%" cy="78%" opacity="0.7" r="0.8"></circle>
+<circle cx="81%" cy="72%" opacity="0.65" r="1.5"></circle>
+<circle cx="89%" cy="61%" opacity="0.75" r="1"></circle>
+<circle cx="95%" cy="82%" opacity="0.4" r="1.3"></circle>
+<circle cx="5%" cy="45%" opacity="0.5" r="1"></circle>
+<circle cx="96%" cy="19%" opacity="0.8" r="0.9"></circle>
+</g>
+</svg>
+<!-- Planetary Limb Curvature -->
+<div class="absolute -bottom-72 left-1/2 -translate-x-1/2 w-[1800px] h-[340px] rounded-full bg-surface-container-lowest opacity-95 shadow-[0_-30px_90px_rgba(61,165,245,0.25)]"></div>
+</div>
+<!-- Audio & Configuration HUD Controls -->
+<aside aria-label="Flight Deck HUD Overlays" class="relative z-20 flex justify-between items-center px-6 py-4 w-full text-secondary">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="font-telemetry-label text-telemetry-label tracking-widest text-primary uppercase">UPLINK ACTIVE // DSN 43 CANBERRA</span>
+<span class="text-surface-container-highest">|</span>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant hidden md:inline">FREQ: 8415.22 MHz</span>
+</div>
+<div class="flex items-center gap-3">
+<button aria-label="Toggle Cockpit Audio" class="flex items-center gap-1.5 px-3 py-1 bg-surface-container hover:bg-surface-container-high transition-colors rounded text-secondary hover:text-on-surface" id="audioToggle">
+<span class="material-symbols-outlined text-sm" id="audioIcon">volume_up</span>
+<span class="font-telemetry-label text-telemetry-label uppercase tracking-wider">AUDIO ON</span>
+</button>
+<div class="px-2.5 py-1 bg-surface-container-low rounded text-on-surface-variant font-telemetry-label text-telemetry-label uppercase">
+        UTC <span id="telemetryClock">00:00:00</span>
+</div>
+</div>
+</aside>
+<!-- Central Flight Deck Mission Hub -->
+<section class="relative z-10 flex-1 flex flex-col items-center justify-center px-4 max-w-[1100px] mx-auto w-full text-center">
+<!-- Top NASA Classification Pill -->
+<div class="mb-5 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-surface-container-high/90 shadow-md backdrop-blur-sm">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="font-headline-panel text-telemetry-label tracking-widest text-on-surface font-semibold uppercase">
+        NASA SPACE APPS CHALLENGE // FLIGHT DYNAMICS LAB
+      </span>
+<span class="w-1.5 h-1.5 rounded-full bg-surface-bright"></span>
+<span class="font-telemetry-label text-telemetry-label text-primary font-bold tracking-wider">
+        SYS_READY: NOMINAL
+      </span>
+</div>
+<!-- Central Mission Insignia Container -->
+<div class="relative mb-6 group cursor-pointer" id="insigniaContainer">
+<div class="absolute inset-0 bg-primary/20 rounded-full blur-2xl transform scale-110 group-hover:scale-125 transition-transform duration-700"></div>
+<div class="relative w-[190px] h-[190px] rounded-full p-2 bg-gradient-to-b from-surface-container-highest via-surface-container to-surface-container-lowest shadow-2xl flex items-center justify-center">
+<img alt="Mission Architect Insignia Flight Patch" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(61,165,245,0.4)] transform group-hover:rotate-3 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1X8WJGF-i_GThChD7rIfFhNoV1aLOHxaOU2ZIrw3CDpBHJ3ac3m2hZ44TAR3q1x71gLf_Tb3p5MeBg-dKN7pExC6w-INxSPG1j-iaezY1ZfwLBg1VcDLBuVOP6Ckt7X4U1S0HahxtqQJlzt802uwQ1UPj9XxwO-bFnu2QEkYR12W25PPO12UMf9EiRKBEe-JFCcbpz-TBfHK0LjnWAMSi86_vcgSdLj9juCSwq7CcSt4OjErTECaDAZlNJ-"/>
+</div>
+</div>
+<!-- Primary Title Typography -->
+<div class="relative mb-3">
+<h1 class="font-display-hero text-display-hero uppercase tracking-[0.18em] text-transparent bg-clip-text bg-gradient-to-b from-white via-on-surface to-secondary drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
+        MISSION ARCHITECT
+      </h1>
+<div class="h-0.5 w-36 mx-auto mt-2 bg-gradient-to-r from-transparent via-primary to-transparent opacity-80"></div>
+</div>
+<!-- Value Statement / Narrative Subtitle -->
+<p class="font-body-default text-body-default text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-8">
+      Architect, simulate, and command authentic robotic missions across the solar system.
+      <span class="text-on-surface block sm:inline"> Balance mass limits, power budgets, delta-v constraints, and real orbital mechanics.</span>
+</p>
+<!-- Operational CTA Hardware Switchgear Stack -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-xl mb-4">
+<!-- Primary Flight Execution Trigger -->
+<button class="w-full sm:w-auto flex-1 min-h-[52px] px-8 rounded-lg bg-primary hover:bg-primary-fixed-dim text-on-primary font-headline-panel text-headline-panel tracking-wider uppercase transition-all duration-200 shadow-xl flex items-center justify-center gap-2 group active:scale-[0.98]" id="btnInitFlight">
+<span class="material-symbols-outlined text-xl transition-transform group-hover:translate-x-1" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span>INITIALIZE FLIGHT</span>
+</button>
+<!-- Auxiliary Dossier / Manual CTA -->
+<button class="w-full sm:w-auto px-6 min-h-[52px] rounded-lg bg-surface-container-high hover:bg-surface-bright text-secondary hover:text-on-surface font-headline-panel text-subhead-tech tracking-wider uppercase transition-colors duration-200 flex items-center justify-center gap-2" id="btnManual">
+<span class="material-symbols-outlined text-base">menu_book</span>
+<span>FLIGHT MANUAL &amp; LOGS</span>
+</button>
+</div>
+<!-- Tactile Keyboard Hint Pill -->
+<div class="mb-10 inline-flex items-center gap-2 px-3 py-1 rounded bg-surface-container-low text-on-surface-variant font-telemetry-label text-telemetry-label uppercase tracking-widest">
+<span class="w-1.5 h-1.5 rounded-full bg-primary/70"></span>
+      PRESS <kbd class="px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface font-telemetry-clock text-telemetry-clock">SPACE</kbd> OR <kbd class="px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface font-telemetry-clock text-telemetry-clock">ENTER</kbd> TO COMMENCE
+    </div>
+<!-- Real-time Telemetry Data Matrices HUD Chips -->
+<div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-left">
+<!-- Metric Chip 1 -->
+<div class="p-3 bg-surface-container/90 rounded-lg shadow flex flex-col justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-telemetry-label text-telemetry-label text-primary font-bold">ORBIT REGIMES</span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</div>
+<div class="font-telemetry-readout-md text-telemetry-readout-md text-on-surface font-mono uppercase">LEO / GTO / LUNAR / MARS</div>
+<span class="font-body-caption text-body-caption text-on-surface-variant mt-1">Conic Kepler &amp; Perturbations</span>
+</div>
+<!-- Metric Chip 2 -->
+<div class="p-3 bg-surface-container/90 rounded-lg shadow flex flex-col justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-telemetry-label text-telemetry-label text-error font-bold">PROPULSION DYNAMICS</span>
+<span class="w-2 h-2 rounded-full bg-error"></span>
+</div>
+<div class="font-telemetry-readout-md text-telemetry-readout-md text-on-surface font-mono uppercase">CHEM // ION HALL // RCS</div>
+<span class="font-body-caption text-body-caption text-on-surface-variant mt-1">Tsiolkovsky Solver Engine</span>
+</div>
+<!-- Metric Chip 3 -->
+<div class="p-3 bg-surface-container/90 rounded-lg shadow flex flex-col justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-telemetry-label text-telemetry-label text-primary-fixed-dim font-bold">SIMULATION FIDELITY</span>
+<span class="w-2 h-2 rounded-full bg-primary-fixed-dim"></span>
+</div>
+<div class="font-telemetry-readout-md text-telemetry-readout-md text-on-surface font-mono uppercase">REAL-TIME N-BODY &amp; RK4</div>
+<span class="font-body-caption text-body-caption text-on-surface-variant mt-1">6-DOF Attitude Dynamics</span>
+</div>
+<!-- Metric Chip 4 -->
+<div class="p-3 bg-surface-container/90 rounded-lg shadow flex flex-col justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-telemetry-label text-telemetry-label text-tertiary font-bold">TELEMETRY BUS</span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+<div class="font-telemetry-readout-md text-telemetry-readout-md text-on-surface font-mono uppercase">MIL-STD-1553 COMPLIANT</div>
+<span class="font-body-caption text-body-caption text-on-surface-variant mt-1">CCSDS Frame Sync Packets</span>
+</div>
+</div>
+</section>
+<!-- Flight Operations Station Footer -->
+<footer class="relative z-20 w-full px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-secondary text-body-caption">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs tracking-tighter">
+        NASA
+      </div>
+<span class="font-telemetry-label text-telemetry-label text-on-surface-variant uppercase tracking-wider">
+        MISSION ARCHITECT V1.0.0-PROD // CLIENT-SIDE FLIGHT DYNAMICS
+      </span>
+</div>
+<div class="flex items-center gap-4 font-telemetry-label text-telemetry-label text-on-surface-variant uppercase">
+<span class="hover:text-primary cursor-pointer transition-colors" id="btnTelemetryCheck">DIAGNOSTICS: 0 ERRORS</span>
+<span class="text-surface-container-highest">/</span>
+<span class="hover:text-primary cursor-pointer transition-colors" id="btnEpochSync">EPOCH: J2000.0</span>
+<span class="text-surface-container-highest">/</span>
+<span>LATENCY: 12ms</span>
+</div>
+</footer>
+<!-- Inline Flight Deck Client Logic -->
+<script>
+    (function initFlightDeck() {
+      // Dynamic Telemetry UTC Clock
+      const clockElement = document.getElementById('telemetryClock');
+      function updateClock() {
+        const now = new Date();
+        const hrs = String(now.getUTCHours()).padStart(2, '0');
+        const min = String(now.getUTCMinutes()).padStart(2, '0');
+        const sec = String(now.getUTCSeconds()).padStart(2, '0');
+        clockElement.textContent = hrs + ':' + min + ':' + sec;
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+
+      // Launch Actions & Keyboard Shortcuts
+      function triggerLaunch() {
+        const btn = document.getElementById('btnInitFlight');
+        btn.classList.add('bg-primary-container', 'scale-95');
+        setTimeout(() => {
+          btn.classList.remove('scale-95');
+          alert('FLIGHT ENVIRONMENT INITIALIZED: Vectoring trajectory parameters to Orbital Guidance Core.');
+        }, 160);
+      }
+
+      document.getElementById('btnInitFlight').addEventListener('click', triggerLaunch);
+
+      document.addEventListener('keydown', function(event) {
+        if (event.code === 'Space' || event.code === 'Enter') {
+          event.preventDefault();
+          triggerLaunch();
+        }
+      });
+
+      // Sound Toggle Micro-interaction
+      const audioBtn = document.getElementById('audioToggle');
+      const audioIcon = document.getElementById('audioIcon');
+      let soundEnabled = true;
+      audioBtn.addEventListener('click', function() {
+        soundEnabled = !soundEnabled;
+        if (soundEnabled) {
+          audioIcon.textContent = 'volume_up';
+          audioBtn.querySelector('span:last-child').textContent = 'AUDIO ON';
+          audioBtn.classList.remove('opacity-60');
+        } else {
+          audioIcon.textContent = 'volume_off';
+          audioBtn.querySelector('span:last-child').textContent = 'AUDIO MUTED';
+          audioBtn.classList.add('opacity-60');
+        }
+      });
+
+      // Secondary Mission Log Button
+      document.getElementById('btnManual').addEventListener('click', function() {
+        alert('OPENING ARCHIVE: Loading historical trajectories (Voyager, Cassini, Perseverance, and Artemis I).');
+      });
+    })();
+  </script>
+</div></main></body></html>
