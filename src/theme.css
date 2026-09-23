@@ -250,6 +250,17 @@ a:hover {
    Stitch AI Aerospace HUD & Telemetry Console Utility Classes
    ========================================================================== */
 
+/* Blueprint grid pattern (Stitch Screen 07 CAD Workbench) */
+.blueprint-grid {
+  background-color: var(--blueprint-bg, #0A0F1D);
+  background-image: 
+    linear-gradient(rgba(42, 51, 80, 0.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(42, 51, 80, 0.25) 1px, transparent 1px),
+    linear-gradient(rgba(61, 165, 245, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(61, 165, 245, 0.08) 1px, transparent 1px);
+  background-size: 10px 10px, 10px 10px, 50px 50px, 50px 50px;
+}
+
 /* Starfield procedural layer for deep-space immersion */
 .star-layer {
   background-image: 

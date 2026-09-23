@@ -1,6 +1,6 @@
 /**
- * Pre-flight Review Screen
- * Source: 01-prd.md §4.4, 03-app-flow.md §3, §6, and 04-ui-ux-brief.md §6
+ * Pre-flight Review Screen — Stitch AI Aerospace Clearance Console
+ * Source: docs/stitch/ & 01-prd.md §4.4, 03-app-flow.md §3, §6, and 04-ui-ux-brief.md §6
  *
  * Comprehensive Flight Readiness Review checklist covering all 7 engineering constraints.
  * Amber/red items identify the responsible hardware category and link directly back to CAD.
@@ -21,6 +21,7 @@ import {
   AlertTriangle,
   Rocket,
   ShieldAlert,
+  ShieldCheck,
 } from 'lucide-react';
 
 export const PreflightReviewScreen: React.FC = () => {
@@ -62,12 +63,12 @@ export const PreflightReviewScreen: React.FC = () => {
     <div
       style={{
         '--mission-accent': missionTint,
-        maxWidth: '900px',
+        maxWidth: '1000px',
         margin: '0 auto',
-        padding: 'var(--space-6) var(--space-4) var(--space-8)',
+        padding: 'var(--space-4) var(--space-4) var(--space-8)',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--space-6)',
+        gap: 'var(--space-4)',
       } as React.CSSProperties}
     >
       {/* Tutorial Guidance Step 4 */}
@@ -80,23 +81,70 @@ export const PreflightReviewScreen: React.FC = () => {
         />
       )}
 
-      {/* Screen Header */}
-      <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', color: 'var(--text-muted)', marginBottom: 'var(--space-2)' }}>
-          <CheckCircle2 size={18} color="var(--status-good)" />
-          <span style={{ fontSize: '0.8rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            FLIGHT READINESS REVIEW // FINAL CHECKLIST
-          </span>
+      {/* Stitch Aerospace HUD Header Bar */}
+      <header
+        className="hud-panel"
+        style={{
+          padding: '16px 20px',
+          borderTop: `3px solid var(--mission-accent)`,
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: '12px',
+        }}
+      >
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: 'var(--status-good, #3DBE7A)',
+              marginBottom: '4px',
+              fontFamily: 'var(--font-mono, monospace)',
+              fontSize: '0.72rem',
+              fontWeight: 700,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+            }}
+          >
+            <CheckCircle2 size={15} color="var(--status-good)" />
+            <span>FLIGHT READINESS REVIEW // FINAL CHECKLIST</span>
+          </div>
+
+          <h1
+            style={{
+              fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)',
+              color: 'var(--text-primary)',
+              fontFamily: 'var(--font-display, "Space Grotesk", sans-serif)',
+              margin: 0,
+              letterSpacing: '0.02em',
+            }}
+          >
+            {`Pre-flight Review: ${mission.name}`}
+          </h1>
+
+          <p
+            style={{
+              color: 'var(--text-muted, #8FA0C4)',
+              fontSize: '0.82rem',
+              marginTop: '4px',
+              fontFamily: 'var(--font-mono, monospace)',
+            }}
+          >
+            Evaluate engineering margins before committing the launch vehicle. Review subsystem balances against nominal operating envelopes.
+          </p>
         </div>
 
-        <h1 style={{ fontSize: '2rem', color: 'var(--text-primary)' }}>
-          {`Pre-flight Review: ${mission.name}`}
-        </h1>
-
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginTop: '4px' }}>
-          Evaluate engineering margins before committing the launch vehicle. Review subsystem balances against nominal operating envelopes.
-        </p>
-      </div>
+        {/* Navigation Action */}
+        <Link to={`/missions/${mission.id}/design`} style={{ textDecoration: 'none' }}>
+          <button className="secondary" style={{ padding: '8px 16px', minHeight: '40px', fontSize: '0.8rem' }}>
+            <ArrowLeft size={14} />
+            <span>Return to CAD Workbench</span>
+          </button>
+        </Link>
+      </header>
 
       {/* Budget Overrun Hard-Block Alert */}
       {isBudgetBlocked && (
@@ -104,21 +152,29 @@ export const PreflightReviewScreen: React.FC = () => {
           role="alert"
           style={{
             background: 'rgba(224, 69, 61, 0.15)',
-            border: '2px solid var(--status-critical)',
-            borderRadius: 'var(--radius-lg)',
-            padding: 'var(--space-4) var(--space-5)',
+            border: '2px solid var(--status-critical, #E0453D)',
+            borderRadius: '8px',
+            padding: '14px 18px',
             display: 'flex',
             alignItems: 'center',
-            gap: 'var(--space-4)',
-            boxShadow: 'var(--glow-critical)',
+            gap: '14px',
+            boxShadow: '0 0 16px rgba(224, 69, 61, 0.3)',
           }}
         >
-          <ShieldAlert size={32} color="var(--status-critical)" style={{ flexShrink: 0 }} />
+          <ShieldAlert size={30} color="var(--status-critical)" style={{ flexShrink: 0 }} />
           <div>
-            <h3 style={{ fontSize: '1.05rem', color: 'var(--status-critical)', fontWeight: 700 }}>
+            <h3
+              style={{
+                fontSize: '0.95rem',
+                color: 'var(--status-critical)',
+                fontWeight: 700,
+                fontFamily: 'var(--font-display, "Space Grotesk", sans-serif)',
+                margin: 0,
+              }}
+            >
               LAUNCH HOLD: MISSION BUDGET CAP EXCEEDED
             </h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-primary)', marginTop: '2px' }}>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-primary)', margin: '4px 0 0', lineHeight: 1.4 }}>
               {`Total spacecraft cost ($${((derived?.costUSD.current || 0) / 1_000_000).toFixed(1)}M) exceeds the $${(mission.budgetCapUSD / 1_000_000).toFixed(1)}M congressional appropriation. You must return to Spacecraft CAD and reduce component costs before flight authorization.`}
             </p>
           </div>
@@ -131,20 +187,28 @@ export const PreflightReviewScreen: React.FC = () => {
           role="alert"
           style={{
             background: 'rgba(224, 160, 48, 0.12)',
-            border: '1px solid var(--status-warn)',
-            borderRadius: 'var(--radius-lg)',
-            padding: 'var(--space-4) var(--space-5)',
+            border: '1px solid var(--status-warn, #E0A030)',
+            borderRadius: '8px',
+            padding: '14px 18px',
             display: 'flex',
             alignItems: 'center',
-            gap: 'var(--space-3)',
+            gap: '12px',
           }}
         >
-          <AlertTriangle size={24} color="var(--status-warn)" style={{ flexShrink: 0 }} />
+          <AlertTriangle size={22} color="var(--status-warn)" style={{ flexShrink: 0 }} />
           <div>
-            <h3 style={{ fontSize: '0.95rem', color: 'var(--status-warn)', fontWeight: 700 }}>
+            <h3
+              style={{
+                fontSize: '0.92rem',
+                color: 'var(--status-warn)',
+                fontWeight: 700,
+                fontFamily: 'var(--font-display, "Space Grotesk", sans-serif)',
+                margin: 0,
+              }}
+            >
               OPERATIONAL RISK WARNING: MARGINAL FLIGHT PARAMETERS
             </h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-primary)', marginTop: '2px' }}>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-primary)', margin: '4px 0 0', lineHeight: 1.4 }}>
               One or more subsystems are operating outside nominal safety margins. Launch is permitted under test flight authorization, but high failure rates or propellant depletion may occur during live mission operations.
             </p>
           </div>
@@ -152,7 +216,7 @@ export const PreflightReviewScreen: React.FC = () => {
       )}
 
       {/* 7-Constraint Checklist */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {/* 1. Launch Vehicle Mass Capacity */}
         <PreflightChecklistRow
           missionId={validMissionId}
@@ -219,17 +283,17 @@ export const PreflightReviewScreen: React.FC = () => {
           status={
             derived?.powerW.isOver
               ? 'critical'
-              : (derived?.powerW.limit || 0) - (derived?.powerW.current || 0) < 50
+              : (derived?.powerW.percentage || 0) >= 85
               ? 'warning'
               : 'nominal'
           }
-          currentDisplay={`${(derived?.powerW.limit || 0).toLocaleString()} W gen`}
-          limitDisplay={`${(derived?.powerW.current || 0).toLocaleString()} W load`}
-          marginDisplay={`${((derived?.powerW.limit || 0) - (derived?.powerW.current || 0) >= 0 ? '+' : '')}${((derived?.powerW.limit || 0) - (derived?.powerW.current || 0)).toLocaleString()} W`}
-          description="Solar array generation at target solar distance vs. simultaneous avionics and instrument power draw."
+          currentDisplay={`${(derived?.powerW.current || 0).toLocaleString()} W`}
+          limitDisplay={`${(derived?.powerW.limit || 0).toLocaleString()} W req`}
+          marginDisplay={`${((derived?.powerW.limit || 0) - (derived?.powerW.current || 0) <= 0 ? '+' : '-')}${Math.abs((derived?.powerW.current || 0) - (derived?.powerW.limit || 0))} W`}
+          description={`Photovoltaic generation at ${mission.orbit.solarDistanceAU.toFixed(2)} AU solar flux vs. active electronics demand.`}
         />
 
-        {/* 5. Deep Space Network Comms Link Margin */}
+        {/* 5. Deep Space Network Link Margin */}
         <PreflightChecklistRow
           missionId={validMissionId}
           category="comms"
@@ -242,81 +306,122 @@ export const PreflightReviewScreen: React.FC = () => {
               ? 'warning'
               : 'nominal'
           }
-          currentDisplay={`${(derived?.linkMarginDb.current || 0).toFixed(1)} dB`}
-          limitDisplay="0.0 dB threshold"
-          marginDisplay={`${(derived?.linkMarginDb.current || 0) >= 0 ? '+' : ''}${(derived?.linkMarginDb.current || 0).toFixed(1)} dB`}
-          description="Friis free-space transmission budget across maximum Earth distance to guarantee telemetry lock."
+          currentDisplay={`${(derived?.linkMarginDb.current || 0) >= 0 ? '+' : ''}${derived?.linkMarginDb.current || 0} dB`}
+          limitDisplay="3.0 dB req"
+          marginDisplay={`${((derived?.linkMarginDb.current || 0) - 3.0 >= 0 ? '+' : '')}${((derived?.linkMarginDb.current || 0) - 3.0).toFixed(1)} dB`}
+          description={`Friis free-space loss across ${(mission.orbit.distanceToEarthKm / 1_000_000).toFixed(1)}M km to DSN 34m aperture.`}
         />
 
-        {/* 6. Thermal Radiative Equilibrium Band */}
+        {/* 6. Stefan-Boltzmann Thermal Radiative Equilibrium */}
         <PreflightChecklistRow
           missionId={validMissionId}
           category="thermal"
           categoryName="Thermal"
           metricTitle="Stefan-Boltzmann Thermal Equilibrium"
-          status={derived?.thermalEquilibriumK.isSafe ? 'nominal' : 'critical'}
-          currentDisplay={`${derived?.thermalEquilibriumK.current || 288} K`}
-          limitDisplay={`${derived?.thermalEquilibriumK.minLimit || 180}–${derived?.thermalEquilibriumK.maxLimit || 320} K`}
-          marginDisplay={derived?.thermalEquilibriumK.isSafe ? 'NOMINAL BAND' : 'TEMPERATURE EXTREME'}
-          description="Passive radiative equilibrium temperature balancing solar absorption against infrared radiation."
+          status={
+            !derived?.thermalEquilibriumK.isSafe
+              ? 'critical'
+              : (derived?.thermalEquilibriumK.current || 0) < (derived?.thermalEquilibriumK.minLimit || 0) + 15 ||
+                (derived?.thermalEquilibriumK.current || 0) > (derived?.thermalEquilibriumK.maxLimit || 0) - 15
+              ? 'warning'
+              : 'nominal'
+          }
+          currentDisplay={`${derived?.thermalEquilibriumK.current || 0} K (${(derived?.thermalEquilibriumK.current || 273) - 273}°C)`}
+          limitDisplay={`${derived?.thermalEquilibriumK.minLimit || 0}–${derived?.thermalEquilibriumK.maxLimit || 0} K`}
+          marginDisplay={derived?.thermalEquilibriumK.isSafe ? 'STABLE' : 'OUT OF LIMITS'}
+          description="Passive MLI insulation and absorptivity/emissivity equilibrium under direct solar radiation."
         />
 
-        {/* 7. Subsystem Hardware Reliability Estimate */}
+        {/* 7. Subsystem Hardware Reliability */}
         <PreflightChecklistRow
           missionId={validMissionId}
           category="redundancy"
           categoryName="Redundancy"
           metricTitle="Subsystem Hardware Reliability Rating"
           status={
-            (derived?.reliabilityEstimate || 0) >= 0.90
+            (derived?.reliabilityEstimate || 0) >= 0.85
               ? 'nominal'
-              : (derived?.reliabilityEstimate || 0) >= 0.80
+              : (derived?.reliabilityEstimate || 0) >= 0.70
               ? 'warning'
               : 'critical'
           }
-          currentDisplay={`${((derived?.reliabilityEstimate || 0.9) * 100).toFixed(1)}%`}
-          limitDisplay="90.0% nominal"
-          marginDisplay={`${((derived?.reliabilityEstimate || 0.9) * 100).toFixed(1)}% MTBF`}
-          description="Exponential constant-failure-rate reliability model incorporating cross-strapped parallel redundancy."
+          currentDisplay={`${Math.round((derived?.reliabilityEstimate || 0) * 100)}%`}
+          limitDisplay="85% target"
+          marginDisplay={`${Math.round(((derived?.reliabilityEstimate || 0) - 0.85) * 100) >= 0 ? '+' : ''}${Math.round(((derived?.reliabilityEstimate || 0) - 0.85) * 100)}%`}
+          description="Avionics reliability, fault detection voting logic, and backup systems reducing anomaly frequency."
         />
       </div>
 
-      {/* Action Footer Navigation */}
+      {/* Flight Authorization Sticky Launch Footer Bar */}
       <footer
         style={{
+          background: 'var(--panel-elevated, #162038)',
+          border: '1px solid var(--border-hairline, rgba(42, 51, 80, 0.6))',
+          borderRadius: '8px',
+          padding: '14px 20px',
           display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
           alignItems: 'center',
-          gap: 'var(--space-3)',
-          paddingTop: 'var(--space-3)',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '12px',
+          marginTop: 'var(--space-2)',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
         }}
       >
-        <Link to={`/missions/${mission.id}/design`} className="mobile-full-width" style={{ textDecoration: 'none' }}>
-          <button className="secondary mobile-full-width" style={{ minHeight: '44px' }}>
-            <ArrowLeft size={16} />
-            <span>Return to Hardware CAD</span>
-          </button>
-        </Link>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {isBudgetBlocked ? (
+            <ShieldAlert size={22} color="var(--status-critical)" />
+          ) : hasAnyWarnings ? (
+            <AlertTriangle size={22} color="var(--status-warn)" />
+          ) : (
+            <ShieldCheck size={22} color="var(--status-good)" />
+          )}
+
+          <div>
+            <div
+              style={{
+                fontFamily: 'var(--font-display, "Space Grotesk", sans-serif)',
+                fontSize: '0.85rem',
+                fontWeight: 700,
+                color: isBudgetBlocked ? 'var(--status-critical)' : hasAnyWarnings ? 'var(--status-warn)' : 'var(--status-good)',
+                letterSpacing: '0.04em',
+              }}
+            >
+              {isBudgetBlocked
+                ? 'FLIGHT AUTHORIZATION DENIED // BUDGET CAP EXCEEDED'
+                : hasAnyWarnings
+                ? 'CAUTION: MARGINAL OPERATIONAL ENVELOPE'
+                : 'FLIGHT CLEARED FOR DEEP SPACE // ALL 7 CONSTRAINTS NOMINAL'}
+            </div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono, monospace)' }}>
+              {isBudgetBlocked
+                ? 'Congressional hard ceiling blocks ignition. Reduce component costs in CAD.'
+                : hasAnyWarnings
+                ? 'Proceeding with non-optimal margins may result in telemetry anomalies.'
+                : 'All engineering parameters verified. Cleared for launch pad ignition.'}
+            </div>
+          </div>
+        </div>
 
         <button
-          className="primary mobile-full-width"
+          className="primary"
           disabled={isBudgetBlocked}
-          onClick={() => navigate(`/missions/${mission.id}/control`)}
+          onClick={() => navigate(`/missions/${validMissionId}/run`)}
           style={{
-            padding: '12px 28px',
-            minHeight: '44px',
-            backgroundColor: isBudgetBlocked ? 'var(--bg-surface)' : 'var(--status-good)',
-            borderColor: isBudgetBlocked ? 'var(--border-subtle)' : 'var(--status-good)',
-            color: isBudgetBlocked ? 'var(--text-muted)' : 'var(--bg-base)',
+            padding: '10px 24px',
+            fontSize: '0.85rem',
+            fontFamily: 'var(--font-display, "Space Grotesk", sans-serif)',
             fontWeight: 700,
+            letterSpacing: '0.04em',
+            boxShadow: !isBudgetBlocked ? '0 0 16px rgba(61, 165, 245, 0.4)' : undefined,
+            minHeight: '44px',
+            opacity: isBudgetBlocked ? 0.4 : 1,
             cursor: isBudgetBlocked ? 'not-allowed' : 'pointer',
-            boxShadow: !isBudgetBlocked ? 'var(--glow-accent)' : undefined,
           }}
         >
-          <Rocket size={18} />
+          <Rocket size={16} />
           <span>Authorize Launch & Enter Mission Control</span>
-          <ArrowRight size={18} />
+          <ArrowRight size={16} />
         </button>
       </footer>
     </div>

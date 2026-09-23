@@ -1,9 +1,13 @@
 /**
- * 2D Orbital Mechanics & Trajectory Visualization
- * Source: 04-ui-ux-brief.md §3, §5, §6 & 07-domain-reference.md §2
+ * 2D Orbital Mechanics & Trajectory Visualization — Stitch AI Tactical Console
+ * Source: docs/stitch/08-live-mission-control.html, 04-ui-ux-brief.md §3, §5, §6 & 07-domain-reference.md §2
  *
- * Visualizes central body, orbital ellipse, spacecraft position, and trajectory arcs.
- * Animation speed is calibrated to real Keplerian orbital periods in 07-domain-reference.md §2.
+ * Features:
+ * - Central planetary body with atmospheric glow & core surface shaders
+ * - Elliptical Keplerian trajectory propagation with velocity vector orientation
+ * - Distance range rings (R: 1,500 KM, R: 3,000 KM)
+ * - Optical Umbra / Communication Blackout Shadow Cone with hatch overlay
+ * - Liftoff gravity turn ascent arc & staging telemetry markers
  */
 
 import React, { useEffect, useState } from 'react';
@@ -25,12 +29,10 @@ export const OrbitView: React.FC<OrbitViewProps> = ({
   const [orbitAngle, setOrbitAngle] = useState(0);
 
   // Calibrate animation loop period to real Keplerian periods from 07-domain-reference.md §2
-  // Earth (99m) -> 7s loop; Moon (113.5m) -> 8s loop; Mars (4.5h) -> 16s loop; Asteroid (42h) -> 28s loop
   const realPeriodMinutes = mission.orbit.periodMinutes || 99;
   const visualLoopDurationSec = Math.max(6, Math.min(28, (realPeriodMinutes / 99) * 7));
 
   useEffect(() => {
-    // Check prefers-reduced-motion
     if (typeof window === 'undefined' || !window.matchMedia) return;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
@@ -125,41 +127,90 @@ export const OrbitView: React.FC<OrbitViewProps> = ({
   return (
     <div
       style={{
-        background: 'var(--bg-surface)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: 'var(--radius-lg)',
-        padding: 'var(--space-4)',
+        background: 'var(--panel-base, #111728)',
+        border: '1px solid var(--border-hairline, rgba(42, 51, 80, 0.6))',
+        borderRadius: '8px',
+        overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--space-3)',
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            ORBIT DYNAMICS TELEMETRY
-          </span>
-          <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-            {`${centralBodyConfig.name} // ${mission.orbit.regime}`}
+      {/* Tactical Canvas Header Bar */}
+      <div
+        style={{
+          background: 'var(--panel-elevated, #162038)',
+          borderBottom: '1px solid var(--border-hairline, rgba(42, 51, 80, 0.6))',
+          padding: '8px 14px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '8px',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div
+            style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '2px',
+              background: 'var(--mission-accent, #3DA5F5)',
+              boxShadow: '0 0 6px var(--mission-accent, #3DA5F5)',
+            }}
+          />
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span
+              style={{
+                fontSize: '0.65rem',
+                color: 'var(--text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                fontFamily: 'var(--font-mono, monospace)',
+              }}
+            >
+              ORBIT DYNAMICS TELEMETRY
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-display, "Space Grotesk", sans-serif)',
+                fontSize: '0.82rem',
+                fontWeight: 700,
+                letterSpacing: '0.04em',
+                color: '#FFFFFF',
+                textTransform: 'uppercase',
+              }}
+            >
+              {`${centralBodyConfig.name} // ${mission.orbit.regime}`}
+            </span>
           </div>
         </div>
 
-        <div style={{ textAlign: 'right' }} className="number-mono">
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>TRUE ORBIT PERIOD: </span>
-          <span style={{ fontSize: '0.85rem', color: 'var(--mission-accent)', fontWeight: 700 }}>
+        <div
+          style={{
+            fontFamily: 'var(--font-mono, monospace)',
+            fontSize: '0.7rem',
+            color: 'var(--text-muted)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}
+          className="number-mono"
+        >
+          <span>PROJECTION: ECLIPTIC PLANAR</span>
+          <span style={{ opacity: 0.3 }}>|</span>
+          <span>TRUE ORBIT PERIOD: </span>
+          <span style={{ color: 'var(--mission-accent)', fontWeight: 700 }}>
             {`${mission.orbit.periodMinutes} min`}
           </span>
         </div>
       </div>
 
-      {/* SVG Orbital Visualization */}
+      {/* SVG Tactical Simulation Space */}
       <div
         style={{
           width: '100%',
-          height: 'clamp(220px, 45vw, 280px)',
-          background: 'radial-gradient(circle at center, rgba(19, 26, 48, 0.9) 0%, rgba(11, 16, 32, 1) 100%)',
-          borderRadius: 'var(--radius-md)',
-          border: '1px solid rgba(42, 51, 80, 0.5)',
+          height: 'clamp(230px, 45vw, 300px)',
+          background: 'radial-gradient(circle at center, rgba(16, 24, 46, 0.95) 0%, #070B14 100%)',
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
@@ -187,11 +238,50 @@ export const OrbitView: React.FC<OrbitViewProps> = ({
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
+            {/* Communication Blackout Umbra Shadow Gradient */}
+            <linearGradient id="umbraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#050B18" stopOpacity="0.85" />
+              <stop offset="100%" stopColor="#050B18" stopOpacity="0.1" />
+            </linearGradient>
+            <pattern id="hatchShadow" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+              <line x1="0" y1="0" x2="0" y2="8" stroke="#3DA5F5" strokeWidth="0.8" opacity="0.15" />
+            </pattern>
           </defs>
 
           {/* Coordinate grid backdrop */}
           <line x1="160" y1="15" x2="160" y2="205" stroke="rgba(42, 51, 80, 0.35)" strokeDasharray="3 3" />
           <line x1="20" y1="110" x2="300" y2="110" stroke="rgba(42, 51, 80, 0.35)" strokeDasharray="3 3" />
+
+          {/* Distance Range Rings (Stitch Screen 08) */}
+          <circle cx="160" cy="110" r="55" fill="none" stroke="rgba(42, 51, 80, 0.3)" strokeDasharray="3 3" strokeWidth="0.75" />
+          <circle cx="160" cy="110" r="95" fill="none" stroke="rgba(42, 51, 80, 0.25)" strokeDasharray="4 4" strokeWidth="0.75" />
+          <text x="165" y="60" fill="rgba(143, 160, 196, 0.45)" fontFamily="'JetBrains Mono', monospace" fontSize="6.5">
+            R: 1,500 KM
+          </text>
+          <text x="165" y="20" fill="rgba(143, 160, 196, 0.45)" fontFamily="'JetBrains Mono', monospace" fontSize="6.5">
+            R: 3,000 KM
+          </text>
+
+          {/* Communication Blackout Umbra Shadow Cone (cast eastward from central body) */}
+          <polygon
+            points={`160,${110 - centralBodyConfig.radius * 0.75} 320,${110 - centralBodyConfig.radius * 1.5} 320,${110 + centralBodyConfig.radius * 1.5} 160,${110 + centralBodyConfig.radius * 0.75}`}
+            fill="url(#umbraGrad)"
+          />
+          <polygon
+            points={`160,${110 - centralBodyConfig.radius * 0.75} 320,${110 - centralBodyConfig.radius * 1.5} 320,${110 + centralBodyConfig.radius * 1.5} 160,${110 + centralBodyConfig.radius * 0.75}`}
+            fill="url(#hatchShadow)"
+          />
+          <text
+            x="270"
+            y="113"
+            fill="rgba(143, 160, 196, 0.4)"
+            fontFamily="'JetBrains Mono', monospace"
+            fontSize="6.5"
+            letterSpacing="0.08em"
+            textAnchor="middle"
+          >
+            COMM UMBRA
+          </text>
 
           {/* Orbital path ellipse */}
           <ellipse
@@ -200,7 +290,7 @@ export const OrbitView: React.FC<OrbitViewProps> = ({
             rx={a}
             ry={b}
             fill="none"
-            stroke="var(--border-subtle)"
+            stroke="rgba(42, 51, 80, 0.6)"
             strokeWidth="1.5"
             strokeDasharray="4 4"
           />
@@ -212,9 +302,9 @@ export const OrbitView: React.FC<OrbitViewProps> = ({
             rx={a}
             ry={b}
             fill="none"
-            stroke="var(--mission-accent)"
+            stroke="var(--mission-accent, #3DA5F5)"
             strokeWidth="2"
-            opacity="0.45"
+            opacity="0.5"
           />
 
           {/* Central Body Atmosphere & Core */}
@@ -249,7 +339,6 @@ export const OrbitView: React.FC<OrbitViewProps> = ({
           {/* Launch pad marker & liftoff shockwave acoustic ripples */}
           {isLaunch && (
             <g>
-              {/* Launchpad surface beacon */}
               <circle
                 cx="160"
                 cy={110 - centralBodyConfig.radius}
@@ -257,7 +346,6 @@ export const OrbitView: React.FC<OrbitViewProps> = ({
                 fill="var(--status-warn)"
                 filter="url(#bloom)"
               />
-              {/* Expanding launch shockwave ring (suppressed if prefers-reduced-motion) */}
               <circle
                 cx="160"
                 cy={110 - centralBodyConfig.radius}
@@ -267,8 +355,6 @@ export const OrbitView: React.FC<OrbitViewProps> = ({
                 strokeWidth="1.5"
                 opacity={Math.max(0, 0.8 - (elapsedSeconds % 2) * 0.4)}
               />
-
-              {/* Gravity turn ascent trajectory curve */}
               <path
                 d={`M 160 ${110 - centralBodyConfig.radius} Q 165 ${110 - centralBodyConfig.radius * 0.5} ${scX} ${scY}`}
                 fill="none"
@@ -282,35 +368,20 @@ export const OrbitView: React.FC<OrbitViewProps> = ({
 
           {/* Spacecraft Marker with orientation and exhaust plume */}
           <g transform={`translate(${scX}, ${scY}) rotate(${flightAngleDeg})`}>
-            {/* Launch booster exhaust plume */}
             {isLaunch && (
               <g>
-                <polygon
-                  points="-4,6 0,26 4,6"
-                  fill="url(#launchPlume)"
-                  filter="url(#bloom)"
-                />
-                <polygon
-                  points="-2,6 0,16 2,6"
-                  fill="#FFFFFF"
-                />
+                <polygon points="-4,6 0,26 4,6" fill="url(#launchPlume)" filter="url(#bloom)" />
+                <polygon points="-2,6 0,16 2,6" fill="#FFFFFF" />
               </g>
             )}
 
-            {/* In-space arrival braking burn plume */}
             {phase === 'arrival' && (
-              <polygon
-                points="-12,0 0,-4 0,4"
-                fill="var(--status-critical)"
-                filter="url(#bloom)"
-              />
+              <polygon points="-12,0 0,-4 0,4" fill="var(--status-critical)" filter="url(#bloom)" />
             )}
 
             {/* Spacecraft core marker */}
             <circle cx="0" cy="0" r="5" fill="#FFFFFF" />
-            <circle cx="0" cy="0" r="10" fill="none" stroke="var(--mission-accent)" strokeWidth="1.5" opacity="0.8" />
-
-            {/* Target vector line to center */}
+            <circle cx="0" cy="0" r="10" fill="none" stroke="var(--mission-accent, #3DA5F5)" strokeWidth="1.5" opacity="0.8" />
             <line x1="0" y1="0" x2={(160 - scX) * 0.25} y2={(110 - scY) * 0.25} stroke="var(--status-good)" strokeWidth="1" strokeDasharray="2 2" />
           </g>
         </svg>
@@ -321,23 +392,23 @@ export const OrbitView: React.FC<OrbitViewProps> = ({
             position: 'absolute',
             bottom: '10px',
             left: '12px',
-            fontSize: '0.75rem',
+            fontSize: '0.72rem',
             color: 'var(--text-muted)',
             display: 'flex',
-            gap: 'var(--space-4)',
+            gap: '12px',
             flexWrap: 'wrap',
           }}
           className="number-mono"
         >
           <div>
-            ALTITUDE: <span style={{ color: 'var(--text-primary)', fontWeight: 700 }}>{`${currentAltitudeKm} km`}</span>
+            ALTITUDE: <span style={{ color: '#FFFFFF', fontWeight: 700 }}>{`${currentAltitudeKm} km`}</span>
           </div>
           <div>
             {isLaunch ? 'BOOSTER THRUST: ' : 'BURN Δv: '}
             <span style={{ color: 'var(--status-good)', fontWeight: 700 }}>
               {isLaunch
                 ? launchProgress < 0.5
-                  ? 'STAGE 1 BOOST (100%)'
+                  ? 'STAGE 1 BOOST'
                   : launchProgress < 0.85
                   ? 'STAGE 2 INSERTION'
                   : 'MECO / FAIRING JETTISON'
@@ -345,7 +416,7 @@ export const OrbitView: React.FC<OrbitViewProps> = ({
             </span>
           </div>
           <div>
-            ORBIT REV: <span style={{ color: 'var(--mission-accent)', fontWeight: 700 }}>{`${((elapsedSeconds / 60) / realPeriodMinutes).toFixed(1)}`}</span>
+            REV: <span style={{ color: 'var(--mission-accent)', fontWeight: 700 }}>{`${((elapsedSeconds / 60) / realPeriodMinutes).toFixed(1)}`}</span>
           </div>
         </div>
 
@@ -354,13 +425,14 @@ export const OrbitView: React.FC<OrbitViewProps> = ({
             position: 'absolute',
             top: '10px',
             right: '12px',
-            fontSize: '0.75rem',
-            padding: '2px 8px',
+            fontSize: '0.7rem',
+            padding: '3px 8px',
             borderRadius: '4px',
-            background: 'rgba(19, 26, 48, 0.8)',
-            border: '1px solid var(--border-subtle)',
+            background: 'rgba(11, 16, 32, 0.85)',
+            border: '1px solid var(--border-hairline, rgba(42, 51, 80, 0.6))',
             color: isLaunch ? 'var(--status-warn)' : 'var(--mission-accent)',
             fontWeight: 600,
+            fontFamily: 'var(--font-mono, monospace)',
           }}
         >
           {isLaunch ? 'LIFTOFF SEQUENCE ACTIVE' : `${phase.toUpperCase()} PHASE ACTIVE`}

@@ -1,9 +1,10 @@
 /**
- * Category Tabs Component
- * Source: 04-ui-ux-brief.md §5
+ * Category Tabs Component — Stitch AI Aerospace Console
+ * Source: docs/stitch/07-cad-workbench.html & 04-ui-ux-brief.md §5
  *
- * Pill-shaped tabs: inactive = outline, active = filled with mission tint.
- * Shows status indicator for configured categories.
+ * 8-Subsystem numbered pill tabs matching Stitch CAD Workbench:
+ * [1] LAUNCH VEHICLE, [2] BUS STRUCTURE, [3] POWER & SOLAR, [4] PROPULSION,
+ * [5] COMMS, [6] INSTRUMENTS, [7] THERMAL MLI, [8] REDUNDANCY.
  */
 
 import React from 'react';
@@ -22,19 +23,21 @@ import {
 
 export interface CategoryTabItem {
   id: PartCategory;
+  number: number;
   label: string;
+  shortLabel: string;
   icon: React.ReactNode;
 }
 
 const CATEGORIES: CategoryTabItem[] = [
-  { id: 'launchVehicle', label: 'Launch Vehicle', icon: <Rocket size={15} /> },
-  { id: 'bus', label: 'Spacecraft Bus', icon: <Box size={15} /> },
-  { id: 'power', label: 'Power System', icon: <Sun size={15} /> },
-  { id: 'propulsion', label: 'Propulsion & Fuel', icon: <Flame size={15} /> },
-  { id: 'comms', label: 'Communications', icon: <Radio size={15} /> },
-  { id: 'instrument', label: 'Instruments', icon: <Eye size={15} /> },
-  { id: 'thermal', label: 'Thermal Protection', icon: <Shield size={15} /> },
-  { id: 'redundancy', label: 'Redundancy', icon: <Layers size={15} /> },
+  { id: 'launchVehicle', number: 1, label: 'Launch Vehicle', shortLabel: 'LAUNCH', icon: <Rocket size={14} /> },
+  { id: 'bus', number: 2, label: 'Spacecraft Bus', shortLabel: 'BUS', icon: <Box size={14} /> },
+  { id: 'power', number: 3, label: 'Power System', shortLabel: 'POWER', icon: <Sun size={14} /> },
+  { id: 'propulsion', number: 4, label: 'Propulsion & Fuel', shortLabel: 'PROP', icon: <Flame size={14} /> },
+  { id: 'comms', number: 5, label: 'Communications', shortLabel: 'COMMS', icon: <Radio size={14} /> },
+  { id: 'instrument', number: 6, label: 'Instruments', shortLabel: 'PAYLOAD', icon: <Eye size={14} /> },
+  { id: 'thermal', number: 7, label: 'Thermal Protection', shortLabel: 'THERMAL', icon: <Shield size={14} /> },
+  { id: 'redundancy', number: 8, label: 'Redundancy', shortLabel: 'AVIONICS', icon: <Layers size={14} /> },
 ];
 
 export interface CategoryTabsProps {
@@ -72,11 +75,11 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
       aria-label="Spacecraft subsystems"
       style={{
         display: 'flex',
-        flexWrap: 'wrap',
-        gap: 'var(--space-2)',
+        alignItems: 'center',
+        gap: '6px',
         overflowX: 'auto',
         WebkitOverflowScrolling: 'touch',
-        paddingBottom: 'var(--space-2)',
+        padding: '2px 0 6px 0',
       }}
     >
       {CATEGORIES.map((cat, index) => {
@@ -94,23 +97,28 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
             onClick={() => onSelectCategory(cat.id)}
             onKeyDown={(e) => handleKeyDown(e, index)}
             style={{
-              borderRadius: '24px',
-              padding: '10px 18px',
-              fontSize: '0.85rem',
-              fontWeight: 600,
-              letterSpacing: '0.03em',
-              background: isActive ? 'var(--mission-accent)' : 'transparent',
-              color: isActive ? 'var(--bg-base)' : 'var(--text-primary)',
-              border: `1px solid ${isActive ? 'var(--mission-accent)' : 'var(--border-subtle)'}`,
-              boxShadow: isActive ? 'var(--glow-accent)' : undefined,
+              padding: '7px 12px',
+              borderRadius: '4px',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              fontFamily: 'var(--font-display, "Space Grotesk", sans-serif)',
+              letterSpacing: '0.04em',
+              background: isActive ? 'var(--mission-accent, #3DA5F5)' : 'var(--panel-base, #111728)',
+              color: isActive ? '#0A0F1D' : 'var(--text-muted, #8FA0C4)',
+              border: `1px solid ${isActive ? 'var(--mission-accent, #3DA5F5)' : 'var(--border-hairline, rgba(42, 51, 80, 0.6))'}`,
+              boxShadow: isActive ? '0 0 12px rgba(61, 165, 245, 0.35)' : undefined,
               cursor: 'pointer',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: 'var(--space-2)',
+              gap: '6px',
               whiteSpace: 'nowrap',
-              minHeight: '44px',
+              minHeight: '36px',
+              transition: 'all 150ms ease',
             }}
           >
+            <span style={{ opacity: isActive ? 1 : 0.7 }}>
+              [{cat.number}]
+            </span>
             <span>{cat.icon}</span>
             <span>{cat.label}</span>
             {isConfigured && (
@@ -119,15 +127,15 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: '16px',
-                  height: '16px',
+                  width: '14px',
+                  height: '14px',
                   borderRadius: '50%',
-                  background: isActive ? 'var(--bg-base)' : 'var(--status-good)',
-                  color: isActive ? 'var(--mission-accent)' : 'var(--bg-base)',
-                  marginLeft: '4px',
+                  background: isActive ? '#0A0F1D' : 'var(--status-good, #3DBE7A)',
+                  color: isActive ? 'var(--mission-accent, #3DA5F5)' : '#0A0F1D',
+                  marginLeft: '2px',
                 }}
               >
-                <Check size={11} strokeWidth={3} />
+                <Check size={10} strokeWidth={3} />
               </span>
             )}
           </button>

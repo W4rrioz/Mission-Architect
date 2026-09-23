@@ -1,14 +1,15 @@
 /**
- * Part Card Component
- * Source: 04-ui-ux-brief.md §5
+ * Part Card Component — Stitch AI Aerospace Part Spec Card
+ * Source: docs/stitch/07-cad-workbench.html & 04-ui-ux-brief.md §5
  *
- * Displays part specifications, cost, mass, selection state, and inline sliders when active.
+ * Displays part specifications, 3-column technical monospace specs grid,
+ * selection state badge, and inline dynamic sliders.
  */
 
 import React from 'react';
 import { PartCatalogEntry } from '../domain/types';
 import { Slider } from './Slider';
-import { Check, DollarSign, Weight } from 'lucide-react';
+import { Check, Zap } from 'lucide-react';
 
 export interface PartCardProps {
   part: PartCatalogEntry;
@@ -28,25 +29,58 @@ export const PartCard: React.FC<PartCardProps> = ({
   return (
     <div
       style={{
-        background: isSelected ? 'var(--bg-surface-elevated)' : 'var(--bg-surface)',
-        border: `1px solid ${isSelected ? 'var(--mission-accent)' : 'var(--border-subtle)'}`,
-        borderRadius: 'var(--radius-lg)',
-        padding: 'var(--space-4)',
+        background: isSelected ? 'var(--panel-elevated, #162038)' : 'var(--panel-base, #111728)',
+        border: `1px solid ${isSelected ? 'var(--mission-accent, #3DA5F5)' : 'var(--border-hairline, rgba(42, 51, 80, 0.6))'}`,
+        borderRadius: '8px',
+        padding: '14px',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--space-3)',
-        transition: 'border-color 150ms ease, box-shadow 150ms ease',
-        boxShadow: isSelected ? 'var(--glow-accent)' : undefined,
+        gap: '10px',
+        transition: 'all 150ms ease',
+        boxShadow: isSelected ? '0 0 16px rgba(61, 165, 245, 0.2)' : undefined,
+        position: 'relative',
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 'var(--space-2)' }}>
-        <div>
-          <h3 style={{ fontSize: '1.05rem', color: isSelected ? 'var(--mission-accent)' : 'var(--text-primary)' }}>
-            {part.name}
-          </h3>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px' }}>
-            {part.description}
-          </p>
+      {/* Card Header: Part Name & Equip / Selected Action */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div
+            style={{
+              width: '14px',
+              height: '14px',
+              borderRadius: '50%',
+              border: `2px solid ${isSelected ? 'var(--mission-accent, #3DA5F5)' : 'var(--border-hairline, rgba(42, 51, 80, 0.6))'}`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+            }}
+          >
+            {isSelected && (
+              <div
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  background: 'var(--mission-accent, #3DA5F5)',
+                }}
+              />
+            )}
+          </div>
+          <div>
+            <h3
+              style={{
+                fontFamily: 'var(--font-display, "Space Grotesk", sans-serif)',
+                fontSize: '0.95rem',
+                fontWeight: 700,
+                color: isSelected ? '#FFFFFF' : 'var(--text-primary)',
+                margin: 0,
+                letterSpacing: '0.02em',
+              }}
+            >
+              {part.name}
+            </h3>
+          </div>
         </div>
 
         <button
@@ -54,116 +88,163 @@ export const PartCard: React.FC<PartCardProps> = ({
           className={isSelected ? 'primary' : 'secondary'}
           aria-pressed={isSelected}
           style={{
-            padding: '8px 16px',
-            fontSize: '0.85rem',
-            minHeight: '44px',
+            padding: '6px 14px',
+            fontSize: '0.78rem',
+            fontFamily: 'var(--font-display, "Space Grotesk", sans-serif)',
+            fontWeight: 700,
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
+            minHeight: '36px',
             minWidth: '84px',
             flexShrink: 0,
+            borderRadius: '4px',
+            background: isSelected ? 'var(--mission-accent, #3DA5F5)' : 'var(--panel-elevated, #162038)',
+            color: isSelected ? '#0A0F1D' : 'var(--text-primary)',
+            border: `1px solid ${isSelected ? 'var(--mission-accent, #3DA5F5)' : 'var(--border-hairline, rgba(42, 51, 80, 0.6))'}`,
           }}
         >
           {isSelected ? (
-            <>
-              <Check size={14} />
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              <Check size={12} strokeWidth={3} />
               <span>Selected</span>
-            </>
+            </span>
           ) : (
             <span>Equip</span>
           )}
         </button>
       </div>
 
-      {/* Stats summary row */}
+      {/* Part Description */}
+      <p style={{ fontSize: '0.8rem', color: 'var(--text-muted, #8FA0C4)', margin: 0, lineHeight: 1.45 }}>
+        {part.description}
+      </p>
+
+      {/* Technical Monospace Specs Grid (Stitch 3-Column Specs Matrix) */}
       <div
+        className="specs-matrix"
         style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: 'var(--space-3)',
-          paddingTop: 'var(--space-2)',
-          borderTop: '1px solid rgba(42, 51, 80, 0.5)',
-          fontSize: '0.8rem',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '6px',
+          background: 'var(--deep-space, #0A0F1D)',
+          padding: '8px 10px',
+          borderRadius: '4px',
+          border: '1px solid var(--border-hairline, rgba(42, 51, 80, 0.5))',
+          fontFamily: 'var(--font-mono, monospace)',
+          fontSize: '0.72rem',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text-muted)' }}>
-          <DollarSign size={14} color="var(--status-good)" />
-          <span className="number-mono" style={{ color: 'var(--text-primary)', fontWeight: 600 }}>
+        <div>
+          <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.65rem', textTransform: 'uppercase' }}>
+            Base Cost
+          </span>
+          <span style={{ fontWeight: 700, color: 'var(--status-good, #3DBE7A)' }}>
             ${(part.costUSD / 1_000_000).toFixed(1)}M
           </span>
         </div>
 
-        {part.massKg > 0 && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text-muted)' }}>
-            <Weight size={14} color="var(--mission-earth)" />
-            <span className="number-mono" style={{ color: 'var(--text-primary)', fontWeight: 600 }}>
-              {part.massKg.toLocaleString()} kg
-            </span>
-          </div>
-        )}
+        <div>
+          <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.65rem', textTransform: 'uppercase' }}>
+            Dry Mass
+          </span>
+          <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>
+            {part.massKg > 0 ? `${part.massKg.toLocaleString()} kg` : '0 kg'}
+          </span>
+        </div>
 
-        {/* Category specific quick stats */}
-        {'ispSeconds' in part.perfProfile && (
-          <div style={{ color: 'var(--text-muted)' }}>
-            Isp: <span className="number-mono" style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{(part.perfProfile as { ispSeconds: number }).ispSeconds}s</span>
-          </div>
-        )}
-        {'maxPayloadKg' in part.perfProfile && (
-          <div style={{ color: 'var(--text-muted)' }}>
-            Max Payload: <span className="number-mono" style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{((part.perfProfile as { maxPayloadKg: number }).maxPayloadKg).toLocaleString()} kg</span>
-          </div>
-        )}
-        {'panelEfficiency' in part.perfProfile && (
-          <div style={{ color: 'var(--text-muted)' }}>
-            Efficiency: <span className="number-mono" style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{Math.round(((part.perfProfile as { panelEfficiency: number }).panelEfficiency || 0) * 100)}%</span>
-          </div>
-        )}
-        {'ratedWatts' in part.perfProfile && (
-          <div style={{ color: 'var(--text-muted)' }}>
-            Output: <span className="number-mono" style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{(part.perfProfile as { ratedWatts: number }).ratedWatts}W</span>
-          </div>
-        )}
-        {'powerDrawW' in part.perfProfile && (
-          <div style={{ color: 'var(--text-muted)' }}>
-            Power Draw: <span className="number-mono" style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{(part.perfProfile as { powerDrawW: number }).powerDrawW}W</span>
-          </div>
-        )}
-        {'frequencyGHz' in part.perfProfile && (
-          <div style={{ color: 'var(--text-muted)' }}>
-            Band: <span className="number-mono" style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{(part.perfProfile as { frequencyGHz: number }).frequencyGHz} GHz</span>
-          </div>
-        )}
+        <div>
+          {'ispSeconds' in part.perfProfile ? (
+            <>
+              <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.65rem', textTransform: 'uppercase' }}>
+                Isp (Impulse)
+              </span>
+              <span style={{ fontWeight: 700, color: 'var(--mission-accent, #3DA5F5)' }}>
+                {(part.perfProfile as { ispSeconds: number }).ispSeconds}s
+              </span>
+            </>
+          ) : 'maxPayloadKg' in part.perfProfile ? (
+            <>
+              <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.65rem', textTransform: 'uppercase' }}>
+                Payload Cap
+              </span>
+              <span style={{ fontWeight: 700, color: 'var(--mission-accent, #3DA5F5)' }}>
+                {((part.perfProfile as { maxPayloadKg: number }).maxPayloadKg / 1000).toFixed(1)}t
+              </span>
+            </>
+          ) : 'ratedWatts' in part.perfProfile ? (
+            <>
+              <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.65rem', textTransform: 'uppercase' }}>
+                Output
+              </span>
+              <span style={{ fontWeight: 700, color: 'var(--status-warn, #E0A030)' }}>
+                {(part.perfProfile as { ratedWatts: number }).ratedWatts}W
+              </span>
+            </>
+          ) : 'maxStorageMb' in part.perfProfile ? (
+            <>
+              <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.65rem', textTransform: 'uppercase' }}>
+                Data Storage
+              </span>
+              <span style={{ fontWeight: 700, color: 'var(--mission-accent, #3DA5F5)' }}>
+                {((part.perfProfile as { maxStorageMb: number }).maxStorageMb / 1000).toFixed(0)}k MB
+              </span>
+            </>
+          ) : (
+            <>
+              <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.65rem', textTransform: 'uppercase' }}>
+                Subsystem
+              </span>
+              <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>
+                CERTIFIED
+              </span>
+            </>
+          )}
+        </div>
       </div>
 
-      {/* Tunable sliders when selected */}
+      {/* Dynamic Sliders when Part is Selected */}
       {isSelected && part.sliderRanges && part.sliderRanges.length > 0 && (
         <div
           style={{
-            marginTop: 'var(--space-2)',
-            padding: 'var(--space-3)',
-            background: 'var(--bg-base)',
-            borderRadius: 'var(--radius-md)',
-            border: '1px solid var(--border-subtle)',
+            background: 'var(--panel-base, #111728)',
+            padding: '10px',
+            borderRadius: '6px',
+            border: '1px solid var(--border-hairline, rgba(42, 51, 80, 0.6))',
             display: 'flex',
             flexDirection: 'column',
-            gap: 'var(--space-3)',
+            gap: '8px',
           }}
         >
-          <div style={{ fontSize: '0.75rem', color: 'var(--mission-accent)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            System Tuning & Telemetry Sliders
+          <div
+            style={{
+              fontFamily: 'var(--font-display, "Space Grotesk", sans-serif)',
+              fontSize: '0.72rem',
+              fontWeight: 700,
+              color: 'var(--text-muted)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+            }}
+          >
+            <Zap size={12} color="var(--mission-accent)" />
+            <span>Subsystem Scaling Sliders</span>
           </div>
-          {part.sliderRanges.map((range) => {
-            const key = `${part.id}.${range.id}`;
-            const currentValue = sliderValues[key] !== undefined ? sliderValues[key] : range.defaultValue;
 
+          {part.sliderRanges.map((slider) => {
+            const currentVal = sliderValues[`${part.id}.${slider.id}`] ?? slider.defaultValue;
             return (
               <Slider
-                key={range.id}
-                id={key}
-                label={range.label}
-                min={range.min}
-                max={range.max}
-                step={range.step}
-                unit={range.unit}
-                value={currentValue}
-                onChange={(val) => onSliderChange(key, val)}
+                key={slider.id}
+                id={`${part.id}.${slider.id}`}
+                label={slider.label}
+                value={currentVal}
+                min={slider.min}
+                max={slider.max}
+                step={slider.step}
+                unit={slider.unit}
+                onChange={(val) => onSliderChange(`${part.id}.${slider.id}`, val)}
               />
             );
           })}
